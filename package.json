@@ -1,0 +1,7 @@
+{
+    "dependencies": {},
+    "scripts": {
+        "run": "nodemon -q -x \"node clear && node index\"",
+        "clear": "clear"
+    }
+}
