@@ -1,8 +1,11 @@
 {
-    "dependencies": {},
-    "nodemonConfig": {
-        "events": {
-          "start":"clear"      
-        }
-      }
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "nodemonConfig": {
+    "events": {
+      "start": "clear"
+    }
+  }
 }

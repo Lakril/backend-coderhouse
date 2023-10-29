@@ -1,21 +1,21 @@
 class Contador {
-    static cuentaGlobal = 0;
+  static cuentaGlobal = 0;
 
-    constructor(nombre) {
-        this.contador = 0;
-        this.nombre = nombre;
-    }
-    contar() {
-        this.contador++;
-        Contador.cuentaGlobal++;
-    }
-    verCuenta() {
-        console.log(`${this.nombre} contó ${this.contador} personas`);
-    }
+  constructor(nombre) {
+    this.contador = 0;
+    this.nombre = nombre;
+  }
+  contar() {
+    this.contador++;
+    Contador.cuentaGlobal++;
+  }
+  verCuenta() {
+    console.log(`${this.nombre} contó ${this.contador} personas`);
+  }
 
-    static verCuentaGlobal() {
-        console.log(`En total contamos ${Contador.cuentaGlobal} personas`);
-    }
+  static verCuentaGlobal() {
+    console.log(`En total contamos ${Contador.cuentaGlobal} personas`);
+  }
 }
 
 const c1 = new Contador('Marina');

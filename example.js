@@ -25,7 +25,7 @@ for (const n of a) {
 }
 
 // recorer un objeto
-u = { us: "marian", ps: "123" };
+u = { us: 'marian', ps: '123' };
 for (const nombreProp in u) {
   console.log(nombreProp);
 }

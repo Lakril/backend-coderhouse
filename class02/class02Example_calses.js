@@ -21,17 +21,17 @@ class Evento {
     fecha = new Date(),
     // participantes = [],
   }) {
-    this.id = notNull(id, "id");
-    this.nombre = notNull(nombre, "nombre");
-    this.lugar = notNull(lugar, "lugar");
-    this.precio = notNull(precio, "precio");
+    this.id = notNull(id, 'id');
+    this.nombre = notNull(nombre, 'nombre');
+    this.lugar = notNull(lugar, 'lugar');
+    this.precio = notNull(precio, 'precio');
 
     // if (capacidad <= 0) throw new Error("capacidad must be greater than 0");
     // private #capacidad (visibilidad privada)
 
     // .capacidad trabaja con el setter capacidad()
     this.capacidad = capacidad;
-    this.fecha = fecha
+    this.fecha = fecha;
     // begin with empty array (1)
     this.#participantes = [];
   }
@@ -40,7 +40,7 @@ class Evento {
     return this.#capacidad;
   }
   set capacidad(newCapacidad) {
-    if (newCapacidad <= 0) throw new Error("newCmust be greater than 0");
+    if (newCapacidad <= 0) throw new Error('newCmust be greater than 0');
     this.#capacidad = newCapacidad;
   }
 
@@ -50,18 +50,17 @@ class Evento {
   }
   // add new participant (2)
   agregarUsuario(idUsuario) {
-    if (this.#capacidad <= this.#participantes.length)
-    throw new Error("Evento completo");
+    if (this.#capacidad <= this.#participantes.length) throw new Error('Evento completo');
     if (this.#participantes.includes(idUsuario))
       throw new Error(`El usuario ${idUsuario} ya existe`);
     this.#participantes.push(idUsuario);
   }
-    
+
   get precio() {
     return this.#precio;
   }
   set precio(newPrecio) {
-    if (newPrecio <= 0) throw new Error("newPrecio must be greater than 0");
+    if (newPrecio <= 0) throw new Error('newPrecio must be greater than 0');
     this.#precio = newPrecio;
   }
 
@@ -86,8 +85,6 @@ function generateId(params) {
   return ++id;
 }
 
-
-
 class ManagerEventos {
   #eventos;
   constructor() {
@@ -100,7 +97,7 @@ class ManagerEventos {
     return evento.asPOJO();
   }
 
-  ponerEventoEnGira({ idEvento , newLocation, newDate}) {
+  ponerEventoEnGira({ idEvento, newLocation, newDate }) {
     const evento = this.#eventos.find((e) => e.id === idEvento);
     if (!evento) throw new Error(`Evento ${idEvento} no existe`);
     const newEvento = new Evento({
@@ -146,14 +143,13 @@ class ManagerEventos {
 // evento.participantes.push(1, 2, 3);
 // console.log(evento.participantes);
 
-
 // test
 
 const managerEventos = new ManagerEventos();
 
 const datosEvento = {
-  nombre: "my happybirthday",
-  lugar: "My home",
+  nombre: 'my happybirthday',
+  lugar: 'My home',
   precio: 100_000,
 };
 

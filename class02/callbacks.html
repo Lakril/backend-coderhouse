@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button
+      id="btn"
+      style="
+        background-color: blue;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+      "
+    >
+      Click me
+    </button>
+    <div id="div1"></div>
+    <div id="div2"></div>
+    <script>
+      function randInt(min, max) {
+        return Math.random() * 2000;
+      }
+
+      document.querySelector('#btn').addEventListener('click', () => {
+        setTimeout(
+          () => {
+            // alert('First Hello World')
+            document.querySelector('#div1').innerHTML = '<h1>Title<h1>';
+          },
+          randInt(1000, 5000)
+        );
+      });
+
+      document.querySelector('#btn').addEventListener('click', () => {
+        setTimeout(
+          () => {
+            // alert('Second Hello World')
+            document.querySelector('#div2').innerHTML = '<p>Contenido<p>';
+          },
+          randInt(1000, 5000)
+        );
+      });
+    </script>
+  </body>
+</html>
