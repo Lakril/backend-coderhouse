@@ -1,0 +1,16 @@
+{
+  "name": "deliverable-jack",
+  "module": "main.js",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "nodemonConfig": {
+    "events": {
+      "start": "clear"
+    }
+  }
+}
