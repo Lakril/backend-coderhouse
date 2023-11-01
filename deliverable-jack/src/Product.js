@@ -9,17 +9,17 @@ function notNull(value, name) {
 //* Class Method (1)
 export class Product {
   // constructor() method.
-  #price;
   #title;
+  #price;
   constructor({ id, title, description, price, thumbnail, code, stock }) {
     // Properties
-    this.id = notNull(id);
+    this.id = id;
     this.#title = notNull(title, 'title');
-    this.description = description ?? 'No description';
     this.#price = notNull(price, 'price');
+    this.description = description ?? 'No description';
     this.thumbnail = thumbnail;
-    this.code = notNull(code, 'code');
     this.stock = notNull(stock, 'stock');
+    this.code = notNull(code, 'code');
   }
 
   get price() {
@@ -31,15 +31,16 @@ export class Product {
     this.#price = newPrice;
   }
 
-  asPOJO() {
+  toPOJO() {
     return {
       id: this.id,
       title: this.#title,
-      description: this.description,
       price: this.#price,
+      description: this.description,
       thumbnail: this.thumbnail,
-      code: this.code,
       stock: this.stock,
+      code: this.code,
     };
+
   }
 }
