@@ -1,5 +1,5 @@
 //* timestamp
-const nacimiento = new Date('1981/11/6')
+const nacimiento = new Date('1981/11/6');
 // console.log(nacimiento.toString());
 // console.log(nacimiento.getTime());
 // console.log(nacimiento.getFullYear());
@@ -18,30 +18,27 @@ const nacimiento = new Date('1981/11/6')
 // const proximo = new Date(today.getFullYear(), nacimiento.getMonth(), nacimiento.getDate())
 // console.log(proximo);
 
-
 //* moment
-import moment from 'moment'
+import moment from 'moment';
 
-const today = moment()
-const birthday = moment('1981/11/6', 'YYYY/MM/DD')
-
+const today = moment();
+const birthday = moment('1981/11/6', 'YYYY/MM/DD');
 
 console.log(today);
 console.log(birthday);
 
-if (birthday.isValid()){
-    console.log(`From my birthday to today ${today.diff(birthday, 'years')} years`);
+if (birthday.isValid()) {
+  console.log(`From my birthday to today ${today.diff(birthday, 'years')} years`);
 } else {
-    console.log('Invalid date');
+  console.log('Invalid date');
 }
 
 console.log(birthday.format('YYYY/MM/DD - HH:mm'));
 
 //* luxon
-import { DateTime } from 'luxon'
-const dt = DateTime.now()
+import { DateTime } from 'luxon';
+const dt = DateTime.now();
 console.log(dt.year);
 console.log(dt.month);
 console.log(dt.day);
 console.log(dt.zoneName);
-

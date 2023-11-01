@@ -1,10 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-const filePath = path.join(
-  path.dirname(new URL(import.meta.url).pathname),
-  '../database/products.json'
-);
+const filePath = path.join(path.dirname(new URL(import.meta.url).pathname), '../database/products.json');
 
 function generateCode(length) {
   let code = '';

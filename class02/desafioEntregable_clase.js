@@ -117,9 +117,7 @@ const datosProduct3 = {
 // create instance of ProductManager
 const productManager = new ProductManager();
 
-console.log(
-  `Empy instance of productManager: ${productManager}\n-------------------------------------------\n`
-);
+console.log(`Empy instance of productManager: ${productManager}\n-------------------------------------------\n`);
 
 // add product to ProductManager
 productManager.addProduct(datosProduct);

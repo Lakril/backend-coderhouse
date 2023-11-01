@@ -86,6 +86,19 @@ class ProductManager {
     }
     return product.asPOJO();
   }
+
+  //deleteProduct(id) {}
+  // deleteProduct(id) {
+  //   const index = this.#products.findIndex((p) => p.id === id);
+  //   if (index === -1) {
+  //     console.error('Not found');
+  //     return null;
+  //   }
+  //   const product = this.#products[index];
+  //   this.#products.splice(index, 1);
+  //   return product.asPOJO();
+  // }
+
 }
 
 //* test code
@@ -117,9 +130,7 @@ const datosProduct3 = {
 // create instance of ProductManager
 const productManager = new ProductManager();
 
-console.log(
-  `Empy instance of productManager: ${productManager}\n-------------------------------------------\n`
-);
+console.log(`Empy instance of productManager: ${productManager}\n-------------------------------------------\n`);
 
 // add product to ProductManager
 productManager.addProduct(datosProduct);

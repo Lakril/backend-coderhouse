@@ -11,7 +11,7 @@ export class Product {
   // constructor() method.
   #title;
   #price;
-  constructor({ id, title, description, price, thumbnail, code, stock }) {
+  constructor({ id, title,  price, description, thumbnail, stock, code }) {
     // Properties
     this.id = id;
     this.#title = notNull(title, 'title');
@@ -32,7 +32,7 @@ export class Product {
   }
 
   toPOJO() {
-    return {
+    const pojo = {
       id: this.id,
       title: this.#title,
       price: this.#price,
@@ -41,6 +41,6 @@ export class Product {
       stock: this.stock,
       code: this.code,
     };
-
+    return pojo;
   }
 }

@@ -51,8 +51,7 @@ class Evento {
   // add new participant (2)
   agregarUsuario(idUsuario) {
     if (this.#capacidad <= this.#participantes.length) throw new Error('Evento completo');
-    if (this.#participantes.includes(idUsuario))
-      throw new Error(`El usuario ${idUsuario} ya existe`);
+    if (this.#participantes.includes(idUsuario)) throw new Error(`El usuario ${idUsuario} ya existe`);
     this.#participantes.push(idUsuario);
   }
 
