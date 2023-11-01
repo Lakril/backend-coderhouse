@@ -46,18 +46,17 @@ let prod = [
   },
 ];
 
-
 const product = new Product({
-    id: 1,
-    title: 'Example Product',
-    price: 9.99,
-    description: 'This is an example product',
-    thumbnail: 'https://example.com/example-product.jpg',
-    stock: 10,
-    code: 'EXPROD',
-  });
-  
-  // Convert the Product instance to a plain JavaScript object
+  id: 1,
+  title: 'Example Product',
+  price: 9.99,
+  description: 'This is an example product',
+  thumbnail: 'https://example.com/example-product.jpg',
+  stock: 10,
+  code: 'EXPROD',
+});
+
+// Convert the Product instance to a plain JavaScript object
 // const productPOJO = product.toPOJO();
 // const productJSON = JSON.stringify(productPOJO);
 
@@ -65,7 +64,7 @@ const product = new Product({
 // console.log(productListJSON);
 
 // console.log(product);
-// console.log(productJSON);  
+// console.log(productJSON);
 // console.log(productPOJO);
 // console.log(products.map((product) => product.price));
 
@@ -75,5 +74,3 @@ const product = new Product({
 
 // const jj = new Product(product)
 console.log(product);
-
-

@@ -222,4 +222,3 @@ await updatedManager.updateProduct(19, product);
 const pp = new ProductManager(filePath);
 const up = await pp.getProductById(18);
 console.log(up);
-

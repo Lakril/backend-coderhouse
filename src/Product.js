@@ -11,7 +11,7 @@ export class Product {
   // constructor() method.
   #title;
   #price;
-  constructor({ id, title,  price, description, thumbnail, stock, code }) {
+  constructor({ id, title, price, description, thumbnail, stock, code }) {
     // Properties
     this.id = id;
     this.#title = notNull(title, 'title');
