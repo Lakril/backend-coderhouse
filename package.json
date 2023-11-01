@@ -12,5 +12,8 @@
     "events": {
       "start": "clear"
     }
+  },
+  "dependencies": {
+    "prettier": "^3.0.3"
   }
 }
