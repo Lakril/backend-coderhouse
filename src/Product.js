@@ -1,6 +1,6 @@
 //* Helper function
 function notNull(value, name) {
-  if (value === null || value === undefined) {
+  if (!value) {
     throw new Error(`${name || 'value'} is null or undefined`);
   }
   return value;
@@ -22,14 +22,24 @@ export class Product {
     this.code = notNull(code, 'code');
   }
 
-  get price() {
-    return this.#price;
-  }
+  // get price() {
+  //   return this.#price;
+  // }
 
-  set price(newPrice) {
-    if (newPrice <= 0) throw new Error('newPrice must be greater than 0');
-    this.#price = newPrice;
-  }
+  // set price(newPrice) {
+  //   if (typeof newPrice !== 'number' || newPrice <= 0) {
+  //     throw new Error('Price must be a number greater than 0');
+  //   }
+  //   this.#price = newPrice;
+  // }
+
+  // set stock(newStock) {
+  //   if (typeof newStock !== 'number' || newStock <= 0) {
+  //     throw new Error('Stock must be a number greater than 0');
+  //   }
+  //   this.#price = newPrice;
+  // }
+  
 
   toPOJO() {
     const pojo = {

@@ -9,6 +9,7 @@
     "typescript": "^5.0.0"
   },
   "nodemonConfig": {
+    "exec": "clear && node",
     "events": {
       "start": "clear"
     }

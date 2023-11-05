@@ -14,25 +14,34 @@ class ProductManager {
     this.#path = path;
   }
 
+  validateFields(dataProduct) {
+    try {
+      const fields = ['title', 'description', 'price', 'code', 'stock', 'thumbnail'];
+      const errors = [];
+
+      for (const field of fields) {
+        if (!dataProduct[field]) {
+          errors.push(`Missing field: ${field}`);
+        }
+      }
+      console.log(errors);
+
+      if (errors.length > 0) {
+        throw new Error(errors.join(', '));
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+
+
   async addProduct(dataProduct) {
     let products = await this.getProducts();
     const product = new Product(dataProduct);
 
     // Validate that all fields are present
-    try {
-      if (
-        !dataProduct.title ||
-        !dataProduct.description ||
-        !dataProduct.price ||
-        !dataProduct.code ||
-        !dataProduct.stock ||
-        !dataProduct.thumbnail
-      ) {
-        throw new Error('All fields are required');
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
+    await this.validateFields(dataProduct);
 
     // Validate that the code field is unique
     try {
@@ -141,11 +150,11 @@ class ProductManager {
 //* test code
 const datosProduct1 = {
   title: 'DANVOUY Womens T Shirt Casual Cotton Short',
-  price: 12.99,
+  price: null,
   description:
     '95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.',
   thumbnail: 'https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg',
-  stock: 96,
+  stock: null,
   code: 'Amtf1y',
 };
 const datosProduct2 = {
