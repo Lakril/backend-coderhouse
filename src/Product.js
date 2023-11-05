@@ -1,10 +1,17 @@
+import path from 'path';
+
 //* Helper function
 function notNull(value, name) {
-  if (!value) {
-    throw new Error(`${name || 'value'} is null or undefined`);
-  }
-  return value;
+try {
+
+  if (!value) throw new Error(`${name || 'value'} is null or undefined`);
+} catch(error){
+  console.log(error.s)
 }
+
+}
+
+const defaultImg = path.join(path.dirname(new URL(import.meta.url).pathname), '../public/img/imagNoAvalibel.jpg');
 
 //* Class Method (1)
 export class Product {
@@ -14,32 +21,17 @@ export class Product {
   constructor({ id, title, price, description, thumbnail, stock, code }) {
     // Properties
     this.id = id;
-    this.#title = notNull(title, 'title');
-    this.#price = notNull(price, 'price');
+    this.#title = notNull(title, 'Title');
+    this.#price = notNull(price, 'Price');
     this.description = description ?? 'No description';
-    this.thumbnail = thumbnail;
-    this.stock = notNull(stock, 'stock');
-    this.code = notNull(code, 'code');
+    this.thumbnail = thumbnail ?? defaultImg;
+    this.stock = notNull(stock, 'Stock');
+    this.code = notNull(code, 'Code');
   }
 
-  // get price() {
-  //   return this.#price;
-  // }
-
-  // set price(newPrice) {
-  //   if (typeof newPrice !== 'number' || newPrice <= 0) {
-  //     throw new Error('Price must be a number greater than 0');
-  //   }
-  //   this.#price = newPrice;
-  // }
-
-  // set stock(newStock) {
-  //   if (typeof newStock !== 'number' || newStock <= 0) {
-  //     throw new Error('Stock must be a number greater than 0');
-  //   }
-  //   this.#price = newPrice;
-  // }
-  
+  get price() {
+    return this.#price;
+  }
 
   toPOJO() {
     const pojo = {

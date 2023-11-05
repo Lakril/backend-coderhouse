@@ -37,12 +37,12 @@
   },
   {
     "id": 5,
-    "title": "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
-    "price": 695,
-    "description": "From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.",
-    "thumbnail": "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
-    "stock": 38,
-    "code": "40SYd0"
+    "title": "Updated Product",
+    "price": 8,
+    "description": "This is an updated product",
+    "thumbnail": "https://example.com/updated-product.jpg",
+    "stock": 10,
+    "code": "UPDPROD"
   },
   {
     "id": 6,
@@ -145,11 +145,38 @@
   },
   {
     "id": 18,
+    "title": "Updated Product",
+    "price": 8,
+    "description": "This is an updated product",
+    "thumbnail": "https://example.com/updated-product.jpg",
+    "stock": 10,
+    "code": "Amtf1y"
+  },
+  {
+    "id": 19,
     "title": "DANVOUY Womens T Shirt Casual Cotton Short",
-    "price": 12.99,
+    "price": 10,
     "description": "95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.",
     "thumbnail": "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg",
-    "stock": 96,
-    "code": "Amtf1y"
+    "stock": 5,
+    "code": "Amtf1ydf1"
+  },
+  {
+    "id": 20,
+    "price": 7.95,
+    "description": "100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash & Pre Shrunk for a Great Fit, Lightweight, roomy and highly breathable with moisture wicking fabric which helps to keep moisture away, Soft Lightweight Fabric with comfortable V-neck collar and a slimmer fit, delivers a sleek, more feminine silhouette and Added Comfort",
+    "thumbnail": "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg",
+    "stock": 12,
+    "code": "7XPJjo"
+  },
+  {
+    "id": 21,
+    "description": "95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.",
+    "thumbnail": "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg"
+  },
+  {
+    "id": 22,
+    "description": "95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.",
+    "thumbnail": "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg"
   }
 ]
