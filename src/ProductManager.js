@@ -45,7 +45,6 @@ export class ProductManager {
     let products = await this.getProducts();
     const product = new Product(dataProduct);
     try {
-
       // Validate that all fields are present
       await this.validateFields(dataProduct);
 
@@ -197,7 +196,7 @@ console.log('\n-------------------------------------------');
 //! add product to ProductManager
 console.log('ADD new product');
 const ad = new ProductManager(filePath);
-await ad.addProduct(datosProduct1);
+await ad.addProduct(datosProduct2);
 
 //! end
 // console.log('\n-------------------------------------------\n');

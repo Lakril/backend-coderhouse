@@ -1,17 +1,18 @@
 import path from 'path';
 
-//* Helper function
-function notNull(value, name) {
-try {
-
-  if (!value) throw new Error(`${name || 'value'} is null or undefined`);
-} catch(error){
-  console.log(error.s)
-}
-
-}
-
 const defaultImg = path.join(path.dirname(new URL(import.meta.url).pathname), '../public/img/imagNoAvalibel.jpg');
+
+//* Helper function
+export function notNull(value, name) {
+  try {
+    if (!value) {
+      throw new Error(`${name || 'value'} is null or undefined`);
+      return value;
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+}
 
 //* Class Method (1)
 export class Product {
