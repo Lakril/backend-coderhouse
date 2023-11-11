@@ -1,0 +1,20 @@
+{
+  "name": "class04-express",
+  "module": "src/main.js",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1"
+  },
+  "nodemonConfig": {
+    "events": {
+      "start": "clear"
+    }
+  }
+}
