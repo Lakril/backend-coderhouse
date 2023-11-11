@@ -4,15 +4,14 @@ const defaultImg = path.join(path.dirname(new URL(import.meta.url).pathname), '.
 
 //* Helper function
 export function notNull(value, name) {
-try {
-  if (!value) {
-    throw new Error(`${name || 'value'} is null or undefined`);
+  try {
+    if (!value) {
+      throw new Error(`${name || 'value'} is null or undefined`);
+    }
+    return value;
+  } catch (error) {
+    // console.error(error);
   }
-  return value;
-}catch(error) {
-  // console.error(error);
-
-}
 }
 
 //* Class Method (1)

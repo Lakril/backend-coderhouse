@@ -23,4 +23,5 @@ bun prettier --write . #all files
 bun prettier --write src # specific file or directory
 bun prettier --write src/index.js # To format a single file, you can use:
 ```
+
 Also, this command will use the Prettier configuration from your .prettierrc file if it exists. If you don't have a `.prettierrc` file, Prettier will use its default configuration.
