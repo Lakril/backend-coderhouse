@@ -45,12 +45,18 @@ export class UserManger {
     return pojo;
   }
 
-  async getAllUsers({role} = {}) {
+  async getAllUsers({role, limit}) {
     const pojos = JSON.parse(await fs.readFile(this.#route, 'utf-8'));
+    let result
     if (role){
-      return pojos.filter((p) => p.role === role);
+      result = pojos.filter((p) => p.roles.includes(role));
     } else {
-      return pojos;
+      result = pojos;
+    }
+    if (limit){
+      return result.slice(0, limit);
+    } else {
+      return result;
     }
     // const pojos = JSON.parse(await fs.readFile(this.#route, 'utf-8'));
     // return pojos;

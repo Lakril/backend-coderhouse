@@ -2,9 +2,9 @@ import crypto from 'crypto';
 
 export class User {
   #password;
-  constructor({ id, role, name, lastName, userName, password }, encrypted = false) {
+  constructor({ id, roles, name, lastName, userName, password }, encrypted = false) {
     this.id = id;
-    this.role = role;
+    this.roles = roles;
     this.name = name;
     this.lastName = lastName;
     this.userName = userName;
@@ -23,7 +23,7 @@ export class User {
   toPOJO() {
     return {
       id: this.id,
-      role: this.role,
+      roles: this.roles,
       name: this.name,
       lastName: this.lastName,
       userName: this.userName,

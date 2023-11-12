@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "role": "admin",
+    "roles": ["admin"],
     "name": "Juan",
     "lastName": "Perez",
     "userName": "jperez",
@@ -9,7 +9,7 @@
   },
   {
     "id": 2,
-    "role": "user",
+    "roles": ["user"],
     "name": "Pedro",
     "lastName": "Gomez",
     "userName": "pgomez",
@@ -17,7 +17,7 @@
   },
   {
     "id": 3,
-    "role": "user",
+    "roles": ["user"],
     "name": "Maria",
     "lastName": "Gonzalez",
     "userName": "mgonzalez",
@@ -25,7 +25,7 @@
   },
   {
     "id": 4,
-    "role": "admin",
+    "roles": ["admin", "user"],
     "name": "Jackson",
     "lastName": "Rico",
     "userName": "jrico",

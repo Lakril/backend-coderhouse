@@ -8,15 +8,26 @@ const um = new UserManger('../db/users.json')
 const app = express();
 
 //server express
+// e.g. http://localhost:3000/person?limit=1&roles=admin
+// e.g. http://localhost:3000/person?roles=admin
+//* step 1
+// app.get('/person', async (req, res) => {
+//   const {roles, limit} = req.query;
+//   if (roles || limit) {
+//     res.json(await um.getAllUsers(req.query));
+//   } else {
+//   res.setHeader('Content-Type', 'application/json');
+//   res.json(await um.getAllUsers(req.query));
+//   }
+// });
+
+//* step 2
 app.get('/person', async (req, res) => {
-  const {role} = req.query;
-  if (role) {
-    res.json(await um.getAllUsers({role}));
-  } else {
-  res.setHeader('Content-Type', 'application/json');
-  res.json(await um.getAllUsers());
-  }
-});
+  const {role, limit} = req.query;
+  res.json(await um.getAllUsers({role, limit}));
+  });
+
+
 
 app.get('/person/:id', async (req, res) => {
   // res.setHeader('Content-Type', 'application/json');
