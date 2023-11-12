@@ -2,8 +2,9 @@ import net from 'net';
 
 function checkPort(port) {
   return new Promise((resolve, reject) => {
-    const server = net.createServer()
-      .once('error', err => {
+    const server = net
+      .createServer()
+      .once('error', (err) => {
         if (err.code === 'EADDRINUSE') {
           resolve(true);
         } else {
@@ -11,10 +12,11 @@ function checkPort(port) {
         }
       })
       .once('listening', () => {
-        server.once('close', () => {
-          resolve(false);
-        })
-        .close();
+        server
+          .once('close', () => {
+            resolve(false);
+          })
+          .close();
       })
       .listen(port);
   });
