@@ -87,9 +87,14 @@ export class ProductManager {
   }
 
   // GET all products
-  async getProducts() {
+  async getProducts({limit = 0} = {}) {
     const products = JSON.parse(await fs.readFile(this.#path, 'utf-8'));
-    return products;
+    if (limit > 0) {
+      return products.slice(0, limit);
+    } else {
+      return products;
+    }
+    // return products;
   }
 
   // GET product by ID
