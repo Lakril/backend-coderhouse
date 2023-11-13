@@ -1,4 +1,4 @@
-# deliverable-jack
+# Backend-jack
 
 To install dependencies:
 
@@ -9,8 +9,7 @@ bun install
 To run:
 
 ```bash
-bun run main.js
-nodemon main.js
+bun run dev
 ```
 
 This project was created using `bun init` in bun v1.0.0. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.

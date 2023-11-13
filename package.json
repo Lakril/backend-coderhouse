@@ -1,22 +1,19 @@
 {
-  "name": "deliverable-jack",
-  "module": "main.js",
+  "name": "backend-jack",
+  "module": "app.js",
   "type": "module",
   "devDependencies": {
     "bun-types": "latest"
   },
+  "scripts": {
+    "clean": "rm -rf dist && echo 'Done.'",
+    "dev": "bun --watch run app.js"
+  },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
-  "nodemonConfig": {
-    "exec": "clear && node",
-    "events": {
-      "start": "clear"
-    }
-  },
   "dependencies": {
     "express": "^4.18.2",
-    "nodemon": "^3.0.1",
     "prettier": "^3.0.3"
   }
 }

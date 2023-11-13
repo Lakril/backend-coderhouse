@@ -1,19 +1,20 @@
 import express from 'express';
 import checkPort from './src/checkPort.js';
 import { ProductManager } from './src/ProductManager.js';
+import { clearConfigCache } from 'prettier';
 
 const pm = new ProductManager('./database/products.json');
 
 const app = express();
 
+app.get('/', async (req, res) => {
+  res.sendFile('index.html', { root: './views' });
+});
+
 //* get all products or limit by query
 // e.g. http://localhost:8080/products?limit=2
 app.get('/products', async (req, res) => {
-  let { limit } = req.query;
-  limit = Number(limit);
-  if (isNaN(limit)) {
-    return res.status(400).json({ message: 'Invalid limit' });
-  }
+  const { limit } = req.query;
   try {
     const products = await pm.getProducts({ limit });
     if (!products.length) {
