@@ -1,0 +1,63 @@
+[
+  {
+    "id": 1,
+    "roles": [
+      "admin"
+    ],
+    "name": "Juan",
+    "lastName": "Perez",
+    "userName": "jperez",
+    "password": "7ec3a621357df2ad374361931766c4a0a541a6be90c578313a73f45e80d10c787cab43f9a6f6efbc5767d50c354e4028031047792443e13821b02aa7ff016153"
+  },
+  {
+    "id": 2,
+    "roles": [
+      "user"
+    ],
+    "name": "Pedro",
+    "lastName": "Gomez",
+    "userName": "pgomez",
+    "password": "d999c1f23a261ab1ffb1418cdc0c3df9d262fb363ea2219b813ab6b45c473d58f3d834cebfa23e872ac25d2400bf668d6f8034c2be08702ee5bbe243da8d0d44"
+  },
+  {
+    "id": 3,
+    "roles": [
+      "user"
+    ],
+    "name": "Maria",
+    "lastName": "Gonzalez",
+    "userName": "mgonzalez",
+    "password": "17cac8d38a7e98442e2732128035be4f7ccbd0077ec1ea1a28c301825d829e73a00eb49ebc70c5c5da7553f694c82852c34d306957acd6c03cbc447d7852a98c"
+  },
+  {
+    "id": 4,
+    "roles": [
+      "admin",
+      "user"
+    ],
+    "name": "Jackson",
+    "lastName": "Rico",
+    "userName": "jrico",
+    "password": "6f88a74437234d73ef1f91940db4eb430ff15497a6e60dc739150b4cc9d4fdc022e24b2f0a84f37353baa65f040216f6c99048c2630a9acb85d3fb2be99fe2a6"
+  },
+  {
+    "id": "7ae62092-f1cd-4789-8b12-efcec43f14dd",
+    "roles": [
+      "admin"
+    ],
+    "name": "Jackson",
+    "lastName": "Rico",
+    "userName": "Jrico",
+    "password": "9582a45306ca018ef952751b96c2e1cf462de1be8882365feeb9983e4b7b268ed60848c4d3d1171d4e4a47dc8539976200f2b8ed0ded07f9c800b9439081e63c"
+  },
+  {
+    "id": "7ae62092-f1cd-4789-8b12-efcec43f14dd",
+    "roles": [
+      "user"
+    ],
+    "name": "Sofi",
+    "lastName": "Rico",
+    "userName": "Srico",
+    "password": "f61ea8667ffd90b42c5b9128c5862a0752f75c3433a9b6ed99e5d16071bb849f33cca74ed39d50d2812588d6a02e7f69b7bd38faddbf70136639d1365a985298"
+  }
+]

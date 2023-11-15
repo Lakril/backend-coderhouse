@@ -19,3 +19,11 @@ const PORT = 8080
 const IP = '127.0.0.1' // este valor es el localhost y es un valor predeterminado
 server.listen(PORT, IP)
 ```
+
+## Metodos de peticion
+
+
+GET: Obtener un recurso
+POST: Crear o añadir un recurso
+PUT: Modificar un recurso
+DELETE: Eliminar un recurso
