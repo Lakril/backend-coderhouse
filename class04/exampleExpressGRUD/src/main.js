@@ -38,16 +38,15 @@ app.get('/person', async (req, res) => {
 app.post('/person', async (req, res) => {
   //* (4) req.body
   console.log(req.body);
-  const { name, role, lastName, userName, password} = req.body;
+  const { name, role, lastName, userName, password } = req.body;
 
   try {
-    const create = await um.addUser({ name, role, lastName, userName, password});
+    const create = await um.addUser({ name, role, lastName, userName, password });
     res.json(create);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
-
 
 app.put('/person', async (req, res) => {
   res.json({ message: 'PUT' });

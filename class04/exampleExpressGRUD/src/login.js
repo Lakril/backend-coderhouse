@@ -6,14 +6,13 @@ const filePath = path.resolve(__dirname, '../db/users.json');
 
 const um = new UserManger(filePath);
 
-
 const user1 = {
   id: 1,
   name: 'Juan',
   lastName: 'Perez',
   userName: 'jperez',
   password: 'juan123',
-}
+};
 
 const user2 = {
   id: 2,
@@ -21,7 +20,7 @@ const user2 = {
   lastName: 'Gomez',
   userName: 'pgomez',
   password: 'gomez123',
-}
+};
 
 const user3 = {
   id: 3,
@@ -29,7 +28,7 @@ const user3 = {
   lastName: 'Gonzalez',
   userName: 'mgonzalez',
   password: 'gonzalez123',
-}
+};
 
 const user4 = {
   id: 4,
@@ -37,16 +36,14 @@ const user4 = {
   lastName: 'Rico',
   userName: 'jrico',
   password: 'rico123',
-}
+};
 
 await um.addUser(user1);
-await um.addUser(user2)
-await um.addUser(user3)
+await um.addUser(user2);
+await um.addUser(user3);
 await um.addUser(user4);
 
-
 // await um.reset();
-
 
 // const search = await um.login('Lakril', '123fdf**f');
 // console.log(`Logueado correctamente!\n${search.toString()}`);

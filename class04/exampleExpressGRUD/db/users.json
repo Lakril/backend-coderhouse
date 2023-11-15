@@ -1,9 +1,7 @@
 [
   {
     "id": 1,
-    "roles": [
-      "admin"
-    ],
+    "roles": ["admin"],
     "name": "Juan",
     "lastName": "Perez",
     "userName": "jperez",
@@ -11,9 +9,7 @@
   },
   {
     "id": 2,
-    "roles": [
-      "user"
-    ],
+    "roles": ["user"],
     "name": "Pedro",
     "lastName": "Gomez",
     "userName": "pgomez",
@@ -21,9 +17,7 @@
   },
   {
     "id": 3,
-    "roles": [
-      "user"
-    ],
+    "roles": ["user"],
     "name": "Maria",
     "lastName": "Gonzalez",
     "userName": "mgonzalez",
@@ -31,10 +25,7 @@
   },
   {
     "id": 4,
-    "roles": [
-      "admin",
-      "user"
-    ],
+    "roles": ["admin", "user"],
     "name": "Jackson",
     "lastName": "Rico",
     "userName": "jrico",
@@ -42,9 +33,7 @@
   },
   {
     "id": "7ae62092-f1cd-4789-8b12-efcec43f14dd",
-    "roles": [
-      "admin"
-    ],
+    "roles": ["admin"],
     "name": "Jackson",
     "lastName": "Rico",
     "userName": "Jrico",
@@ -52,9 +41,7 @@
   },
   {
     "id": "7ae62092-f1cd-4789-8b12-efcec43f14dd",
-    "roles": [
-      "user"
-    ],
+    "roles": ["user"],
     "name": "Sofi",
     "lastName": "Rico",
     "userName": "Srico",
