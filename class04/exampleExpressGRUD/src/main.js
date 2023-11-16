@@ -48,8 +48,17 @@ app.post('/person', async (req, res) => {
   }
 });
 
-app.put('/person', async (req, res) => {
+app.put('/person/:id', async (req, res) => {
   res.json({ message: 'PUT' });
+  const { name, role, lastName, userName, password } = req.body;
+  const id = Number(req.params.id);
+
+  try {
+    const udated = await um.updateUser({ id, name, role, lastName, userName, password });
+    res.json(udated);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 
 app.delete('/person', async (req, res) => {

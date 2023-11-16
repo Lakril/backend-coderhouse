@@ -7,26 +7,117 @@
   </head>
   <body>
     <h1>Personas</h1>
-    <form action="/person" method="post">
+    <form>
       <select name="role" id="selectRole">
         <option value="admin">Administrator</option>
         <option value="user">User</option>
       </select>
       <br />
-      <label for="name">Name</label>
+      <label for="inputName">Name</label>
       <input type="text" name="name" id="inputName" placeholder="Name" />
       <br />
-      <label for="lastName">Last Name</label>
+      <label for="inputLastName">Last Name</label>
       <input type="text" name="lastName" id="inputLastName" placeholder="Last Name" />
       <br />
-      <label for="userName">User Name</label>
+      <label for="inputUserName">User Name</label>
       <input type="text" name="userName" id="inputUserName" placeholder="User Name" />
       <br />
-      <label for="userName">Password</label>
+      <label for="inputPassword">Password</label>
       <input type="password" name="password" id="inputPassword" placeholder="password" />
       <br />
       <br />
       <button type="submit" value="register">Enviar</button>
     </form>
+    <h2>Updated this form</h2>
+    <form>
+      <select name="role" id="updatedRole">
+        <option value="admin">Administrator</option>
+        <option value="user">User</option>
+      </select>
+      <br />
+      <label for="updatedId">ID</label>
+      <input type="text" name="id" id="updatedId" placeholder="id" />
+      <br />
+      <label for="updatedName">Name</label>
+      <input type="text" name="name" id="updatedName" placeholder="Name" />
+      <br />
+      <label for="updatedLastName">Last Name</label>
+      <input type="text" name="lastName" id="updatedLastName" placeholder="Last Name" />
+      <br />
+      <label for="updatedUserName">User Name</label>
+      <input type="text" name="userName" id="updatedUserName" placeholder="User Name" />
+      <br />
+      <label for="updatedPassword">Password</label>
+      <input type="password" name="password" id="updatedPassword" placeholder="password" />
+      <br />
+      <br />
+      <button type="submit" value="Updated">Enviar</button>
+    </form>
+    <script>
+      document.querySelectorAll('form')[0].addEventListener('submit', (e) => {
+        e.preventDefault();
+        const role = document.querySelector('#selectRole').value;
+        const name = document.querySelector('#inputName').value;
+        const lastName = document.querySelector('#inputLastName').value;
+        const userName = document.querySelector('#inputUserName').value;
+        const password = document.querySelector('#inputPassword').value;
+        const data = { role, name, lastName, userName, password };
+        fetch('/person', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        })
+          .then((res) => {
+            if (res.status === 200) {
+              return res.json();
+            } else {
+              throw new Error('Error to create register');
+            }
+          })
+          .then((res) => {
+            alert('Register created');
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+      // Update: PUT
+
+      
+      document.querySelectorAll('form')[1].addEventListener('submit', (e) => {
+        e.preventDefault();
+        const id = document.querySelector('#updatedId').value;
+        const role = document.querySelector('#updatedRole').value;
+        const name = document.querySelector('#updatedName').value;
+        const lastName = document.querySelector('#updatedLastName').value;
+        const userName = document.querySelector('#updatedUserName').value;
+        const password = document.querySelector('#updatedPassword').value;
+        const data = { role, name, lastName, userName, password };
+        fetch(`/person/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        })
+          .then((res) => {
+            if (res.status === 200) {
+              return res.json();
+            } else {
+              throw new Error('Error to updated the register');
+            }
+          })
+          .then((res) => {
+            alert('Updated successfull');
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+    </script>
   </body>
 </html>

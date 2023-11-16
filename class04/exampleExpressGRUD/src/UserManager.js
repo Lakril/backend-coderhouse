@@ -62,6 +62,27 @@ export class UserManger {
     return pojo;
   }
 
+  async updateUser({ id, fields}) {
+    const pojos = JSON.parse(await fs.readFile(this.#route, 'utf-8'));
+    const index = pojos.findIndex((u) => u.id === id);
+
+    if (index === -1) {
+      throw new Error(`User with id ${id} not found`);
+    }
+
+    const userUpdated = new User(
+      {...pojos[index], ...fields},
+      true
+    );
+
+    const newPojo = userUpdated.toPOJO();
+    pojos[index] = newPojo
+    await fs.writeFile(this.#route, JSON.stringify(pojos, null, 2));
+
+    return newPojo;
+  }
+
+
   async getAllUsers({ role, limit }) {
     const pojos = JSON.parse(await fs.readFile(this.#route, 'utf-8'));
     let result;
