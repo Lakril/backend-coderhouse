@@ -51,7 +51,7 @@
       <input type="password" name="password" id="updatedPassword" placeholder="password" />
       <br />
       <br />
-      <button type="submit" value="Updated">Enviar</button>
+      <button type="submit" value="updated">Enviar</button>
     </form>
     <script>
       document.querySelectorAll('form')[0].addEventListener('submit', (e) => {
@@ -84,9 +84,8 @@
             console.log(err);
           });
       });
-      // Update: PUT
 
-      
+      // Update: PUT
       document.querySelectorAll('form')[1].addEventListener('submit', (e) => {
         e.preventDefault();
         const id = document.querySelector('#updatedId').value;
@@ -111,11 +110,10 @@
             }
           })
           .then((res) => {
-            alert('Updated successfull');
-            console.log(res);
+            console.log('Update successful:', res);
           })
           .catch((err) => {
-            console.log(err);
+            console.error('Error updating the register:', err);
           });
       });
     </script>

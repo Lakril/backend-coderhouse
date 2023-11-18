@@ -11,6 +11,14 @@ export class User {
     this.#password = encrypted ? this.#encryptPassword(password) : password;
   }
 
+  // add roles
+  addRoles(roles) {
+    if (!Array.isArray(roles)) {
+      throw new Error('Roles must be an array');
+    }
+    this.roles.push(...roles);
+  }
+
   #encryptPassword(password) {
     return crypto.scryptSync(password, 'salt', 64).toString('hex');
     // return password + 'SECRET'

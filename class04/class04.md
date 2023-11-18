@@ -20,6 +20,12 @@ const IP = '127.0.0.1' // este valor es el localhost y es un valor predeterminad
 server.listen(PORT, IP)
 ```
 
+### Kill a process running on the specified port in Linux
+
+Check the port: `ss -tl`
+Close the port: `npx kill-port 3000`
+
+
 ## Metodos de peticion
 
 
