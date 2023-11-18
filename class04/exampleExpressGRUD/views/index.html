@@ -62,13 +62,16 @@
         const userName = document.querySelector('#inputUserName').value;
         const password = document.querySelector('#inputPassword').value;
         const data = { role, name, lastName, userName, password };
-        fetch('/person', {
+        let options = {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            // Convert the data object to a JSON string and get its length in bytes
+            'Content-Length': new TextEncoder().encode(JSON.stringify(data)).length,
           },
           body: JSON.stringify(data),
-        })
+        };
+        fetch('/person', options)
           .then((res) => {
             if (res.status === 200) {
               return res.json();
@@ -76,9 +79,9 @@
               throw new Error('Error to create register');
             }
           })
-          .then((res) => {
+          .then((data) => {
             alert('Register created');
-            console.log(res);
+            console.log(data);
           })
           .catch((err) => {
             console.log(err);

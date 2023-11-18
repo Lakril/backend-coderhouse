@@ -49,10 +49,50 @@
   },
   {
     "id": "0113f99c-abca-4f75-a28a-6a3c16bbdf06",
+    "roles": ["admin"],
+    "name": "Jackson",
+    "lastName": "Gonzales",
+    "userName": "jG",
+    "password": "1234"
+  },
+  {
+    "id": "062412ac-dd06-47e8-b57a-11a2098dcb9d",
     "roles": ["user"],
     "name": "Jackson",
     "lastName": "Rico",
     "userName": "Jrico",
-    "password": "1234"
+    "password": "016ac1d2551495aa2ad524ed24dd539fcb3a4b2de851ba20ab03786ed0a262fdc49dab90a6114984904076ff8209f87557164da57c823420435714dac4be09cd"
+  },
+  {
+    "id": "062412ac-dd06-47e8-b57a-11a2098dcb9d",
+    "roles": ["admin"],
+    "name": "Sofia",
+    "lastName": "Rico",
+    "userName": "AnaSofia",
+    "password": "016ac1d2551495aa2ad524ed24dd539fcb3a4b2de851ba20ab03786ed0a262fdc49dab90a6114984904076ff8209f87557164da57c823420435714dac4be09cd"
+  },
+  {
+    "id": "062412ac-dd06-47e8-b57a-11a2098dcb9d",
+    "roles": ["admin"],
+    "name": "James",
+    "lastName": "Rico",
+    "userName": "AnaSofia",
+    "password": "016ac1d2551495aa2ad524ed24dd539fcb3a4b2de851ba20ab03786ed0a262fdc49dab90a6114984904076ff8209f87557164da57c823420435714dac4be09cd"
+  },
+  {
+    "id": "78a0bc42-c654-4001-8ab3-f098cf26182c",
+    "roles": ["admin"],
+    "name": "James",
+    "lastName": "Rico",
+    "userName": "AnaSofia",
+    "password": "016ac1d2551495aa2ad524ed24dd539fcb3a4b2de851ba20ab03786ed0a262fdc49dab90a6114984904076ff8209f87557164da57c823420435714dac4be09cd"
+  },
+  {
+    "id": "14493baa-556d-451a-b2bd-eff69aaf6b6c",
+    "roles": ["admin"],
+    "name": "Maria",
+    "lastName": "Rico",
+    "userName": "AnaSofia",
+    "password": "016ac1d2551495aa2ad524ed24dd539fcb3a4b2de851ba20ab03786ed0a262fdc49dab90a6114984904076ff8209f87557164da57c823420435714dac4be09cd"
   }
 ]
