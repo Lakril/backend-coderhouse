@@ -1,5 +1,4 @@
-
-const cart = []
+const cart = [];
 const controller = {
     get: (req, res) => {
         res.send('get');
@@ -10,6 +9,5 @@ const controller = {
         res.json(cart);
     },
 };
-
 
 module.exports = controller;

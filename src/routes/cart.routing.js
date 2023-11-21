@@ -1,9 +1,8 @@
-import { Router } from "express";
-import cartController from "../controller/cartController.js";
+import express from 'express';
+import controller from '../controller/cartController.js';
 
-export const cartRoutes = Router();
+const CartRouter = express.Router();
 
+CartRouter.get('/', controller.get);
 
-cartRoutes.get('/', cartController.getController);
-
-
+export default CartRouter;
