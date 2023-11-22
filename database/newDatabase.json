@@ -8,7 +8,9 @@
     "stock": 53,
     "status": true,
     "category": "men's clothing",
-    "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+    ]
   },
   {
     "id": 2,
@@ -19,7 +21,9 @@
     "stock": 63,
     "status": true,
     "category": "men's clothing",
-    "image": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg"
+    ]
   },
   {
     "id": 3,
@@ -30,7 +34,9 @@
     "stock": 17,
     "status": true,
     "category": "men's clothing",
-    "image": "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg"
+    ]
   },
   {
     "id": 4,
@@ -41,7 +47,9 @@
     "stock": 78,
     "status": true,
     "category": "men's clothing",
-    "image": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg"
+    ]
   },
   {
     "id": 5,
@@ -52,7 +60,9 @@
     "stock": 76,
     "status": true,
     "category": "jewelery",
-    "image": "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg"
+    ]
   },
   {
     "id": 6,
@@ -63,7 +73,9 @@
     "stock": 39,
     "status": true,
     "category": "jewelery",
-    "image": "https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg"
+    ]
   },
   {
     "id": 7,
@@ -74,7 +86,9 @@
     "stock": 20,
     "status": true,
     "category": "jewelery",
-    "image": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg"
+    ]
   },
   {
     "id": 8,
@@ -85,7 +99,9 @@
     "stock": 69,
     "status": true,
     "category": "jewelery",
-    "image": "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg"
+    ]
   },
   {
     "id": 9,
@@ -96,7 +112,9 @@
     "stock": 6,
     "status": true,
     "category": "electronics",
-    "image": "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg"
+    ]
   },
   {
     "id": 10,
@@ -107,7 +125,9 @@
     "stock": 55,
     "status": true,
     "category": "electronics",
-    "image": "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg"
+    ]
   },
   {
     "id": 11,
@@ -118,7 +138,9 @@
     "stock": 3,
     "status": true,
     "category": "electronics",
-    "image": "https://fakestoreapi.com/img/71kWymZ+c+L._AC_SX679_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/71kWymZ+c+L._AC_SX679_.jpg"
+    ]
   },
   {
     "id": 12,
@@ -129,7 +151,9 @@
     "stock": 81,
     "status": true,
     "category": "electronics",
-    "image": "https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg"
+    ]
   },
   {
     "id": 13,
@@ -140,7 +164,9 @@
     "stock": 31,
     "status": true,
     "category": "electronics",
-    "image": "https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg"
+    ]
   },
   {
     "id": 14,
@@ -151,7 +177,9 @@
     "stock": 75,
     "status": true,
     "category": "electronics",
-    "image": "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg"
+    ]
   },
   {
     "id": 15,
@@ -162,7 +190,9 @@
     "stock": 66,
     "status": true,
     "category": "women's clothing",
-    "image": "https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg"
+    ]
   },
   {
     "id": 16,
@@ -173,7 +203,9 @@
     "stock": 11,
     "status": true,
     "category": "women's clothing",
-    "image": "https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg"
+    ]
   },
   {
     "id": 17,
@@ -184,7 +216,9 @@
     "stock": 67,
     "status": true,
     "category": "women's clothing",
-    "image": "https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg"
+    ]
   },
   {
     "id": 18,
@@ -195,7 +229,9 @@
     "stock": 97,
     "status": true,
     "category": "women's clothing",
-    "image": "https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg"
+    ]
   },
   {
     "id": 19,
@@ -206,7 +242,9 @@
     "stock": 77,
     "status": true,
     "category": "women's clothing",
-    "image": "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg"
+    ]
   },
   {
     "id": 20,
@@ -217,6 +255,21 @@
     "stock": 20,
     "status": true,
     "category": "women's clothing",
-    "image": "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg"
+    "thumbnails": [
+      "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg"
+    ]
+  },
+  {
+    "id": 21,
+    "title": "test title",
+    "price": 12,
+    "description": "tets des",
+    "thumbnails": [
+      "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg"
+    ],
+    "stock": 20,
+    "code": "zzzzzz",
+    "category": "women's clothing",
+    "status": true
   }
 ]

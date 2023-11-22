@@ -42,9 +42,19 @@ export const controller = {
     },
     post: async (req, res) => {
         res.json({ message: 'POST' });
-        const { title, price, description, thumbnail, stock, code, category, status } = req.body;
+        const { title, description, code, price, stock, status, category, thumbnails } = req.body;
+
         try {
-            const create = await pm.addProduct({ title, price, description, thumbnail, stock, code, category, status });
+            const create = await pm.addProduct({
+                title,
+                description,
+                code,
+                price,
+                stock,
+                status,
+                category,
+                thumbnails,
+            });
             res.json(create);
         } catch (error) {
             res.status(500).json({ message: error.message });

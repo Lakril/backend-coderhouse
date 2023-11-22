@@ -20,13 +20,13 @@ export class Product {
     // constructor() method.
     #title;
     #price;
-    constructor({ id, title, price, description, thumbnail, stock, code, category, status}) {
+    constructor({ id, title, price, description, thumbnails, stock, code, category, status }) {
         // Properties
         this.id = id;
         this.#title = notNull(title, 'Title');
         this.#price = notNull(price, 'Price');
         this.description = description ?? 'No description';
-        this.thumbnail = thumbnail ?? defaultImg;
+        this.thumbnails = thumbnails ?? defaultImg;
         this.stock = notNull(stock, 'Stock');
         this.code = notNull(code, 'Code');
         this.category = notNull(category, 'Category');
@@ -43,7 +43,7 @@ export class Product {
             title: this.#title,
             price: this.#price,
             description: this.description,
-            thumbnail: this.thumbnail,
+            thumbnails: this.thumbnails,
             stock: this.stock,
             code: this.code,
             category: this.category,

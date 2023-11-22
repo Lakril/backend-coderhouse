@@ -1,7 +1,7 @@
 import express from 'express';
 import checkPort from './src/checkPort.js';
 
-import {ProductRouter} from './src/routes/products.routing.js';
+import { ProductRouter } from './src/routes/products.routing.js';
 // import {CartRouter} from './src/routes/cart.routing.js';
 import { clearConfigCache } from 'prettier';
 clearConfigCache();
@@ -13,8 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(ProductRouter);
 // app.use(CartRouter);
-
-
 
 // servidor express puerto 8080
 const port = parseInt(process.env.PORT) || 8080;
