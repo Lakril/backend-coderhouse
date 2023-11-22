@@ -28,6 +28,7 @@ export const controller = {
         }
     },
     //* get all products or limit by query
+    // http://localhost:8080/products?limit5
     getProducts: async (req, res) => {
         const { limit } = req.query;
         try {
@@ -56,6 +57,43 @@ export const controller = {
                 thumbnails,
             });
             res.json(create);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+    //* get product by id
+    delete: async (req, res) => {
+        res.json({ message: 'DELETE' });
+        const id = Number(req.params.id);
+        if (isNaN(id)) {
+            return res.status(400).json({ message: 'Invalid product id' });
+        }
+        try {
+            const deleted = await pm.deleteProduct(id);
+            if (!deleted) {
+                return res.status(404).json({ message: 'Product not found' });
+            }
+            res.json(deleted);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+    put: async (req, res) => {
+        res.json({ message: 'PUT' });
+        const { title, description, code, price, stock, status, category, thumbnails } = req.body;
+
+        try {
+            const updated = await pm.updateProduct(id, {
+                title,
+                description,
+                code,
+                price,
+                stock,
+                status,
+                category,
+                thumbnails,
+            });
+            res.json(updated);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
