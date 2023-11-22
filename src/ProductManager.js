@@ -20,7 +20,7 @@ export class ProductManager {
 
     validateFields(dataProduct) {
         const fieldsNumber = ['price', 'stock'];
-        const fieldsString = ['title', 'code'];
+        const fieldsString = ['title', 'code', 'category'];
         const allFields = fieldsNumber.concat(fieldsString);
         const errors = [];
 

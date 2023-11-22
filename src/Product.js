@@ -1,3 +1,4 @@
+import { stat } from 'fs';
 import path from 'path';
 
 const defaultImg = path.join(path.dirname(new URL(import.meta.url).pathname), '../public/img/imagNoAvalibel.jpg');
@@ -19,7 +20,7 @@ export class Product {
     // constructor() method.
     #title;
     #price;
-    constructor({ id, title, price, description, thumbnail, stock, code }) {
+    constructor({ id, title, price, description, thumbnail, stock, code, category, status}) {
         // Properties
         this.id = id;
         this.#title = notNull(title, 'Title');
@@ -28,6 +29,8 @@ export class Product {
         this.thumbnail = thumbnail ?? defaultImg;
         this.stock = notNull(stock, 'Stock');
         this.code = notNull(code, 'Code');
+        this.category = notNull(category, 'Category');
+        this.status = status ?? true;
     }
 
     get price() {
@@ -43,6 +46,8 @@ export class Product {
             thumbnail: this.thumbnail,
             stock: this.stock,
             code: this.code,
+            category: this.category,
+            status: this.status,
         };
         return pojo;
     }
