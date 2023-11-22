@@ -258,18 +258,5 @@
     "thumbnails": [
       "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg"
     ]
-  },
-  {
-    "id": 21,
-    "title": "test title",
-    "price": 12,
-    "description": "tets des",
-    "thumbnails": [
-      "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg"
-    ],
-    "stock": 20,
-    "code": "zzzzzz",
-    "category": "women's clothing",
-    "status": true
   }
 ]
