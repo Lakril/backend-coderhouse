@@ -81,7 +81,7 @@ export const controller = {
     put: async (req, res) => {
         res.json({ message: 'PUT' });
         const { title, description, code, price, stock, status, category, thumbnails } = req.body;
-
+        const id = Number(req.params.id);
         try {
             const updated = await pm.updateProduct(id, {
                 title,

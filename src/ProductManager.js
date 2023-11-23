@@ -2,19 +2,15 @@
 // author: Jackson Rico
 import fs from 'fs/promises';
 import { Product } from './Product.js';
-import path from 'path';
-
-const filePath = path.join(path.dirname(new URL(import.meta.url).pathname), '../database/products.json');
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-//* Class Method (2)
+//* Class Method
 export class ProductManager {
     #path;
     constructor(path) {
-        // this.#products = JSON.parse(fs.readFileSync(path, 'utf-8')).map((p) => new Product(p));
         this.#path = path;
     }
 
@@ -77,7 +73,7 @@ export class ProductManager {
             // add product to products
             products.push(productPOJO);
 
-            // await fs.writeFile(this.#path, JSON.stringify(products.map(p => p.toPOJO()), null, 2));
+            // Write the updated array back to the JSON file
             await fs.writeFile(this.#path, JSON.stringify(products, null, 2));
             console.log(`Add new product with ID:${product.id}`);
         } catch (error) {
@@ -94,7 +90,6 @@ export class ProductManager {
         } else {
             return products;
         }
-        // return products;
     }
 
     // GET product by ID
@@ -142,7 +137,7 @@ export class ProductManager {
 
     // update products
     async updateProduct(productId, updatedProductData) {
-        const products = await this.getProducts();
+        const products = JSON.parse(await fs.readFile(this.#path, 'utf-8'));
 
         try {
             if (typeof productId !== 'number' || !productId) {
@@ -153,18 +148,19 @@ export class ProductManager {
             await this.validateFields(updatedProductData);
 
             //search id in products
-            const product = products.find((p) => p.id === Number(productId));
-            if (!product) {
+            const idIndex = products.findIndex((u) => u.id === productId);
+            // const product = products.find((p) => p.id === productId);
+
+            if (idIndex === -1) {
                 throw new Error(`Product with ID ${productId} not found`);
             }
 
-            // Update the product data
-            for (let key in updatedProductData) {
-                if (product.hasOwnProperty(key)) {
-                    product[key] = updatedProductData[key];
-                }
-            }
-            await fs.writeFile(filePath, JSON.stringify(products, null, 2));
+            // update product
+            const product = products[idIndex];
+            const updatedProduct = { ...product, ...updatedProductData };
+            products[idIndex] = updatedProduct;
+
+            await fs.writeFile(this.#path, JSON.stringify(products, null, 2));
             console.log(`Product with ID ${productId} updated`);
         } catch (error) {
             console.log(error.message);

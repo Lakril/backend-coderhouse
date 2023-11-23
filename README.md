@@ -25,3 +25,18 @@ bun prettier --write src/index.js # To format a single file, you can use:
 ```
 
 Also, this command will use the Prettier configuration from your .prettierrc file if it exists. If you don't have a `.prettierrc` file, Prettier will use its default configuration.
+
+e.g updated:
+
+```json
+{
+    "title": "title test put",
+    "description": "description test put",
+    "code": "codtestsPut",
+    "price": 88,
+    "stock": 55,
+    "status": true,
+    "category": "category test put",
+    "thumbnails": ["https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"]
+}
+```
