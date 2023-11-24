@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/style.css" crossorigin="anonymous" />
+    <title>Inicio</title>
+  </head>
+  <body>
+    <h1>Coderhouse</h1>
+    <!-- <form action="index.html" method="post">
+        <input type="text" name="message" id="inputMessage" placeholder="write message">
+        <button type="submit">Send</button>
+    </form> -->
+    <form action="/images" method="post" enctype="multipart/form-data">
+      <input type="file" name="photo" id="inputPhoto" />
+      <button type="submit">Send</button>
+    </form>
+    <script src="/static/js/index.js"></script>
+  </body>
+</html>
