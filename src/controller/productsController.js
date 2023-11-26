@@ -1,4 +1,4 @@
-import { ProductManager } from '../ProductManager.js';
+import { ProductManager } from '../models/ProductManager.js';
 import path from 'path';
 
 const filePath = path.join(path.dirname(new URL(import.meta.url).pathname), '../../database/newDatabase.json');
@@ -6,14 +6,14 @@ const viewPath = path.join(path.dirname(new URL(import.meta.url).pathname), '../
 
 const pm = new ProductManager(filePath);
 
-const cart = [];
+
 export const controller = {
-    get: async (req, res) => {
-        res.sendFile(viewPath);
-    },
+    // get: async (req, res) => {
+    //     res.sendFile(viewPath);
+    // },
     //* get product by id
     getById: async (req, res) => {
-        const id = Number(req.params.id);
+        const id = Number(req.params.pid);
         if (isNaN(id)) {
             return res.status(400).json({ message: 'Invalid product id' });
         }
@@ -22,6 +22,7 @@ export const controller = {
             if (!product) {
                 return res.status(404).json({ message: 'Product not found' });
             }
+            res.render('product', { product });
             res.json(product);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -29,7 +30,7 @@ export const controller = {
     },
     //* get all products or limit by query
     // http://localhost:8080/products?limit5
-    getProducts: async (req, res) => {
+    get: async (req, res) => {
         const { limit } = req.query;
         try {
             const products = await pm.getProducts({ limit });
@@ -98,4 +99,16 @@ export const controller = {
             res.status(500).json({ message: error.message });
         }
     },
+    product: async (req,res)=>{
+        try {
+            // Step 1: Fetch the product data
+            const product = await pm.getProductById(id);
+            console.log(product);
+    
+            // Step 2: Render the product.ejs template with the product data
+            res.render('product', { product });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
 };
