@@ -1,5 +1,3 @@
-
-
 export class Cart {
     constructor(cart) {
         this.items = cart.items || [];
@@ -10,13 +8,26 @@ export class Cart {
     addItem(item, id) {
         let cartItem = this.items[id];
         if (!cartItem) {
-            cartItem = this.items[id] = { item:item, quantity: 0, price: 0 };
+            cartItem = this.items[id] = {
+                item: {id:item.id ,title: item.title, price: item.price, thumbnail: item.thumbnail},
+                quantity: 0,
+                price: 0
+            };
         }
         cartItem.quantity++;
         cartItem.price = cartItem.item.price * cartItem.quantity;
         this.totalItems++;
         this.totalPrice += cartItem.item.price;
     }
+    // Get cart
+    getItems = function() {
+        var arr = [];
+        for (var id in this.items) {
+            arr.push(this.items[id]);
+        }
+        return arr;
+    };
+
     // Delete cart
     deleteProduct(id) {
         const cartItems = this.items[id];
@@ -37,17 +48,7 @@ export class Cart {
             cartItems.totalPrice = item.price * quantity;
             this.totalQuantity += quantity;
             this.totalPrice += item.price * quantity;
-        
         }
         return cartItems;
-    }
-    // Get cart
-    getItems() {
-        var arr = [];
-        for (var id in this.items) {
-            arr.push(this.items[id]);
-        }
-        return arr;
-        // return Object.values(this.items);
     }
 }
