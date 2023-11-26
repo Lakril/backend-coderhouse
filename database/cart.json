@@ -1,19 +1,20 @@
 [
   {
     "item": {
-      "id": 1,
-      "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-      "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-      "code": "hVGoN4",
-      "price": 109.95,
-      "stock": 53,
+      "id": 5,
+      "title": "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
+      "description": "From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.",
+      "code": "qyy8ID",
+      "price": 695,
+      "stock": 76,
       "status": true,
-      "category": "men's clothing",
+      "category": "jewelery",
       "thumbnails": [
-        "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+        "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg"
       ]
     },
-    "quantity": 4,
-    "price": 439.8
-  }
+    "quantity": 1,
+    "price": 695
+  },
+  null
 ]

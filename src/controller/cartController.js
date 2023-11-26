@@ -25,6 +25,7 @@ export const controller = {
             res.status(500).json({ message: error.message });
         }
     },
+    //* Body JSON: {"quantity":20}
     post: async (req, res) => {
         const id = Number(req.params.id);
         const { quantity } = req.body;
@@ -37,7 +38,8 @@ export const controller = {
             console.log(product);
           
 
-            const addItem = await ct.addItem(product, id);
+            let saveItem = await ct.addItem(product, id);
+            
             const items = await ct.getItems();
             // const update = await ct.updateItem(id, quantity);
             // console.log(update);
@@ -47,7 +49,9 @@ export const controller = {
             //         if (item.id === id) {
             //             throw new Error('Item already exists');
             //         }
-            //  
+            //
+            items.push(saveItem);           
+
       
             await fs.writeFile(filePathcart, JSON.stringify(items, null, 2));
             res.json(items);
