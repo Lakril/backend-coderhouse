@@ -3,16 +3,18 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Product</title>
+        <title>Products</title>
     </head>
     <body>
-        <h1>Product</h1>
-        <div>
+        <h1>Products</h1>
+        <% products.forEach(product => { %>
+        <div class="product" data-id="<%= product.id %>">
             <h2><%= product.title %></h2>
             <p><%= product.description %></p>
             <p>category: <%= product.category %></p>
             <p>Price: <%= product.price %></p>
             <button class="add-to-cart">Add to Cart</button>
         </div>
+        <% }); %>
     </body>
 </html>

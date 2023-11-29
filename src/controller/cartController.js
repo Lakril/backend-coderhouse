@@ -5,7 +5,7 @@ import path from 'path';
 import fs from 'fs/promises';
 
 const filePathcart = path.join(path.dirname(new URL(import.meta.url).pathname), '../../database/cart.json');
-const filePathpro = path.join(path.dirname(new URL(import.meta.url).pathname), '../../database/newDatabase.json');
+const filePathpro = path.join(path.dirname(new URL(import.meta.url).pathname), '../../database/products.json');
 
 
 const ct = new Cart(filePathcart);
