@@ -63,7 +63,7 @@ export const controller = {
     //* get product by id
     delete: async (req, res) => {
         res.json({ message: 'DELETE' });
-        const id = Number(req.params.id);
+        const id = Number(req.params.pid);
         if (isNaN(id)) {
             return res.status(400).json({ message: 'Invalid product id' });
         }
@@ -80,7 +80,7 @@ export const controller = {
     put: async (req, res) => {
         res.json({ message: 'PUT' });
         const { title, description, code, price, stock, status, category, thumbnails } = req.body;
-        const id = Number(req.params.id);
+        const id = Number(req.params.pid);
         try {
             const updated = await pm.updateProduct(id, {
                 title,
