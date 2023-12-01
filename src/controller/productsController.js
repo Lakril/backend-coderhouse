@@ -5,7 +5,6 @@ const filePath = path.join(path.dirname(new URL(import.meta.url).pathname), '../
 
 const pm = new ProductManager(filePath);
 
-
 export const controller = {
     //* get product by id
     // http://localhost:8080/api/products/1
@@ -96,5 +95,5 @@ export const controller = {
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
-    }
+    },
 };
