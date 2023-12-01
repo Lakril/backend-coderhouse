@@ -35,21 +35,14 @@ export const controller = {
     post: async (req, res) => {
         const pid = Number(req.params.pid);
         const cid = req.params.cid;
-        const { quantity } = req.body;
        
-        if (!cid ||!quantity) {
+        if (!cid || !pid) {
             return res.status(400).json({ message: 'Missing fields' });
         }
         try {
-        
-            let product = await pm.getProductById(pid);
-            let saveItem = await ct.addItem(pid, cid, quantity, product, filePathcart);
-
-
-            const items = await ct.getItems();
-            items.push(saveItem);
-            await fs.writeFile(filePathcart, JSON.stringify(items, null, 2));
-            res.json(items);
+            const quantity = Number(1);
+            let saveItem = await ct.addItem(pid, cid, quantity, filePathpro);
+            res.json(saveItem);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

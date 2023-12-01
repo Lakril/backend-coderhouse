@@ -29,12 +29,21 @@
       {
         "id": 1,
         "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-        "quantity": 1
+        "quantity": 4
       },
       {
         "id": 2,
         "title": "Mens Casual Premium Slim Fit T-Shirts ",
         "quantity": 2
+      },
+      {
+        "id": 5,
+        "title": "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
+        "price": 695,
+        "thumbnail": [
+          "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg"
+        ],
+        "quantity": 5
       }
     ]
   }

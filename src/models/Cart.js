@@ -1,8 +1,6 @@
 import fs from 'fs/promises';
 import { randomUUID } from 'crypto';
-import { ProductManager } from './ProductManager';
-
-
+import { ProductManager } from '../models/ProductManager.js';
 
 export class Cart {
     #path;
@@ -27,98 +25,96 @@ export class Cart {
             console.log(error.message);
         }
     }
-    
-    async getCartById(cid) {
+    // Get all items from cart
+    async getItems(cid) {
         try {
             const carts = await JSON.parse(await fs.readFile(this.#path, 'utf-8'));
-            const findItems = carts.find((i) => i.id === cid);
-            if (!findItems) {
+            const findCart = carts.find((i) => i.id === cid);
+            if (!findCart) {
                 throw new Error(`Cart with id: ${cid} not found`);
             }
-            return findItems;
+            return findCart.products;
         } catch (error) {
             console.log(error.message);
         }
     }
-    // Get all items from cart
-    async getItems(cid) {
-       try {
-           const items = await this.getCartById(cid);
 
-           for (let i = 0; i < items.products.length; i++) {
-            //    this.totalQuantity += carts.products[i].quantity;
-            //    this.totalPrice += carts.products[i].price * carts.products[i].quantity;
-            //    console.log(carts.products[i]);
-            }
-
-            console.log(items.products);
-
-           return items;
-       } catch (error) {
-           console.log(error.message);
-       }
-   }
-
-   // Add an item to cart
-    async addItem(pid, cid, quantity, product, path) {
+    // Add an item to cart
+    async addItem(pid, cid, quantity=1, products) {
         try {
-            // find cart in carts
-            const carts = await JSON.parse(await fs.readFile(path, 'utf-8'));
-            const cart = carts.getCartById(cid);
-            
+            const pm = new ProductManager(products);
+            let carts = await JSON.parse(await fs.readFile(this.#path, 'utf-8'));
+            let product = await pm.getProductById(pid);
 
+            // Find the cart
+            const cart = await this.getItems(cid);
 
-            if (!findItems) {
-                throw new Error(`Cart with id: ${cid} not found`);
-            }
-            // check product in cart
-            const findProduct = findItems.products.find((i) => i.id === pid);
-            if (findProduct) {
-                findProduct.quantity += quantity;
-                return findProduct;
+            // Find the proCart in the cart
+            const item = cart.find((p) => p.id === pid);
+            console.log(item);
+
+            // if (item.quantity > product.stock) {
+            //     throw new Error(`Quantity ${quantity} exceeds stock ${product.stock}`);
+            // }
+
+            // updated item quantity in the cart
+            if (item) {
+                // update quantity
+                item.quantity += quantity;
+        
+                // Update the cart
+                carts = carts.map((c) => {
+                    if (c.id === cid) {
+                        c.products = c.products.map((p) => {
+                            if (p.id === pid) {
+                                p.quantity = p.quantity + quantity;
+                            }
+                            return p;
+                        });
+                    }
+                    return c;
+                });
+
+                await fs.writeFile(this.#path, JSON.stringify(carts, null, 2));
+                return item;
             } else {
-                findItems.products.push({
+                // create new item
+                const item = {
                     id: pid,
                     title: product.title,
                     price: product.price,
-                    thumbnail: product.thumbnail,
+                    thumbnail: product.thumbnails,
                     quantity: quantity,
+                };
+                carts = carts.map((c) => {
+                    if (c.id === cid) {
+                        c.products.push(item);
+                    }
+                    return c;
                 });
+
+                await fs.writeFile(this.#path, JSON.stringify(carts, null, 2));
+                console.log(carts);
+                return item;
             }
-            return findItems;
         } catch (error) {
             console.log(error.message);
         }
-         
- 
-         const items = await this.getItems(cid);
-   
-    
-         // check product in cart
-         const findProduct = items.products.find((i) => i.id === pid);
-         if (findProduct) {
-            const findProductIndex = items.products.findIndex((i) => i.id === pid
-                );
-                items.products[findProductIndex].quantity += 1;
 
-              findProduct.quantity += 1;
-            ;
-              
-         } else {
-              items.products.push({
-                id: pid,
-                title: product.title,
-                price: product.price,
-                thumbnail: product.thumbnail,
-                quantity: quantity++,
-              });
-         }
-         this.totalQuantity += quantity;
-         this.totalPrice += product.price * quantity;
-         return item;
-        }
-    
+        
 
+    }
+}
+
+        // saveCarts(carts);
+    //     async function saveCarts(carts) {
+    //         try {
+    //           await fs.writeFile('carts.json', JSON.stringify(carts, null, 2));
+    //         } catch (err) {
+    //           console.error('Error writing file', err);
+    //         }
+    //       }
+    // }
 
 
     // Post an item to cart
@@ -166,7 +162,6 @@ export class Cart {
     //     return item;
     // }
 
-   
     // Update an item in cart
     // async updateItem(pid, cid, quantity, pathProducts) {
     //     const pm = new ProductManager(pathProducts);
@@ -185,4 +180,27 @@ export class Cart {
     //     await this.newCart(this.path);
     //     return item;
     // }
-}
+
+
+// check product in cart
+// const findProduct = items.products.find((i) => i.id === pid);
+// if (findProduct) {
+//    const findProductIndex = items.products.findIndex((i) => i.id === pid
+//        );
+//        items.products[findProductIndex].quantity += 1;
+
+//      findProduct.quantity += 1;
+//    ;
+
+// } else {
+//      items.products.push({
+//        id: pid,
+//        title: product.title,
+//        price: product.price,
+//        thumbnail: product.thumbnail,
+//        quantity: quantity++,
+//      });
+// }
+// this.totalQuantity += quantity;
+// this.totalPrice += product.price * quantity;
+// return item;
