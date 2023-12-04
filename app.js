@@ -14,6 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 // EJS
 app.set('view engine', 'ejs');
 
@@ -21,6 +22,9 @@ app.set('view engine', 'ejs');
 app.use(mainRouter);
 app.use(ProductRouter);
 app.use(CartRouter);
+
+// Static files
+app.use('/public', express.static('./public'));
 
 // servidor express puerto 8080
 const port = parseInt(process.env.PORT) || 8080;
