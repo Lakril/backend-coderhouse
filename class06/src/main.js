@@ -19,5 +19,8 @@ app.use('/static', express.static('./static'));
 app.use('/', webRouter);
 
 webSocketServer.on('connection', (socket) => {
-  console.log(socket.id);
+  console.log(socket.handshake.auth.username + ' connected');
+  socket.broadcast.emit(
+    'NewUser', 
+    socket.handshake.auth.username);
 });

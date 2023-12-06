@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "start": "bun run src/main.js",
-    "dev": "bun --watch run src/main.js"
+    "dev": "bun --watch run src/main.js",
+    "dev2": "bun --watch -e js,handlebars,html ."
   },
   "devDependencies": {
     "bun-types": "latest"
