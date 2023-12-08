@@ -1,11 +1,11 @@
 // Version: 1.0
 // author: Jackson Rico
 import express from 'express';
-import checkPort from './src/checkPort.js';
-import { ProductRouter } from './src/routes/products.routing.js';
-import { CartRouter } from './src/routes/cart.routing.js';
+import checkPort from 'src/checkPort.js';
+import { ProductRouter } from 'src/routes/products.routing.js';
+import { CartRouter } from 'src/routes/cart.routing.js';
 import { clearConfigCache } from 'prettier';
-import mainRouter from './src/routes/main.routing.js';
+import mainRouter from 'src/routes/main.routing.js';
 import process from 'process';
 
 clearConfigCache();

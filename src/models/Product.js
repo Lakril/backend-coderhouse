@@ -1,6 +1,6 @@
-import path from 'path';
+// import path from 'path';
 
-const defaultImg = path.join(path.dirname(new URL(import.meta.url).pathname), '../public/img/imagNoAvalibel.jpg');
+// const defaultImg = path.join(path.dirname(new URL(import.meta.url).pathname), '../public/img/imagNoAvalibel.jpg');
 
 //* Helper function
 export function notNull(value, name) {
@@ -25,7 +25,7 @@ export class Product {
         this.#title = notNull(title, 'Title');
         this.#price = notNull(price, 'Price');
         this.description = description ?? 'No description';
-        this.thumbnails = thumbnails ?? defaultImg;
+        this.thumbnails = thumbnails ?? '/public/img/imagNoAvalibel.jpg';
         this.stock = notNull(stock, 'Stock');
         this.code = notNull(code, 'Code');
         this.category = notNull(category, 'Category');
