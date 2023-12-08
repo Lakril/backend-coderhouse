@@ -1,3 +1,5 @@
+// Version: 1.0
+// author: Jackson Rico
 import express from 'express';
 import checkPort from './src/checkPort.js';
 import { ProductRouter } from './src/routes/products.routing.js';

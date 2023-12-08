@@ -1,11 +1,11 @@
 import { Cart } from '../models/Cart.js';
-import path from 'path';
 
+// import path from 'path';
 // path to database
-const filePathcart = path.join(path.dirname(new URL(import.meta.url).pathname), '../../database/cart.json');
-const filePathpro = path.join(path.dirname(new URL(import.meta.url).pathname), '../../database/products.json');
+// const filePathcart = path.join(path.dirname(new URL(import.meta.url).pathname), '../../database/cart.json');
+// const filePathpro = path.join(path.dirname(new URL(import.meta.url).pathname), '../../database/products.json');
 
-const ct = new Cart(filePathcart);
+const ct = new Cart("./database/cart.json");
 
 export const controller = {
     //* create a new cart
@@ -39,7 +39,7 @@ export const controller = {
         }
         try {
             const quantity = Number(1);
-            let saveItem = await ct.addItem(pid, cid, quantity, filePathpro);
+            let saveItem = await ct.addItem(pid, cid, quantity, "./database/products.json");
             res.json(saveItem);
         } catch (error) {
             res.status(500).json({ message: error.message });

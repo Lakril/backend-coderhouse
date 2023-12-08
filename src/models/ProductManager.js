@@ -1,5 +1,3 @@
-// Version: 1.0
-// author: Jackson Rico
 import fs from 'fs/promises';
 import { Product } from './Product.js';
 

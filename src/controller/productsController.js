@@ -1,9 +1,9 @@
 import { ProductManager } from '../models/ProductManager.js';
-import path from 'path';
 
-const filePath = path.join(path.dirname(new URL(import.meta.url).pathname), '../../database/products.json');
+// import path from 'path';
+// const filePath = path.join(path.dirname(new URL(import.meta.url).pathname), '../../database/products.json');
 
-const pm = new ProductManager(filePath);
+const pm = new ProductManager('./database/products.json');
 
 export const controller = {
     //* get product by id
