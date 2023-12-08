@@ -1,10 +1,10 @@
 import express from 'express';
 import checkPort from './src/checkPort.js';
-
 import { ProductRouter } from './src/routes/products.routing.js';
 import { CartRouter } from './src/routes/cart.routing.js';
 import { clearConfigCache } from 'prettier';
-const mainRouter = require('./src/routes/main.routing.js');
+import mainRouter from './src/routes/main.routing.js';
+import process from 'process';
 
 clearConfigCache();
 
@@ -13,7 +13,6 @@ const app = express();
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 
 // EJS
 app.set('view engine', 'ejs');
