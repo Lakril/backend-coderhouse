@@ -1,5 +1,6 @@
 // Version: 1.0
 // author: Jackson Rico
+
 import express from 'express';
 import checkPort from './src/checkPort.js';
 import { ProductRouter } from './src/routes/products.routing.js';
@@ -22,7 +23,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Handlebars
 app.engine('handlebars', handlebars.engine());
-// app.set('view engine', 'handlebars');
+app.set('view engine', 'handlebars');
+
 
 // EJS
 app.set('view engine', 'ejs');
@@ -31,7 +33,7 @@ app.set('view engine', 'ejs');
 app.use(mainRouter);
 app.use(ProductRouter);
 app.use(CartRouter);
-// app.use('/casa', webRouter);
+app.use('/', webRouter);
 
 // Static files
 app.use('/public', express.static('./public'));
