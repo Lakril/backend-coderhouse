@@ -1,4 +1,4 @@
-const controller = {
+export const controller = {
     index: (req, res) => {
         return res.render('index');
     },
@@ -11,7 +11,7 @@ const controller = {
     },
     contact: (req, res) => {
         return res.send('contact');
-    },
+    }	
 };
 
-module.exports = controller;
+// export default controller;

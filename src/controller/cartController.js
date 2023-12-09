@@ -1,4 +1,4 @@
-import { Cart } from 'src/models/Cart.js';
+import { Cart } from '../models/Cart.js';
 
 // import path from 'path';
 // path to database
