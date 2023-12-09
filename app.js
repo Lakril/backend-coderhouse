@@ -27,21 +27,11 @@ app.engine('handlebars', handlebars.engine());
 // EJS
 app.set('view engine', 'ejs');
 
-
-// app.get('/', (req, res) => {
-//     let data = {
-//       title: 'Home Page',
-//       message: 'Welcome to the Home Page!'
-//     };
-  
-//     res.render('home.handlebars', data);
-//   });
-
 // Routes
 app.use(mainRouter);
 app.use(ProductRouter);
 app.use(CartRouter);
-app.use('/', webRouter);
+// app.use('/casa', webRouter);
 
 // Static files
 app.use('/public', express.static('./public'));

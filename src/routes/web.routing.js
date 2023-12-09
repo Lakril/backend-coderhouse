@@ -3,5 +3,5 @@ import { Router } from 'express';
 export const webRouter = Router();
 
 webRouter.get('/', (req, res) => {
-  res.render('home.handlebars', { titulo: 'Chat' });
+  res.render('home.handlebars', { title: 'Home' });
 });
