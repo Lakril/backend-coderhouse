@@ -8,19 +8,19 @@ export default function (io) {
         console.log(socket.id);
         console.log('A user connected');
         clients.set(socket.id, socket);
+        socket.on('products', async (products) => {
+            io.emit('products', await products);
+        });
         socket.emit('products', await products);
         // ulMessages.innerHTML = '';
-        socket.on('products', async (products) => {
-            console.log(products);
-        });
 
-        socket.on('disconnect', () => {
-            console.log('A user disconnected');
-            clients.delete(socket.id);
-        });
-        socket.on('broadcast', (message) => {
-            io.emit('broadcast', message);
-        });
+        // socket.on('disconnect', () => {
+        //     console.log('A user disconnected');
+        //     clients.delete(socket.id);
+        // });
+        // socket.on('broadcast', (message) => {
+        //     io.emit('broadcast', message);
+        // });
     });
 }
 
