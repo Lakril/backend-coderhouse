@@ -6,7 +6,7 @@
         "bun-types": "latest"
     },
     "scripts": {
-        "start": "bun --watch run app.js",
+        "start": "node app.js",
         "clean": "rm -rf dist && echo 'Done.'",
         "dev": "bun --watch run app.js"
     },

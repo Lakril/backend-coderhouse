@@ -96,4 +96,16 @@ export const controller = {
             res.status(500).json({ message: error.message });
         }
     },
+    all: async (req, res) => {
+        // res.json({ message: 'ALL' });
+        try {
+            const products = await pm.getProducts();
+            if (!products.length) {
+                return res.status(404).json({ message: 'No products found' });
+            }
+            return products;
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
 };

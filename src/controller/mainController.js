@@ -1,3 +1,6 @@
+import { ProductManager } from '../models/ProductManager.js';
+const pm = new ProductManager('./database/products.json');
+
 export const controller = {
     index: (req, res) => {
         return res.render('index');
@@ -12,8 +15,17 @@ export const controller = {
     contact: (req, res) => {
         return res.render('contact');
     },
-    home: (req, res) => {
-        return res.render('home.handlebars', { title: 'Home' });
+    home: async (req, res) => {
+        try {
+            const products = await pm.getProducts();
+            if (!products.length) {
+                return res.status(404).json({ message: 'No products found' });
+            }
+            // return products;
+            return res.render('home.handlebars', { products });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
     },
 };
 

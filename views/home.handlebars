@@ -1,9 +1,83 @@
 <html>
     <head>
         <title>{{title}}</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     </head>
-    <body>
-        <h1>{{message}}</h1>
-        <h1>soy home</h1>
+    <body class="container">
+
+        <h1 class="mt-5" >Products</h1>
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Image</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myProducts">                 
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js" integrity="sha512-zoJXRvW2gC8Z0Xo3lBbao5+AS3g6YWr5ztKqaicua11xHo+AvE1b0lT9ODgrHTmNUxeCw0Ry4BGRYZfXu70weg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script >
+    const socket = io('http://localhost:8888');
+
+    const myProducts = document.querySelector('#myProducts');
+    {{!-- console.log('corecto', myProducts); --}}
+
+    // ref. HTML DOM querySelector() Method
+    // https://www.w3schools.com/jsref/met_document_queryselector.asp
+    // const btn = document.querySelector('#btn');
+    // const input = document.querySelector('#input');
+    // const messages = document.querySelector('#messages');
+    // const form = document.querySelector('form');
+
+    // btn.addEventListener('click', () => {
+    //     const msg = input.value;
+    //     input.value = '';
+    //     messages.innerHTML += `<p>${msg}</p>`;
+    //     socket.emit('mensaje-client', msg);
+    // });
+
+    socket.on('products', (products)=>{
+        myProducts.innerHTML = `
+        {{#each products}}
+        <tr>
+            <td>{{title}}</td>
+            <td>{{price}}</td>
+            <td>{{stock}}</td>
+            <td><img src="{{thumbnails.[0]}}" alt="" width="50"></td>
+            </tr>
+            {{/each}}`;
+        }); 
+
+
+
+    {{!-- setTimeout(() => {
+        socket.emit('mensaje-client', {
+    title: "title test put",
+    description: "description test put",
+    code: "codtestsPut",
+    price: 88,
+    stock: 55,
+    status: true,
+    category: "category test put",
+    thumbnails: ["https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"]
+});
+    }, 3000); --}}
+    
+ 
+</script>
+
+{{!-- <script type="text/x-handlebars-template"></script> --}}
     </body>
 </html>
+

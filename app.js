@@ -8,10 +8,24 @@ import { clearConfigCache } from 'prettier';
 import mainRouter from './src/routes/main.routing.js';
 import process from 'process';
 import handlebars from 'express-handlebars';
+import {Server} from 'socket.io';
+import http from 'http';
+import socketHandlers from './public/js/index.js'
 
 clearConfigCache();
 
+// server express
 const app = express();
+
+// servers socket.io
+// check version: http://localhost:8888/socket.io/socket.io.js
+// https://cdnjs.com/libraries/socket.io
+const server = http.createServer(app);
+
+// setup socket.io
+const io = new Server(server);
+
+socketHandlers(io);
 
 // Middlewares
 app.use(express.json());
@@ -34,7 +48,7 @@ app.use('/public', express.static('./public'));
 
 // servidor express puerto 8080
 const port = parseInt(process.env.PORT) || 8888;
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`);
 });
 
