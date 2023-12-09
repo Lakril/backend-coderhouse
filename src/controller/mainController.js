@@ -7,11 +7,14 @@ export const controller = {
         return res.render('register');
     },
     login: (req, res) => {
-        return res.send('login');
+        return res.render('login');
     },
     contact: (req, res) => {
-        return res.send('contact');
-    }	
+        return res.render('contact');
+    },
+    home: (req, res) => {
+        return res.render('home.handlebars', { title: 'Home' });
+    },
 };
 
 // export default controller;

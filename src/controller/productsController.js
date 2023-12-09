@@ -19,7 +19,7 @@ export const controller = {
                 return res.status(404).json({ message: 'Product not found' });
             }
             res.render('product', { product });
-            res.json(product);
+            // res.json(product);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -34,7 +34,7 @@ export const controller = {
                 return res.status(404).json({ message: 'No products found' });
             }
             res.render('products', { products });
-            res.json(products);
+            // res.json(products);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
