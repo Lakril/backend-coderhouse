@@ -4,6 +4,6 @@ import Server from './src/models/Server.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const server = new Server(8888);
+const server = new Server();
 server.start();
 

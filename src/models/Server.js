@@ -14,8 +14,8 @@ import process from 'process';
 
 
 class Server {
-    constructor(port=8080) {
-        this.port = process.env.PORT || port;
+    constructor() {
+        this.port = process.env.PORT;
         this.app = express();
         this.httpServer = http.createServer(this.app);
         this.io = new SocketIOServer(this.httpServer, {});
