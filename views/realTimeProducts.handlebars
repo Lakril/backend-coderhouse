@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Document</title>
+</head class="container">
+<body>
+<h1 class="mt-5" >{{title}}</h1>
+            <div class="col-12">
+                <table class="table table-striped table-hover">
+                    <thead >
+                        <tr >
+                            <th scope="col" >Id</th>
+                            <th scope="col" >Title</th>
+                            <th scope="col" >Price</th>
+                            <th scope="col" >Stock</th>
+                            <th scope="col" >Image</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myProducts">                 
+                    </tbody>
+                </table>
+            </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js" integrity="sha512-zoJXRvW2gC8Z0Xo3lBbao5+AS3g6YWr5ztKqaicua11xHo+AvE1b0lT9ODgrHTmNUxeCw0Ry4BGRYZfXu70weg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script >
+
+    const socket = io({
+        auth: {
+        offset: undefined
+        }
+    });
+
+
+    const myProducts = document.querySelector('#myProducts');
+
+    socket.on('products-realtime', (data) => {
+        console.log(data);
+        myProducts.innerHTML = '';
+        data.forEach(product => {
+            myProducts.innerHTML += `
+            <tr>
+                <td>${product.id}</td>
+                <td>${product.title}</td>
+                <td>${product.price}</td>
+                <td>${product.stock}</td>
+                <td><img src="${product.thumbnails[0]}" alt="" width="50"></td>
+            </tr>`;
+        });
+    });
+    
+ 
+</script>
+</body>
+</html>
+
+
+
+
+

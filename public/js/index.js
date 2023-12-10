@@ -1,32 +1,48 @@
-// import { controller } from '../../src/controller/productsController.js';
+const socket = io('http://localhost:8888');
 
-// const clients = new Map();
-// const products = controller.all();
+Swal.fire({
+    title: 'Welcome to Chat',
+    input: 'text',
+    // inputAttributes: {
+    //   autocapitalize: "off"
+    // },
+    showCancelButton: true,
+    confirmButtonText: 'Get in',
+    allowOutsideClick: false,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      startChat(result.value);
+      inputMessage?.focus();
+    }
+  });
 
-// export default function (io) {
-//     io.on('connection', async (socket) => {
-//         console.log(socket.id);
-//         console.log('A user connected');
-//         clients.set(socket.id, socket);
-//         socket.on('products', async (products) => {
-//             io.emit('products', await products);
-//         });
-//         socket.emit('products', await products);
-//         // ulMessages.innerHTML = '';
+function startChat(user) {
+    const socket = io({
+      auth: {
+        user,
+      },
+    });
 
-//         // socket.on('disconnect', () => {
-//         //     console.log('A user disconnected');
-//         //     clients.delete(socket.id);
-//         // });
-//         // socket.on('broadcast', (message) => {
-//         //     io.emit('broadcast', message);
-//         // });
-//     });
-// }
+socket.on('connect', () => {
+    console.log('Connected to the server');
 
-// export function emitToClient(clientId, event, data) {
-//     const client = clients.get(clientId);
-//     if (client) {
-//         client.emit(event, data);
-//     }
-// }
+    // Emit an event to the server
+    socket.emit('products-get');
+});
+
+const myProducts = document.querySelector('#myProducts');
+
+socket.on('products-get', (products) => {
+    myProducts.innerHTML = `
+        {{#each products}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{title}}</td>
+            <td>{{price}}</td>
+            <td>{{stock}}</td>
+            <td><img src="{{thumbnails.[0]}}" alt="" width="50"></td>
+            </tr>
+            {{/each}}`;
+});
+
+}

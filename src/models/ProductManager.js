@@ -164,6 +164,22 @@ export class ProductManager {
             console.log(error.message);
         }
     }
+    async increaseStock(id) {
+        // Validate the id
+        if (typeof id !== 'number' || isNaN(id)) {
+            throw new Error('Invalid id');
+        }
+        const products = await this.getProducts();
+        const pojo = products.find((p) => p.id === id);
+        if (!pojo) {
+            console.error(`Product with ID ${id} does not exist`);
+            return null;
+        }
+        pojo.stock++;
+        await fs.writeFile(this.#path, JSON.stringify(products, null, 2));
+        
+        return pojo;
+    }
 }
 
 //& ------------------------------------DONE------------------------------------

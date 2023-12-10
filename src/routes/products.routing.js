@@ -8,6 +8,6 @@ ProductRouter.get('/api/products/:pid', controller.getById);
 ProductRouter.post('/api/products/', controller.post);
 ProductRouter.put('/api/products/:pid', controller.put);
 ProductRouter.delete('/api/products/:pid', controller.delete);
-// ProductRouter.get('/', controller.get);
+ProductRouter.get('/realtimeproducts', controller.realtime);
 
 export default ProductRouter;

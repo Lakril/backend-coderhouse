@@ -19,16 +19,20 @@ class Server {
         this.port = process.env.PORT;
         this.app = express();
         this.httpServer = http.createServer(this.app);
-        this.io = new SocketIOServer(this.httpServer, {});
+        this.io = new SocketIOServer(this.httpServer, {/* options */});
     }
        
     middlewares() {
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.static(path.resolve(new URL(import.meta.url).pathname, '../public')));
+
+        // view engine setup
         this.app.engine('handlebars', handlebars.engine());
         this.app.set('view engine', 'handlebars');
         this.app.set('view engine', 'ejs');
+
+        // restrict CORS
         this.app.use(cors());
     }
 

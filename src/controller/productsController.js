@@ -107,5 +107,9 @@ export const controller = {
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
+    },
+    realtime: async (req, res) => {
+        return res.render('realTimeProducts.handlebars', { title: 'Real Time Products'});
+       
     }
 };
