@@ -9,7 +9,7 @@ import handlebars from 'express-handlebars';
 import express from 'express';
 import checkPort from '../checkPort.js';
 import { clearConfigCache } from 'prettier';
-import Sockets from './sockets.js';
+import Sockets from './Sockets.js';
 import process from 'process';
 
 
