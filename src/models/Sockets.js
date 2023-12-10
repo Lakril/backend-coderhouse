@@ -19,7 +19,7 @@ class Sockets {
                 this.io.emit('products-get', data);
             });
             socket.emit('products-realtime', await this.products.getProducts());
-            
+
             socket.broadcast.emit('products-get', this.products.getProducts());
 
             // Listener event: realtimeproducts

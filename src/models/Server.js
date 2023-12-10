@@ -13,19 +13,21 @@ import Sockets from './Sockets.js';
 import process from 'process';
 import cors from 'cors';
 
-
 class Server {
     constructor() {
         this.port = process.env.PORT;
         this.app = express();
         this.httpServer = http.createServer(this.app);
-        this.io = new SocketIOServer(this.httpServer, {/* options */});
+        this.io = new SocketIOServer(this.httpServer, {
+            /* options */
+        });
     }
-       
+
     middlewares() {
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.static(path.resolve(new URL(import.meta.url).pathname, '../public')));
+        this.app.use('/public', express.static(path.resolve(new URL(import.meta.url).pathname, '../public')));
 
         // view engine setup
         this.app.engine('handlebars', handlebars.engine());

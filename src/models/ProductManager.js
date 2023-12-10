@@ -177,7 +177,7 @@ export class ProductManager {
         }
         pojo.stock++;
         await fs.writeFile(this.#path, JSON.stringify(products, null, 2));
-        
+
         return pojo;
     }
 }

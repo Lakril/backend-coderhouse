@@ -9,31 +9,31 @@ Swal.fire({
     showCancelButton: true,
     confirmButtonText: 'Get in',
     allowOutsideClick: false,
-  }).then((result) => {
+}).then((result) => {
     if (result.isConfirmed) {
-      startChat(result.value);
-      inputMessage?.focus();
+        startChat(result.value);
+        inputMessage?.focus();
     }
-  });
+});
 
 function startChat(user) {
     const socket = io({
-      auth: {
-        user,
-      },
+        auth: {
+            user,
+        },
     });
 
-socket.on('connect', () => {
-    console.log('Connected to the server');
+    socket.on('connect', () => {
+        console.log('Connected to the server');
 
-    // Emit an event to the server
-    socket.emit('products-get');
-});
+        // Emit an event to the server
+        socket.emit('products-get');
+    });
 
-const myProducts = document.querySelector('#myProducts');
+    const myProducts = document.querySelector('#myProducts');
 
-socket.on('products-get', (products) => {
-    myProducts.innerHTML = `
+    socket.on('products-get', (products) => {
+        myProducts.innerHTML = `
         {{#each products}}
         <tr>
             <td>{{id}}</td>
@@ -43,6 +43,5 @@ socket.on('products-get', (products) => {
             <td><img src="{{thumbnails.[0]}}" alt="" width="50"></td>
             </tr>
             {{/each}}`;
-});
-
+    });
 }

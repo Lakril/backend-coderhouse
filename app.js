@@ -6,4 +6,3 @@ dotenv.config();
 
 const server = new Server();
 server.start();
-

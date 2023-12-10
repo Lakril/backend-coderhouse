@@ -109,7 +109,6 @@ export const controller = {
         }
     },
     realtime: async (req, res) => {
-        return res.render('realTimeProducts.handlebars', { title: 'Real Time Products'});
-       
-    }
+        return res.render('realTimeProducts.handlebars', { title: 'Real Time Products' });
+    },
 };

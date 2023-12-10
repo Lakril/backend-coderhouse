@@ -22,12 +22,11 @@ export const controller = {
                 return res.status(404).json({ message: 'No products found' });
             }
             // return products;
-            return res.render('home.handlebars', { products });
+            return res.render('home.handlebars', { products , title: 'Products List' });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
     },
-    
 };
 
 // export default controller;
