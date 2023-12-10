@@ -11,6 +11,7 @@ import checkPort from '../checkPort.js';
 import { clearConfigCache } from 'prettier';
 import Sockets from './Sockets.js';
 import process from 'process';
+import cors from 'cors';
 
 
 class Server {
@@ -28,6 +29,7 @@ class Server {
         this.app.engine('handlebars', handlebars.engine());
         this.app.set('view engine', 'handlebars');
         this.app.set('view engine', 'ejs');
+        this.app.use(cors());
     }
 
     configSockets() {
