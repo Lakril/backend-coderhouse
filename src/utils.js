@@ -1,6 +1,6 @@
 import net from 'net';
 
-function checkPort(port) {
+export const checkPort = (port) => {
     return new Promise((resolve, reject) => {
         const server = net
             .createServer()
@@ -23,4 +23,6 @@ function checkPort(port) {
     });
 }
 
-export default checkPort;
+export const __dirname = new URL(import.meta.url).pathname;
+
+console.log(__dirname)
