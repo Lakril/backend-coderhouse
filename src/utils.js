@@ -1,4 +1,6 @@
 import net from 'net';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 export const checkPort = (port) => {
     return new Promise((resolve, reject) => {
@@ -21,8 +23,7 @@ export const checkPort = (port) => {
             })
             .listen(port);
     });
-}
+};
 
-export const __dirname = new URL(import.meta.url).pathname;
-
-console.log(__dirname)
+// Path: backend-coderhouse/backend-coderhouse/src
+export const __dirname = dirname(fileURLToPath(import.meta.url));

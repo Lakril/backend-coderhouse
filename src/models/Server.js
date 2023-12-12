@@ -7,7 +7,7 @@ import { Server as SocketIOServer } from 'socket.io';
 import path from 'path';
 import handlebars from 'express-handlebars';
 import express from 'express';
-import {checkPort, __dirname} from '../utils.js';
+import { checkPort, __dirname } from '../utils.js';
 import { clearConfigCache } from 'prettier';
 import Sockets from './Sockets.js';
 import process from 'process';
@@ -31,7 +31,7 @@ class Server {
 
         // view engine setup
         this.app.engine('handlebars', handlebars.engine());
-        this.app.set('views', path.resolve(__dirname, '../views'));
+        this.app.set('views', path.resolve(__dirname, './views'));
         this.app.set('view engine', 'handlebars');
         this.app.set('view engine', 'ejs');
 
@@ -57,9 +57,9 @@ class Server {
 
         // start server
         this.httpServer.listen(this.port, () => {
-            console.log(`\t1) http://localhost:${this.port}/`);
-            console.log(`\t2) http://localhost:${this.port}/api/products/`);
-            console.log(`\t3) http://localhost:${this.port}/realtimeproducts/`);
+            console.log(`1) http://localhost:${this.port}/`);
+            console.log(`2) http://localhost:${this.port}/api/products/`);
+            console.log(`3) http://localhost:${this.port}/realtimeproducts/`);
         });
         clearConfigCache();
         checkPort(this.port)
@@ -69,3 +69,4 @@ class Server {
 }
 
 export default Server;
+console.log(__dirname);
