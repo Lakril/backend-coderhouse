@@ -12,22 +12,33 @@ class Sockets {
         // On connection
         this.io.on('connection', async (socket) => {
             console.log(`connect ${socket.id}`);
+            // Emit all
+            socket.emit('connected', socket.connected);
+
+            // Emit all products
             console.log('List products sent to client');
-            // Listener envent: products
-            socket.on('products-get', async (data) => {
-                // console.log(products);
-                this.io.emit('products-get', data);
-            });
             socket.emit('products-realtime', await this.products.getProducts());
+
+            // Listener event: remove-product
+            socket.on('remove-product', async (id) => {
+                // console.log(id);
+                await this.products.deleteProduct(id);
+                socket.emit('products-realtime', await this.products.getProducts());
+            });
+
+            // Listener event: add-product
+            socket.on('add-product', async (product) => {
+                // console.log(product);
+                this.products.addProduct(product);
+                this.io.emit('products-get', this.products.getProducts());
+            });
 
             socket.broadcast.emit('products-get', this.products.getProducts());
 
-            // Listener event: realtimeproducts
-            // socket.on('realtimeproducts', async (products) => {
-            //     console.log(products);
-            //     // Broadcast 'realtimeproducts' event to all other clients
-            //     socket.broadcast.emit('realtimeproducts', this.products.getProducts());
-            // });
+            // Listener event: disconnect
+            socket.on('disconnect', () => {
+                console.log(`disconnect ${socket.id}`);
+            });
         });
     }
 }
