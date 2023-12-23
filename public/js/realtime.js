@@ -1,6 +1,27 @@
 // eslint-disable-next-line no-undef
 const socketClient = io({});
 
+const form = document.querySelector('form');
+form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const thumbnailsValue = document.getElementById('image').value;
+
+    const product = {
+        title: document.getElementById('title').value,
+        description: document.getElementById('description').value || undefined,
+        code: document.getElementById('code').value,
+        price: parseFloat(document.getElementById('price').value),
+        stock: parseInt(document.getElementById('stock').value),
+        status: document.getElementById('status').checked ? true : false,
+        category: document.getElementById('category').value,
+        ...(thumbnailsValue ? { thumbnails: [thumbnailsValue] } : undefined),
+    };
+
+    socketClient.emit('add-product', product);
+    form.reset();
+});
+
 socketClient.on('products-realtime', (data) => {
     const myProducts = document.querySelector('tbody');
     myProducts.innerHTML = '';
@@ -16,12 +37,28 @@ socketClient.on('products-realtime', (data) => {
             </tr>`;
     });
 
+    // Select the dropdown
+    const categories = document.querySelector('#category-list');
+    // get all the categories
+    const categoryNames = data.map((product) => product.category);
+    // Remove duplicates
+    const uniqueCategories = [...new Set(categoryNames)];
+    // Add the categories to the dropdown
+    uniqueCategories.forEach((category) => {
+        // Create a new option
+        const newOption = document.createElement('option');
+        newOption.value = category;
+        newOption.innerText = category;
+        // Append the new option to the dropdown
+        categories.appendChild(newOption);
+    });
+
     // Get all the elements with tag name 'button'
-    const elements = document.getElementsByTagName('button');
+    const elements = document.getElementsByClassName('delete-button');
     // console.log(elements)
     Array.from(elements).forEach((element) => {
         element.addEventListener('click', () => {
-            const id = element.id;
+            const id = parseInt(element.id);
             socketClient.emit('remove-product', id);
         });
     });

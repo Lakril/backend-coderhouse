@@ -28,12 +28,11 @@ class Sockets {
 
             // Listener event: add-product
             socket.on('add-product', async (product) => {
-                // console.log(product);
-                this.products.addProduct(product);
-                this.io.emit('products-get', this.products.getProducts());
+                await this.products.addProduct(product);
+                this.io.emit('products-realtime', await this.products.getProducts());
             });
 
-            socket.broadcast.emit('products-get', this.products.getProducts());
+            // socket.broadcast.emit('products-get', this.products.getProducts());
 
             // Listener event: disconnect
             socket.on('disconnect', () => {

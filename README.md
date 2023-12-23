@@ -1,5 +1,7 @@
 # Backend-jack
 
+Deployed app: <https://backend-coderhouse-lakril-d3296664b086.herokuapp.com/>
+
 To install dependencies:
 
 ```bash
@@ -30,13 +32,13 @@ e.g updated:
 
 ```json
 {
-    "title": "title test put",
-    "description": "description test put",
+    "title": "title test input",
+    "description": "description test input",
     "code": "codtestsPut",
     "price": 88,
     "stock": 55,
     "status": true,
-    "category": "category test put",
+    "category": "category test input",
     "thumbnails": ["https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"]
 }
 ```

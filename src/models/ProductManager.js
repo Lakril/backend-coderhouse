@@ -110,7 +110,7 @@ export class ProductManager {
     async deleteProduct(id) {
         try {
             // Validate the id
-            if (typeof id !== 'string' || isNaN(id)) {
+            if (typeof id !== 'number' || isNaN(id)) {
                 throw new Error('Invalid id');
             }
 
