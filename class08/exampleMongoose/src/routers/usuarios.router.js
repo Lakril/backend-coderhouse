@@ -27,12 +27,24 @@ usuariosRouter.post('/', extractFile('photo'), async (req, res) => {
   }
 });
 
-// usuariosRouter.put('/:id', extractFile('photo'), async (req, res) => {
-//   try {
-//     if (!req.file)
-//     const usuario = await usuariosManager.findByIdAndUpdate(req.params.id, req.body, { new: true });
-//     res.json(usuario);
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// });
+usuariosRouter.post('/:id/actualizaciones', extractFile('photo'), async (req, res) => {
+  const camposActualizar = {};
+  if (req.file) {
+    camposActualizar.photoUrl = req.file.path;
+  }
+  if (req.body.alieas) {
+    camposActualizar.alias = req.body.alias;
+  }
+  let actualizado;
+  try {
+    actualizado = await usuariosManager.findByIdAndUpdate(req.params.id, { $set: camposActualizar }, { new: true });
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+  if (!actualizado) {
+    return res.status(404).json({ message: 'Not found' });
+  }
+  res.json(actualizado.toObject());
+});
+
+
