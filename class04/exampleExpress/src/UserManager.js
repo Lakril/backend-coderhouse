@@ -1,6 +1,5 @@
 import fs from 'fs/promises';
 import { User } from './User.js';
-import e from 'express';
 
 export class UserManger {
   #route;

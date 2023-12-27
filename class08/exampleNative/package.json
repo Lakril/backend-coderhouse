@@ -1,0 +1,14 @@
+{
+  "name": "exemplenative",
+  "module": "index.js",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "mongodb": "^6.3.0"
+  }
+}

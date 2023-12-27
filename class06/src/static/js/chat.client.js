@@ -24,31 +24,26 @@ Swal.fire({
   }
 });
 
-function startChat(username) {
-  
-  // eslint-disable-next-line no-unused-vars, no-undef
+function startChat(user) {
   const socket = io({
     auth: {
-      username,
+      user,
     },
   });
-
 
   form?.addEventListener('submit', (event) => {
     event.preventDefault();
     const text = inputMessage?.value;
     if (text) {
       socket.emit('message', {
-        username,
-        text
+        timestamp: Date.now(),
+        user,
+        text,
       });
       // inputMessage.value = '';
       form.reset();
     }
   });
-
-  
-
 
   // use socket io to connect to the server
   socket.on('NewUser', (NewUser) => {
@@ -59,6 +54,7 @@ function startChat(username) {
       position: 'top-right',
     });
   });
+
   socket.on('disconnectedUser', (disconnectedUser) => {
     Swal.fire({
       text: disconnectedUser + 'has disconnected',
@@ -66,11 +62,12 @@ function startChat(username) {
       position: 'top-right',
     });
   });
+
   socket.on('messages', (messages) => {
     ulMessages.innerHTML = '';
-    for (const {username, text} of messages) {
+    for (const { timestamp, user, text } of messages) {
       const li = document.createElement('li');
-      li.innerHTML = username + ':'+ text;
+      li.innerHTML = `(${new Date(timestamp).toLocaleTimeString()}) ${user}: ${text}`;
       ulMessages?.appendChild(li);
     }
   });
