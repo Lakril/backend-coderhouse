@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { usuariosManager } from '../database/index.js';
+import { publicacionesManager, usuariosManager } from '../database/index.js';
 import { extractFile } from '../middlewares/fields.js';
 
 export const usuariosRouter = Router();
@@ -47,4 +47,31 @@ usuariosRouter.post('/:id/actualizaciones', extractFile('photo'), async (req, re
   res.json(actualizado.toObject());
 });
 
+usuariosRouter.delete('/:id', async (req, res) => {
+  const deleted = await usuariosManager.findByIdAndDelete(req.params.id);
+  if (!deleted) {
+    return res.status(404).json({ message: 'Not found' });
+  }
+  res.json(deleted);
+});
 
+usuariosRouter.post('/:id/publicaciones', extractFile('photo'), async (req, res) => {
+  if (req.file) {
+    req.body.fotoUrl = req.file.path;
+  }
+
+  const usuario = await usuariosManager.findById(req.params.id);
+  if (!usuario) {
+    return res.status(404).json({ message: 'Not found' });
+  }
+
+  let publicacion;
+  try {
+    publicacion = await publicacionesManager.create(req.body);
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+  usuario.agregarPublicacion(publicacion._id);
+
+  res.status(201).json(publicacion.toObject()); // POJO
+});

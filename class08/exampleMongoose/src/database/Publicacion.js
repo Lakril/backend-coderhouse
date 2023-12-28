@@ -7,6 +7,7 @@ const publicacionSchema = new Schema(
     _id: { type: String, default: randomUUID() },
     contenido: { type: String, required: true },
     fecha: { type: Date, default: () => new Date().toDateString() },
+    photoUrl: { type: String},
   },
   {
     strict: 'throw',

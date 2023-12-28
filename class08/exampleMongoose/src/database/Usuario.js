@@ -21,12 +21,11 @@ const usuarioSchema = new Schema(
     //     },
     // },
     methods: {
-      agregarAmigo: function (amigo) {
-        if (!this.amigos.includes(amigo)) {
-          this.amigos.push(amigo);
-        } else {
-          throw new Error('El amigo ya existe');
-        }
+      agregarPublicacion: async function (idPublicacion) {
+        if (!this.publicaciones.includes(idPublicacion)) {
+          this.publicaciones.push(idPublicacion);
+        } 
+        await this.save();
       },
     },
   }
