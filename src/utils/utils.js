@@ -10,4 +10,6 @@ export const clearConfigCache = () => {
 };
 
 // Navigate up to the project root
-export const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+export const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+
+// console.log(projectRoot)

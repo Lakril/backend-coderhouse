@@ -1,21 +1,23 @@
 // import express from 'express';
 import http from 'http';
-import mainRouter from './routes/main.routing.js';
-import ProductRouter from './routes/products.routing.js';
-import CartRouter from './routes/cart.routing.js';
+import mainRouter from '../routes/main.routing.js';
+import ProductRouter from '../routes/products.routing.js';
+import CartRouter from '../routes/cart.routing.js';
 import { Server as SocketIOServer } from 'socket.io';
 import path from 'path';
 import handlebars from 'express-handlebars';
 import express from 'express';
-import { projectRoot} from '../utils/utils.js';
-import Sockets from './dao/models/Sockets.js';
+import { projectRoot } from '../utils/utils.js';
+import Sockets from '../dao/models/Sockets.js';
 import process from 'process';
 import cors from 'cors';
+import { dbConnection } from './database.js';
 
 class Server {
     constructor() {
         this.port = process.env.PORT;
         this.host = process.env.HOST;
+        this.uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/ecommerce';
         this.app = express();
         this.httpServer = http.createServer(this.app);
         this.io = new SocketIOServer(this.httpServer, {
@@ -55,6 +57,7 @@ class Server {
         this.middlewares();
         this.routes();
         this.configSockets();
+        dbConnection(this.uri);
 
         // start server
         this.httpServer
