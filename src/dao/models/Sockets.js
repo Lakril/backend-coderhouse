@@ -11,7 +11,7 @@ class Sockets {
     socketEvents() {
         // On connection
         this.io.on('connection', async (socket) => {
-            console.log(`connect ${socket.id}`);
+            console.log(`connected: ${socket.id}`);
             // Emit all
             socket.emit('connected', socket.connected);
 
@@ -32,11 +32,9 @@ class Sockets {
                 this.io.emit('products-realtime', await this.products.getProducts());
             });
 
-            // socket.broadcast.emit('products-get', this.products.getProducts());
-
             // Listener event: disconnect
             socket.on('disconnect', () => {
-                console.log(`disconnect ${socket.id}`);
+                console.log(`disconnect: ${socket.id}`);
             });
         });
     }

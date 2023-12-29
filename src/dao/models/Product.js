@@ -1,7 +1,3 @@
-// import path from 'path';
-
-// const defaultImg = path.join(path.dirname(new URL(import.meta.url).pathname), '../public/img/imagNoAvalibel.jpg');
-
 //* Helper function
 export function notNull(value, name) {
     try {

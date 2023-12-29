@@ -1,4 +1,4 @@
-import { ProductManager } from '../models/ProductManager.js';
+import { ProductManager } from '../dao/models/ProductManager.js';
 const pm = new ProductManager('./database/products.json');
 
 export const controller = {
@@ -28,5 +28,3 @@ export const controller = {
         }
     },
 };
-
-// export default controller;

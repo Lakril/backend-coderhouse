@@ -1,9 +1,4 @@
-import { Cart } from '../models/Cart.js';
-
-// import path from 'path';
-// path to database
-// const filePathcart = path.join(path.dirname(new URL(import.meta.url).pathname), '../../database/cart.json');
-// const filePathpro = path.join(path.dirname(new URL(import.meta.url).pathname), '../../database/products.json');
+import { Cart } from '../dao/models/Cart.js';
 
 const ct = new Cart('./database/cart.json');
 

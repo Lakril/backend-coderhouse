@@ -1,6 +1,6 @@
 // Version: 1.0
 // author: Jackson Rico
-import Server from './src/models/Server.js';
+import Server from './src/Server.js';
 import dotenv from 'dotenv';
 dotenv.config();
 

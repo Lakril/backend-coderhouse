@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import { randomUUID } from 'crypto';
-import { ProductManager } from '../models/ProductManager.js';
+import { ProductManager } from './ProductManager.js';
 
 export class Cart {
     #path;

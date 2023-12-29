@@ -1,7 +1,4 @@
-import { ProductManager } from '../models/ProductManager.js';
-
-// import path from 'path';
-// const filePath = path.join(path.dirname(new URL(import.meta.url).pathname), '../../database/products.json');
+import { ProductManager } from '../dao/models/ProductManager.js';
 
 const pm = new ProductManager('./database/products.json');
 
