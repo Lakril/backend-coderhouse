@@ -7,7 +7,7 @@ import { Server as SocketIOServer } from 'socket.io';
 import path from 'path';
 import handlebars from 'express-handlebars';
 import express from 'express';
-import { projectRoot, clearConfigCache } from '../utils/utils.js';
+import { projectRoot} from '../utils/utils.js';
 import Sockets from './dao/models/Sockets.js';
 import process from 'process';
 import cors from 'cors';
@@ -78,7 +78,7 @@ class Server {
                 console.log('Server started...');
             });
 
-        clearConfigCache();
+        // clearConfigCache();
     }
 }
 
