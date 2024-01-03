@@ -7,8 +7,8 @@ import { Server as SocketIOServer } from 'socket.io';
 import path from 'path';
 import handlebars from 'express-handlebars';
 import express from 'express';
-import { projectRoot } from '../utils/utils.js';
-import Sockets from '../dao/models/Sockets.js';
+import { projectRoot, clearConfigCache } from '../utils/utils.js';
+import Sockets from '../dao/fileSystem/models/Sockets.js';
 import process from 'process';
 import cors from 'cors';
 import { dbConnection } from './database.js';
@@ -30,6 +30,7 @@ class Server {
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.static(path.resolve(projectRoot, './public')));
         this.app.use('/public', express.static(path.resolve(projectRoot, './public')));
+        this.app.use('/database', express.static(path.resolve(projectRoot, './database')));
 
         // view engine setup
         this.app.set('views', path.resolve(projectRoot, './src/views'));
@@ -62,9 +63,9 @@ class Server {
         // start server
         this.httpServer
             .listen(this.port, this.host, () => {
-                console.log(`1) http://${this.host}:${this.port}/`);
-                console.log(`2) http://${this.host}:${this.port}/api/products/`);
-                console.log(`3) http://${this.host}:${this.port}/realtimeproducts/`);
+                // console.log(`1) http://${this.host}:${this.port}/`);
+                // console.log(`2) http://${this.host}:${this.port}/api/products/`);
+                // console.log(`3) http://${this.host}:${this.port}/realtimeproducts/`);
             })
             .on('error', (err) => {
                 if (err.code === 'EADDRINUSE') {
@@ -81,8 +82,9 @@ class Server {
                 console.log('Server started...');
             });
 
-        // clearConfigCache();
+        clearConfigCache();
     }
 }
 
+console.log(path.resolve(projectRoot, './public'))
 export default Server;

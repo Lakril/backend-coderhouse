@@ -1,4 +1,4 @@
-import { ProductManager } from '../dao/models/ProductManager.js';
+import { ProductManager } from '../models/ProductManager.js';
 
 const pm = new ProductManager('./database/products.json');
 

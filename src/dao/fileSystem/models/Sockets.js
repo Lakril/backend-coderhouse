@@ -1,11 +1,11 @@
 import { ProductManager } from './ProductManager.js';
 
-// const pm = new ProductManager('./database/products.json');
+const pm = new ProductManager('./database/products.json');
 
 class Sockets {
     constructor(io) {
         this.io = io;
-        this.products = new ProductManager('./database/products.json');
+        this.products = pm
         this.socketEvents();
     }
     socketEvents() {

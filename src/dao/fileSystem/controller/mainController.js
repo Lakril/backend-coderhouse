@@ -1,5 +1,6 @@
-import { ProductManager } from '../dao/models/ProductManager.js';
-const pm = new ProductManager('./database/products.json');
+import { ProductManager } from '../models/ProductManager.js';
+
+const pm = new ProductManager( './database/products.json');
 
 export const controller = {
     index: (req, res) => {
