@@ -2,12 +2,14 @@
 import mongoose from 'mongoose';
 import process from 'process';
 
+
 export const dbConnection = async (uri) => {
     try {
         await mongoose.connect(uri, {});
         console.log('Connected to MongoDB');
 
         const db = mongoose.connection;
+        
 
         //CONNECTION EVENTS
         db.on('connected', () => {

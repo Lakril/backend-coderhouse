@@ -13,6 +13,7 @@ import process from 'process';
 import cors from 'cors';
 import { dbConnection } from './database.js';
 
+
 class Server {
     constructor() {
         this.port = process.env.PORT;
@@ -59,6 +60,7 @@ class Server {
         this.routes();
         this.configSockets();
         dbConnection(this.uri);
+
 
         // start server
         this.httpServer
