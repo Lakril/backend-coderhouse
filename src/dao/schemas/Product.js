@@ -1,25 +1,28 @@
-import { Schema, model } from 'mongoose';
-import { randomUUID } from 'crypto';
+import mongoose from 'mongoose';
+import AutoIncrementFactory from 'mongoose-sequence';
 
-
+const AutoIncrement = AutoIncrementFactory(mongoose);
+const Schema = mongoose.Schema;
 
 const productSchema = new Schema(
     {
-        _id: { type: String, default: randomUUID()},
+        _id: Number,
         title: { type: String, required: true },
-        price: { type: Number, required: true },
         description: { type: String, default: 'No description' },
-        thumbnails: { type: Array, default: ['/public/img/imagNoAvalibel.jpg'] },
+        code: { type: String, required: true, unique: true},
+        price: { type: Number, required: true },
         stock: { type: Number, required: true },
-        code: { type: String, required: true, unique: true },
+        thumbnails: { type: Array, default: ['/public/img/imagNoAvalibel.jpg'] },
         category: { type: String, required: true },
         status: { type: Boolean, default: true },
     },
     {
         strict: 'throw',
         versionKey: false,
+        _id: false ,
     }
 );
 
+productSchema.plugin(AutoIncrement);
 
-export default model('products', productSchema);
+export default mongoose.model('products', productSchema);
