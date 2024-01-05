@@ -14,13 +14,14 @@
             <img src="<%= product.thumbnails %>" alt="<%= product.thumbnails %>" class="product-image" style="max-width: 10%" >
             <p><%= product.description %></p>
             <p>category: <%= product.category %></p>
-            <p>Price: <%= product.price %></p>
+            <p>Price: $<%= product.price %></p>
             <a href="/api/products/<%= product._id %>" class="view-product">
                 View Post
             </a>
             <a class="remove-from-cart">Remove from Cart</a>
-            <button action="/api/products/<%= product._id %>" method="DELETE" class="delete-button" type='submit' id="${product.id}" >Delete</button>
+            <button class="delete-button" type="submit" data-id="<%= product._id %>">Delete</button>
         </div>
         <% }); %>
+        <script src="/public/js/main.js"></script>
     </body>
 </html>

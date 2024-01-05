@@ -1,6 +1,5 @@
 import { Cart } from '../models/Cart.js';
 
-
 const ct = new Cart('./database/cart.json');
 
 export const controller = {

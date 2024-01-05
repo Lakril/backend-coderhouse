@@ -5,7 +5,7 @@ const pm = new ProductManager('./database/products.json');
 class Sockets {
     constructor(io) {
         this.io = io;
-        this.products = pm
+        this.products = pm;
         this.socketEvents();
     }
     socketEvents() {

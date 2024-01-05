@@ -33,16 +33,7 @@ a {
     text-decoration: none;
 }
 
-a.view-product {
-    display: inline-block;
-    background-color: #3498db;
-    color: #fff;
-    padding: 10px 20px;
-    margin-top: 20px;
-    border: none;
-    cursor: pointer;
-}
-
+a.view-product,
 a.remove-from-cart {
     display: inline-block;
     background-color: #3498db;
@@ -53,11 +44,22 @@ a.remove-from-cart {
     cursor: pointer;
 }
 
-a.view-product:hover {
+a.view-product:hover,
+a.remove-from-cart:hover {
     background-color: #2980b9;
 }
 
-a.remove-from-cart:hover {
+button.delete-button {
+    display: inline-block;
+    background-color: #1789d4;
+    color: #fff;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+button.delete-button:hover {
     background-color: #2980b9;
 }
 
@@ -66,13 +68,27 @@ a.remove-from-cart:hover {
     justify-content: center;
     padding: 10px 0;
     width: 100%;
-    background-color: #1F487E;
+    background-color: #1f487e;
     color: #fff;
     border-radius: 0 0 8px 8px;
 }
 
 .card-button:hover {
     text-decoration: none;
-    background-color: #1D3461;
+    background-color: #1d3461;
+    color: #fff;
+}
+.delete-button {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    width: 100%;
+    background-color: #1f487e;
+    color: #fff;
+}
+
+.delete-button:hover {
+    text-decoration: none;
+    background-color: #1d3461;
     color: #fff;
 }

@@ -19,7 +19,7 @@
                 <img src="<%= product.thumbnails %>" alt="<%= product.thumbnails %>" class="img-fluid d-block mx-auto mb-3" style="max-width: 40%" >
                 <h5 id="product-title"> <a href="#" class="text-dark"><%= product.title %></a></h5>
                 <p class="cart-text"><%= product.description %></p>
-                <p class="cart-text">Price: <%= product.price %></p>
+                <p class="cart-text">Price: $<%= product.price %></p>
                 <p class="cart-text">Stock: <%= product.stock %></p>
                 <p class="cart-text">Category: <%= product.category %></p>
                 <button class="delete-button" type="submit" data-id="<%= product._id %>">Delete</button>

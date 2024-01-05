@@ -1,6 +1,6 @@
 import { ProductManager } from '../models/ProductManager.js';
 
-const pm = new ProductManager( './database/products.json');
+const pm = new ProductManager('./database/products.json');
 
 export const controller = {
     index: (req, res) => {

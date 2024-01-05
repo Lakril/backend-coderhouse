@@ -2,7 +2,6 @@ import Product from '../dao/schemas/Product.js';
 
 export const controller = {
     get: async (req, res) => {
-
         const { limit } = req.query;
         try {
             const products = await Product.find().limit(Number(limit)).lean();
@@ -55,7 +54,7 @@ export const controller = {
     },
     delete: async (req, res) => {
         res.json({ message: 'DELETE' });
-         const id = Number(req.params.pid);
+        const id = Number(req.params.pid);
         if (isNaN(id)) {
             return res.status(400).json({ message: 'Invalid product id' });
         }
