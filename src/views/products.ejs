@@ -7,21 +7,62 @@
         <title>Products</title>
     </head>
     <body>
+        <header>
+            <img src="https://richardmiddleton.me/comic-60.png" alt="" />
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="">About</a></li>
+                <li><a href="">Blog</a></li>
+                <li><a href="">Signup</a></li>
+                <li><a href="">Contact</a></li>
+            </ul>
+        </header>
+        <!--  -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>New product</h1>
+                <a href="#" id="button" class="button">Click Me</a>
+            </div>
+        </section>
+
         <h1>Products</h1>
         <% products.forEach(product => { %>
         <div class="product" data-id="<%= product._id %>">
             <h2><%= product.title %></h2>
-            <img src="<%= product.thumbnails %>" alt="<%= product.thumbnails %>" class="product-image" style="max-width: 10%" >
+            <img
+                src="<%= product.thumbnails %>"
+                alt="<%= product.thumbnails %>"
+                class="product-image"
+                style="max-width: 10%"
+            />
             <p><%= product.description %></p>
             <p>category: <%= product.category %></p>
             <p>Price: $<%= product.price %></p>
-            <a href="/api/products/<%= product._id %>" class="view-product">
-                View Post
-            </a>
+            <a href="/api/products/<%= product._id %>" class="view-product"> View Post </a>
             <a class="remove-from-cart">Remove from Cart</a>
             <button class="delete-button" type="submit" data-id="<%= product._id %>">Delete</button>
         </div>
         <% }); %>
+
+        <!-- Modal Section -->
+        <div class="bg-modal">
+            <div class="modal-contents">
+                <div class="close">&times;</div>
+                <h2 class="fs-title">Product Details</h2>
+                <form action="">
+                    <input name="title" type="text" placeholder="Title" />
+                    <textarea name="description" type="text" placeholder="Description" rows="3"></textarea>
+                    <input name="code"type="text" placeholder="code" />
+                    <input name="price" type="number" placeholder="Price" min="0.01" value="1" step="any" />
+                    <input name="stock" type="number" placeholder="Stock" min="1" value="1"/>
+                    <input name="category" type="text" placeholder="category" />
+                    <input name="thumbnails" type="text" placeholder="thumbnails" />
+                    <button href="#" class="button">Submit</button>
+                </form>
+            </div>
+        </div>
+
+
         <script src="/public/js/main.js"></script>
     </body>
 </html>
