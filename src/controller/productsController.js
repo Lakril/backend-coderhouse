@@ -2,6 +2,7 @@ import Product from '../dao/schemas/Product.js';
 
 export const controller = {
     get: async (req, res) => {
+
         const { limit } = req.query;
         try {
             const products = await Product.find().limit(Number(limit)).lean();
@@ -15,15 +16,19 @@ export const controller = {
     },
     getById: async (req, res) => {
         const id = Number(req.params.pid);
+
+        // const myArray = req.body.title
+        // console.log(myArray)
+
         if (isNaN(id)) {
             return res.status(400).json({ message: 'Invalid product id' });
         }
         try {
-            const product = await Product.find({_id:id});
+            const product = await Product.findById({ _id: id }).lean();
             if (!product) {
                 return res.status(404).json({ message: 'Product not found' });
             }
-            res.json(product);
+            res.render('product', { product });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -50,12 +55,12 @@ export const controller = {
     },
     delete: async (req, res) => {
         res.json({ message: 'DELETE' });
-        const id = Number(req.params.pid);
+         const id = Number(req.params.pid);
         if (isNaN(id)) {
             return res.status(400).json({ message: 'Invalid product id' });
         }
         try {
-            const product = await Product.findByIdAndDelete({_id:id});
+            const product = await Product.findByIdAndDelete({ _id: id });
             if (!product) {
                 return res.status(404).json({ message: 'Product not found' });
             }

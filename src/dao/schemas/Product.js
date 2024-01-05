@@ -7,9 +7,9 @@ const Schema = mongoose.Schema;
 const productSchema = new Schema(
     {
         _id: Number,
-        title: { type: String, required: true },
+        title: { type: String, required: true, trim: true },
         description: { type: String, default: 'No description' },
-        code: { type: String, required: true, unique: true},
+        code: { type: String, required: true, unique: true },
         price: { type: Number, required: true },
         stock: { type: Number, required: true },
         thumbnails: { type: Array, default: ['/public/img/imagNoAvalibel.jpg'] },
@@ -19,9 +19,14 @@ const productSchema = new Schema(
     {
         strict: 'throw',
         versionKey: false,
-        _id: false ,
+        _id: false,
     }
 );
+
+productSchema.pre('save', function (next) {
+    this.title = this.title.charAt(0).toUpperCase() + this.title.slice(1);
+    next();
+});
 
 productSchema.plugin(AutoIncrement);
 

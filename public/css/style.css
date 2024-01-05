@@ -29,7 +29,11 @@ p {
     line-height: 1.6;
 }
 
-button.add-to-cart {
+a {
+    text-decoration: none;
+}
+
+a.view-product {
     display: inline-block;
     background-color: #3498db;
     color: #fff;
@@ -39,6 +43,36 @@ button.add-to-cart {
     cursor: pointer;
 }
 
-button.add-to-cart:hover {
+a.remove-from-cart {
+    display: inline-block;
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+a.view-product:hover {
     background-color: #2980b9;
+}
+
+a.remove-from-cart:hover {
+    background-color: #2980b9;
+}
+
+.card-button {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    width: 100%;
+    background-color: #1F487E;
+    color: #fff;
+    border-radius: 0 0 8px 8px;
+}
+
+.card-button:hover {
+    text-decoration: none;
+    background-color: #1D3461;
+    color: #fff;
 }

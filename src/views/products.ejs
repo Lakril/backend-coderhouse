@@ -9,13 +9,17 @@
     <body>
         <h1>Products</h1>
         <% products.forEach(product => { %>
-        <div class="product" data-id="<%= product.id %>">
+        <div class="product" data-id="<%= product._id %>">
             <h2><%= product.title %></h2>
             <img src="<%= product.thumbnails %>" alt="<%= product.thumbnails %>" class="product-image" style="max-width: 10%" >
             <p><%= product.description %></p>
             <p>category: <%= product.category %></p>
             <p>Price: <%= product.price %></p>
-            <button class="add-to-cart">Add to Cart</button>
+            <a href="/api/products/<%= product._id %>" class="view-product">
+                View Post
+            </a>
+            <a class="remove-from-cart">Remove from Cart</a>
+            <button action="/api/products/<%= product._id %>" method="DELETE" class="delete-button" type='submit' id="${product.id}" >Delete</button>
         </div>
         <% }); %>
     </body>

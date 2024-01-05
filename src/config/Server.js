@@ -88,5 +88,5 @@ class Server {
     }
 }
 
-console.log(path.resolve(projectRoot, './public'))
+// console.log(path.resolve(projectRoot, './public'))
 export default Server;

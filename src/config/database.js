@@ -31,6 +31,7 @@ export const dbConnection = async (uri) => {
             process.exit(0);
         });
     } catch (error) {
+        // sudo systemctl start mongod
         console.error('Error connecting to MongoDB:', error.message);
 
         // Handle specific error conditions
