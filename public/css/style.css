@@ -1,6 +1,6 @@
-blue {
+/* blue {
     color: #1686d9;
-}
+} */
 
 body {
     font-family: Arial, sans-serif;
@@ -10,41 +10,34 @@ body {
 }
 
 header {
-	display: flex;
-	padding: 0 15px;
-	max-width: 800px;
-	margin: 0 auto;
-	justify-content: space-between;
-	align-items: center;
-	img {
-		width: 30px;
-	}
+    display: flex;
+    padding: 0 15px;
+    max-width: 800px;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+        width: 30px;
+    }
 }
 
 ul {
-	list-style: none;
+    list-style: none;
 }
 
 li {
-	display: inline;
-	padding: 6px;
-	a {
-		text-decoration: none;
-		color: black;
-		&:hover {
-			text-decoration: underline;
-		}
-	}
-}
+    display: inline;
+    padding: 6px;
 
-.hero {
-	background-size: cover;
-	height: 200px;
-	width: 100%;
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	align-items: left;
+    a {
+        text-decoration: none;
+        color: black;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 h1 {
@@ -120,6 +113,7 @@ button.delete-button:hover {
     background-color: #1d3461;
     color: #fff;
 }
+
 .delete-button {
     display: flex;
     justify-content: center;
@@ -135,51 +129,26 @@ button.delete-button:hover {
     color: #fff;
 }
 
-.button {
-	background-color: blue;
-	border: 2px solid white;
-	border-radius: 30px;
-	text-decoration: none;
-	padding: 10px 28px;
-	color: white;
-	margin-top: 10px;
-	display: inline-block;
-	&:hover {
-		background-color: white;
-		color: blue;
-		border: 2px solid blue;
-	}
-}
-
-
-
 /* Modal */
-.bg-modal {
-	background-color: rgba(0, 0, 0, 0.8);
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	display: none;
-	justify-content: center;
-	align-items: center;
-}
+.button {
+    background-color: blue;
+    border: 2px solid white;
+    border-radius: 30px;
+    text-decoration: none;
+    padding: 10px 28px;
+    color: white;
+    margin-top: 10px;
+    display: inline-block;
 
-.modal-contents {
-    background: white;
-    border: 0 none;
-	text-align: center;
-	padding: 20px 30px;
-	position: relative;
-    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-    width: 80%;
-    margin: 0 10%;
-    border-radius: 3px;
-    box-sizing: border-box;
+    &:hover {
+        background-color: white;
+        color: blue;
+        border: 2px solid blue;
+    }
 }
 
 input,
-  textarea {
+textarea {
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -189,22 +158,23 @@ input,
     font-family: montserrat;
     color: #2c3e50;
     font-size: 13px;
-    &:focus {
-      border-color: #679b9b;
-      outline: none;
-      color: #637373;
-    }
-  }
 
-.close {
-	position: absolute;
-	top: 0;
-	right: 10px;
-	font-size: 42px;
-	color: #333;
-	transform: rotate(45deg);
-	cursor: pointer;
-	&:hover {
-		color: #666;
-	}
+    &:focus {
+        border-color: #679b9b;
+        outline: none;
+        color: #637373;
+    }
+}
+
+dialog::backdrop {
+    background-color: hsl(250, 100%, 50%, 0.25);
+}
+
+dialog {
+    width: 70%;
+    height: 80%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 30px;
+    background-color: white;
 }

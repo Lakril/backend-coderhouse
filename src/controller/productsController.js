@@ -34,18 +34,9 @@ export const controller = {
     },
     post: async (req, res) => {
         res.json({ message: 'POST' });
-        const { title, description, code, price, stock, status, category, thumbnails } = req.body;
-
         try {
             const product = await Product.create({
-                title,
-                description,
-                code,
-                price,
-                stock,
-                status,
-                category,
-                thumbnails,
+                ...req.body,
             });
             res.status(201).json(product.toObject());
         } catch (error) {
@@ -67,5 +58,32 @@ export const controller = {
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
+    },
+    put: async (req, res) => {
+        res.json({ message: 'PUT' });
+        const { title, description, code, price, stock, status, category, thumbnails } = req.body;
+        const id = Number(req.params.pid);
+        try {
+            const product = await Product.findByIdAndUpdate(
+                { _id: id },
+                {
+                    title,
+                    description,
+                    code,
+                    price,
+                    stock,
+                    status,
+                    category,
+                    thumbnails,
+                },
+                { new: true }
+            );
+            res.json(product);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+    realtime: async (req, res) => {
+        return res.render('realTimeProducts.handlebars', { title: 'Real Time Products' });
     },
 };
