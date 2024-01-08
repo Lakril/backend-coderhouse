@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 const productSchema = new Schema(
     {
         _id: Number,
-        title: { type: String, required: true, trim: true },
+        title: { type: String, required: [true, 'You must provide an title.'], trim: true },
         description: { type: String, default: 'No description' },
         code: { type: String, required: true, unique: true },
         price: { type: Number, required: true },

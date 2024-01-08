@@ -28,8 +28,8 @@ socketClient.on('products-realtime', (data) => {
     data.forEach((product) => {
         myProducts.innerHTML += `
             <tr>
-                <td><button class="delete-button" type='submit' id="${product.id}" >Delete</button></td>
-                <td>${product.id}</td>
+                <td><button class="delete-button" type='submit' id="${product._id}" >Delete</button></td>
+                <td>${product._id}</td>
                 <td>${product.title}</td>
                 <td>${product.price}</td>
                 <td>${product.stock}</td>
@@ -55,7 +55,6 @@ socketClient.on('products-realtime', (data) => {
 
     // Get all the elements with tag name 'button'
     const elements = document.getElementsByClassName('delete-button');
-    // console.log(elements)
     Array.from(elements).forEach((element) => {
         element.addEventListener('click', () => {
             const id = parseInt(element.id);

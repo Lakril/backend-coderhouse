@@ -8,7 +8,6 @@
     </head>
     <body>
         <header>
-            <img src="https://richardmiddleton.me/comic-60.png" alt="" />
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="">About</a></li>
@@ -18,8 +17,8 @@
             </ul>
         </header>
         <div>
-            <h2>New product</h2>
-            <button data-open-modal class="button" id="updateDetails">New product</button>
+            <h2>Create product</h2>
+            <button data-open-modal class="button" id="updateDetails">Create product</button>
         </div>
         
 
@@ -37,7 +36,7 @@
             <p>category: <%= product.category %></p>
             <p>Price: $<%= product.price %></p>
             <a href="/api/products/<%= product._id %>" class="view-product"> View Post </a>
-            <a class="remove-from-cart">Remove from Cart</a>
+            <a class="add-cart" data-id="<%= product._id %>">Add to cart</a>
             <button class="delete-button" type="submit" data-id="<%= product._id %>">Delete</button>
         </div>
         <% }); %>
@@ -52,8 +51,8 @@
                 <input name="stock" type="number" placeholder="Stock" min="1" value="1" />
                 <input name="category" type="text" placeholder="category" />
                 <input name="thumbnails" type="url" placeholder="thumbnails" />
-                <button class="button" formmethod="dialog" type="submit">Cancel</button>
-                <button class="button" type="submit">Submit</button>
+                <button class="button" formmethod="dialog" type="submit" id="closeDialog">Cancel</button>
+                <button class="button" type="submit" id="post-button">Submit</button>
             </form>
         </dialog>
 

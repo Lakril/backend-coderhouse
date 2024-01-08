@@ -1,4 +1,4 @@
-import Product from '../dao/schemas/Product.js';
+import Product from '../dao/mongooseDB/schemas/Product.js';
 
 export const controller = {
     get: async (req, res) => {
@@ -9,6 +9,7 @@ export const controller = {
                 return res.status(404).json({ message: 'No products found' });
             }
             res.render('products', { products });
+            // res.json(products);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -34,13 +35,17 @@ export const controller = {
     },
     post: async (req, res) => {
         res.json({ message: 'POST' });
+        console.log(req.body)
+        
+        const product = await Product.create({
+            ...req.body
+        });
         try {
-            const product = await Product.create({
-                ...req.body,
-            });
+            await product.save();
             res.status(201).json(product.toObject());
+            // res.status(201).render('product', { product });
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            res.status(400).json({ message: error.message });
         }
     },
     delete: async (req, res) => {
@@ -63,21 +68,22 @@ export const controller = {
         res.json({ message: 'PUT' });
         const { title, description, code, price, stock, status, category, thumbnails } = req.body;
         const id = Number(req.params.pid);
+        const product = await Product.findByIdAndUpdate(
+            { _id: id },
+            {
+                title,
+                description,
+                code,
+                price,
+                stock,
+                status,
+                category,
+                thumbnails,
+            },
+            { new: true }
+        );
+        console.log(product)
         try {
-            const product = await Product.findByIdAndUpdate(
-                { _id: id },
-                {
-                    title,
-                    description,
-                    code,
-                    price,
-                    stock,
-                    status,
-                    category,
-                    thumbnails,
-                },
-                { new: true }
-            );
             res.json(product);
         } catch (error) {
             res.status(500).json({ message: error.message });

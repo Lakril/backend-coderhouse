@@ -69,7 +69,7 @@ a {
 }
 
 a.view-product,
-a.remove-from-cart {
+a.add-cart {
     display: inline-block;
     background-color: #3498db;
     color: #fff;
@@ -80,7 +80,7 @@ a.remove-from-cart {
 }
 
 a.view-product:hover,
-a.remove-from-cart:hover {
+a.add-cart:hover {
     background-color: #2980b9;
 }
 

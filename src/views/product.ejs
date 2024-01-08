@@ -34,7 +34,7 @@
         <!-- PUT - Form -->
         <dialog>
             <h2 class="fs-title">Product Details</h2>
-            <form class='form-product'>
+            <form class='form-put'>
                 <div class='form-group row mb-2'>
                     <label for='title' class='col-sm-2 col-form-label'>Title</label>
                     <div class='col-sm-10'>
@@ -154,7 +154,7 @@
                     </div>
 
                 </div>
-                <button class="button" formmethod="dialog" type="submit">Cancel</button>
+                <button class="button" formmethod="dialog" type="submit" id="closeDialog">Cancel</button>
                 <button type='submit' class='button' id="put-button" data-id="<%= product._id %>">
                     Update product
                 </button>

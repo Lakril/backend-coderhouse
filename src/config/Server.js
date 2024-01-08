@@ -7,7 +7,7 @@ import { Server as SocketIOServer } from 'socket.io';
 import path from 'path';
 import handlebars from 'express-handlebars';
 import express from 'express';
-import { projectRoot, clearConfigCache } from '../utils/utils.js';
+import { projectRoot } from '../utils/utils.js';
 import Sockets from '../dao/fileSystem/models/Sockets.js';
 import process from 'process';
 import cors from 'cors';
@@ -63,9 +63,9 @@ class Server {
         // start server
         this.httpServer
             .listen(this.port, this.host, () => {
-                // console.log(`1) http://${this.host}:${this.port}/`);
-                // console.log(`2) http://${this.host}:${this.port}/api/products/`);
-                // console.log(`3) http://${this.host}:${this.port}/realtimeproducts/`);
+                console.log(`1) http://${this.host}:${this.port}/`);
+                console.log(`2) http://${this.host}:${this.port}/api/products/`);
+                console.log(`3) http://${this.host}:${this.port}/realtimeproducts/`);
             })
             .on('error', (err) => {
                 if (err.code === 'EADDRINUSE') {
@@ -82,7 +82,7 @@ class Server {
                 console.log('Server started...');
             });
 
-        clearConfigCache();
+        // clearConfigCache();
     }
 }
 

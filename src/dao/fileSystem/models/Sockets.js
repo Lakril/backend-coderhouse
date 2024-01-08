@@ -1,11 +1,9 @@
-import { ProductManager } from './ProductManager.js';
-
-const pm = new ProductManager('./database/products.json');
+import Product from '../../mongooseDB/schemas/Product.js';
 
 class Sockets {
     constructor(io) {
         this.io = io;
-        this.products = pm;
+        this.products = Product;
         this.socketEvents();
     }
     socketEvents() {
@@ -17,19 +15,19 @@ class Sockets {
 
             // Emit all products
             console.log('List products sent to client');
-            socket.emit('products-realtime', await this.products.getProducts());
+            socket.emit('products-realtime', await this.products.find());
 
             // Listener event: remove-product
             socket.on('remove-product', async (id) => {
                 // console.log(id);
-                await this.products.deleteProduct(id);
-                socket.emit('products-realtime', await this.products.getProducts());
+                await this.products.findByIdAndDelete({ _id: id });
+                socket.emit('products-realtime', await this.products.find());
             });
 
             // Listener event: add-product
             socket.on('add-product', async (product) => {
-                await this.products.addProduct(product);
-                this.io.emit('products-realtime', await this.products.getProducts());
+                await this.products.create(product);
+                this.io.emit('products-realtime', await this.products.find());
             });
 
             // Listener event: disconnect
