@@ -99,9 +99,11 @@ const submitPost = async () => {
 
 const submitButtons = document.getElementById('post-button');
 
-submitButtons?.addEventListener('click', (event) => {
+
+submitButtons?.addEventListener('click', (event) => {    
     event.preventDefault();
     submitPost();
+    dialog.close();
 })
 
 
@@ -145,6 +147,7 @@ const submitButton = document.getElementById('put-button');
 submitButton?.addEventListener('click', (event) => {
     event.preventDefault();
     submitPut();
+    dialog.close();
 })
 
 
