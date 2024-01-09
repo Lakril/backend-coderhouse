@@ -37,7 +37,8 @@ export const controller = {
             if (!cart) {
                 return res.status(404).json({ message: 'Cart not found' });
             }
-            res.json(cart);
+            // res.json(cart);
+            return res.render('cart.handlebars', { cart: cart, title: 'Cart List' });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

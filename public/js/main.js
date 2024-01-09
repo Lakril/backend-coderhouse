@@ -144,5 +144,5 @@ submitButton?.addEventListener('click', (event) => {
 });
 
 // //* ------------------------------------ CART ------------------------------------ *//
-const cart = document.getElementsByClassName('add-cart');
-console.log(cart);
+// const cart = document.getElementsByClassName('add-cart');
+// console.log(cart);
