@@ -1,31 +1,57 @@
 import { Schema, model } from 'mongoose';
 import { randomUUID } from 'crypto';
-import Product from './Product';
+import Product from './Product.js';
 
 const cartSchema = new Schema(
     {
         _id: { type: String, default: randomUUID() },
         items: { type: Array, default: [] },
+        totalQty: { type: Number, default: 0 },
+        totalPrice: { type: Number, default: 0 },
     },
     {
         strict: 'throw',
         versionKey: false,
         timestamps: true,
-        methods: {
+        statics: {
             addItem: async function (pid, cid) {
                 // get product and cart
-                const cart = await Product.findById(cid).lean();
+                const cart = await this.findById({ _id: cid });
+                if (!cart) {
+                    throw new Error(`Cart with id: ${cid} not found`);
+                }
 
                 // find item in cart
-                const item = cart.find((p) => p._id === pid);
+                const item = cart.items.find((p) => p._id.toString() === pid.toString());
 
-                // if item exists, update quantity
-                if (!this.items.includes(pid)) {
-                    this.items.push(pid);
+                // if item exists, update quantity and price
+                if (item) {
+                    // update quantity item
+                    cart.items = cart.items.map((p) => {
+                        if (p._id.toString() === pid.toString()) {
+                            p.quantity += 1;
+                            p.totalPrice = p.price * p.quantity;
+                        }
+                        return p;
+                    });
+                    await cart.updateOne(cart);
+                    return cart;
                 } else {
-                    item.quantity += 1;
+                    // get product
+                    const product = await Product.findById({ _id: pid }).lean();
+                    // create new item
+                    const newItem = {
+                        _id: product._id,
+                        title: product.title,
+                        price: product.price,
+                        quantity: 1,
+                        totalPrice: product.price,
+                    };
+                    // add item to cart
+                    cart.items.push(newItem);
                 }
-                await this.save();
+                await cart.save();
+                return cart;
             },
             getItems: async function (cid) {
                 const cart = await this.findById(cid);
@@ -33,6 +59,14 @@ const cartSchema = new Schema(
                     throw new Error(`Cart with id: ${cid} not found`);
                 }
                 return this.items;
+            },
+            calculateTotal: async function (cart) {
+                const sum = cart.items.reduce((acc, item) => acc + item.totalPrice, 0);
+                cart.totalPrice = sum;
+                const totalQty = cart.items.reduce((acc, item) => acc + item.quantity, 0);
+                cart.totalQty = totalQty;
+                await cart.save();
+                return cart;
             },
         },
     }

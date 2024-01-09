@@ -17,9 +17,6 @@ export const controller = {
     getById: async (req, res) => {
         const id = Number(req.params.pid);
 
-        // const myArray = req.body.title
-        // console.log(myArray)
-
         if (isNaN(id)) {
             return res.status(400).json({ message: 'Invalid product id' });
         }
@@ -34,27 +31,26 @@ export const controller = {
         }
     },
     post: async (req, res) => {
-        res.json({ message: 'POST' });
-        console.log(req.body)
-        
         const product = await Product.create({
-            ...req.body
+            ...req.body,
         });
         try {
+            res.json({ message: 'POST' });
             await product.save();
             res.status(201).json(product.toObject());
+            console.log(product);
             // res.status(201).render('product', { product });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
     },
     delete: async (req, res) => {
-        res.json({ message: 'DELETE' });
         const id = Number(req.params.pid);
         if (isNaN(id)) {
             return res.status(400).json({ message: 'Invalid product id' });
         }
         try {
+            res.json({ message: 'DELETE' });
             const product = await Product.findByIdAndDelete({ _id: id });
             if (!product) {
                 return res.status(404).json({ message: 'Product not found' });
@@ -65,7 +61,6 @@ export const controller = {
         }
     },
     put: async (req, res) => {
-        res.json({ message: 'PUT' });
         const { title, description, code, price, stock, status, category, thumbnails } = req.body;
         const id = Number(req.params.pid);
         const product = await Product.findByIdAndUpdate(
@@ -80,13 +75,15 @@ export const controller = {
                 category,
                 thumbnails,
             },
-            { new: true }
+            { new: true, runValidators: true }
         );
-        console.log(product)
         try {
-            res.json(product);
+            res.json({ message: 'PUT' });
+            await product.save();
+            res.status(201).json(product.toObject());
+            console.log(product);
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            res.status(400).json({ message: error.message });
         }
     },
     realtime: async (req, res) => {
