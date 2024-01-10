@@ -8,5 +8,8 @@ router.get('/register', controller.register);
 router.get('/login', controller.login);
 router.get('/contact', controller.contact);
 router.get('/', controller.home);
+router.get('/chat', (req, res) => {
+    res.render('chat.handlebars', { title: 'Chat' })
+});
 
 export default router;
