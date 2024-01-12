@@ -1,4 +1,5 @@
 import Product from '../dao/mongooseDB/schemas/Product.js';
+import productsData from '../../database/products.json' with { type: 'json' };
 
 export const controller = {
     get: async (req, res) => {
@@ -25,7 +26,7 @@ export const controller = {
             if (!product) {
                 return res.status(404).json({ message: 'Product not found' });
             }
-            res.render('product', { product });
+            res.render('product', { product: product });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -82,6 +83,14 @@ export const controller = {
             await product.save();
             res.status(201).json(product.toObject());
             console.log(product);
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    },
+    upload: async (req, res) => {
+        try {
+            const newProducts = await Product.upload(productsData);
+            res.status(201).json(newProducts);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }

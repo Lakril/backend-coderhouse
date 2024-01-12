@@ -1,10 +1,17 @@
 {
-    "printWidth": 120,
+    "printWidth": 100,
     "tabWidth": 4,
     "useTabs": false,
     "semi": true,
     "singleQuote": true,
     "trailingComma": "es5",
     "extends": "prettier-config-google",
-    "exclude": ["node_modules/**", ".prettierrc", ".eslintrc.json", "package.json", ".env"]
+    "exclude": [
+        "node_modules/**",
+        ".prettierrc",
+        ".eslintrc.json",
+        "package.json",
+        ".env",
+        "**/*.handlebars"
+    ]
 }

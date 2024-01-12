@@ -1,5 +1,6 @@
-// import Product from '../dao/mongooseDB/schemas/Product.js';
 import Carts from '../dao/mongooseDB/schemas/Carts.js';
+
+// import Product from '../dao/mongooseDB/schemas/Product.js';
 
 export const controller = {
     postCart: async (req, res) => {

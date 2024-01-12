@@ -139,7 +139,7 @@ export class ProductManager {
 
         try {
             if (typeof productId !== 'number' || !productId) {
-                throw new Error(`The Id must be a number`);
+                throw new Error('The Id must be a number');
             }
 
             // validate fields

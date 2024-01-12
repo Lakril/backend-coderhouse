@@ -17,7 +17,7 @@ class Sockets {
 
             // Emit all products
             // console.log('List products sent to client');
-            socket.emit('products-realtime', await this.products.find(), (err,res) => {
+            socket.emit('products-realtime', await this.products.find(), (err, res) => {
                 if (err) {
                     console.log('Error sending products to client:', err);
                 } else {
@@ -38,7 +38,7 @@ class Sockets {
                 this.io.emit('products-realtime', await this.products.find());
             });
 
-            //? ------------------------------------ Chat-Messages ------------------------------------ *//
+            //? ----------- Chat-Messages ----------------- *//
 
             // user connected
             socket.on('user-connected', (username) => {
@@ -49,7 +49,7 @@ class Sockets {
             // Listener event: new-message
             socket.on('chat-messages', async (message) => {
                 console.log('Received message:', message);
-                
+
                 // Save the message to MongoDB
                 try {
                     await this.messages.create(message);
@@ -57,7 +57,6 @@ class Sockets {
                 } catch (error) {
                     console.error('Error saving message to database:', error);
                 }
-                
 
                 // Broadcast the message to all connected clients
                 this.io.emit('chat-messages', await this.messages.find());
@@ -68,7 +67,6 @@ class Sockets {
                 console.log(`disconnect: ${socket.id}`);
             });
         });
-        
     }
 }
 

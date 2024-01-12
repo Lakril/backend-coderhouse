@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-undef
+// eslint-disable-next-line
 const socketClient = io({});
 
 const form = document.querySelector('form');

@@ -1,4 +1,3 @@
-// import express from 'express';
 import http from 'http';
 import mainRouter from '../routes/main.routing.js';
 import ProductRouter from '../routes/products.routing.js';
@@ -66,7 +65,11 @@ class Server {
                 console.log(`1) http://${this.host}:${this.port}/`);
                 console.log(`2) http://${this.host}:${this.port}/api/products/`);
                 console.log(`3) http://${this.host}:${this.port}/realtimeproducts/`);
-                console.log(`3) http://${this.host}:${this.port}/chat/`);
+                console.log(`4) http://${this.host}:${this.port}/chat/`);
+                // eslint-disable-next-line
+                console.log(
+                    `5) http://${this.host}:${this.port}/api/products/upload/ reset database`
+                );
             })
             .on('error', (err) => {
                 if (err.code === 'EADDRINUSE') {

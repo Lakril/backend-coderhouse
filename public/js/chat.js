@@ -1,11 +1,11 @@
-// eslint-disable-next-line no-undef
+// eslint-disable-next-line
 const socketClient = io({});
 
 const form = document.querySelector('form');
 const inputMessage = document.querySelector('input');
 const ulMessages = document.querySelector('ul');
 
-// eslint-disable-next-line no-undef
+// eslint-disable-next-line
 Swal.fire({
     title: 'Welcome to Chat',
     html: `
@@ -20,7 +20,7 @@ Swal.fire({
         const email = document.getElementById('swal-input2').value;
         if (!username || !email) {
             // eslint-disable-next-line no-undef
-            Swal.showValidationMessage(`Please enter username and email`);
+            Swal.showValidationMessage('Please enter username and email');
         }
         return { username, email };
     },
@@ -49,11 +49,12 @@ const startChat = (data) => {
         ulMessages.innerHTML = '';
         data.forEach((message) => {
             let date = new Date(message.timestamp);
-            let formattedDate = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${(
-                '0' + date.getDate()
-            ).slice(-2)} ${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}:${(
-                '0' + date.getSeconds()
-            ).slice(-2)}`;
+            // eslint-disable-next-line
+            let formattedDate = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(
+                -2
+            )}-${('0' + date.getDate()).slice(-2)} ${('0' + date.getHours()).slice(-2)}:${(
+                '0' + date.getMinutes()
+            ).slice(-2)}:${('0' + date.getSeconds()).slice(-2)}`;
             ulMessages.innerHTML += `
                         <li>
                             <span>${formattedDate}</span>
@@ -73,7 +74,7 @@ const startChat = (data) => {
     });
 
     socketClient.on('disconnect', (disconnect) => {
-        console.log(disconnect)
+        console.log(disconnect);
         // eslint-disable-next-line no-undef
         Swal.fire({
             text: `${disconnect} has left the chat`,

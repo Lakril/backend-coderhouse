@@ -1,12 +1,38 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2022": true,
+        "mongo": true
     },
-    "extends": "eslint:recommended",
+    "extends": [
+        "eslint:recommended",
+        "plugin:prettier/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings"
+    ],
+    "parser": "@babel/eslint-parser",
     "parserOptions": {
+        "requireConfigFile": false,
         "ecmaVersion": 13,
-        "sourceType": "module"
+        "sourceType": "module",
+        "babelOptions": {
+            "presets": ["@babel/preset-env"],
+            "plugins": ["@babel/plugin-syntax-import-attributes"]
+        }
     },
-    "rules": {}
+    "rules": {
+        "indent": ["error", 4],
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"],
+        "no-unused-vars": "warn",
+        "max-len": ["error", { "code": 100 }],
+        "space-infix-ops": "error",
+        "camelcase": "error",
+        "object-curly-spacing": ["error", "always"],
+        // "array-bracket-spacing": ["error", "always"],
+        "key-spacing": ["error", { "beforeColon": false, "afterColon": true }],
+        "space-in-parens": ["error", "never"]
+        // "template-curly-spacing": ["error", "always"]
+        
+    }
 }
