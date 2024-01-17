@@ -1,18 +1,60 @@
 import Product from '../dao/mongooseDB/schemas/Product.js';
 import productsData from '../../database/products.json' with { type: 'json' };
+import mongoose from 'mongoose';
 
 export const controller = {
     get: async (req, res) => {
-        const { limit } = req.query;
+        const { limit, page, sort, filter } = req.query;
+
+        if (limit && isNaN(Number(limit))) {
+            return res.status(400).json({ message: 'Invalid limit' });
+        }
+        if (page && isNaN(Number(page))) {
+            return res.status(400).json({ message: 'Invalid page' });
+        }
+
+        // Create a sort object
+        const limitNumber = Number(limit) || 10;
+        const pageNumber = Number(page) || 1;
+
+        // Create a sort object
+        //* sort=field:order - http://127.0.0.1:3001/api/products?sort=stock
+        const sortObject = {};
+        if (sort) {
+            const sortArray = sort.split(':'); // Assume sort is in the format 'field:order'
+            sortObject[sortArray[0]] = sortArray[1] === 'desc' ? -1 : 1;
+        }
+
+        // Create a filter object
+        //* filter=field:value
+        //* http://127.0.0.1:3001/api/products?filter=price:168
+        //* http://127.0.0.1:3001/api/products?filter=category:jewelery
+        const filterObject = {};
+        if (filter) {
+            // Assume filter is in the format 'field:value'
+            const filterArray = filter.split(':');
+            filterObject[filterArray[0]] = filterArray[1];
+        }
+
         try {
-            const products = await Product.find().limit(Number(limit)).lean();
-            if (!products.length) {
-                return res.status(404).json({ message: 'No products found' });
+            const products = await Product.paginate(filterObject, {
+                limit: limitNumber,
+                page: pageNumber,
+                sort: sortObject,
+            });
+
+            if (!products.docs.length) {
+                return res.status(404).json({ products: products.docs });
             }
-            res.render('products', { products });
+
+            res.status(200).render('products', { products: products.docs });
             // res.json(products);
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            if (error instanceof mongoose.Error.ValidationError) {
+                res.status(400).json({ message: error.message });
+            } else {
+                res.status(500).json({ message: 'An error occurred while saving the product.' });
+            }
         }
     },
     getById: async (req, res) => {

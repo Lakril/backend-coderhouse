@@ -28,7 +28,9 @@ socketClient.on('products-realtime', (data) => {
     data.forEach((product) => {
         myProducts.innerHTML += `
             <tr>
-                <td><button class="delete-button" type='submit' id="${product._id}" >Delete</button></td>
+                <td>
+                <button class="delete-button" 
+                type='submit' id="${product._id}" >Delete</button></td>
                 <td>${product._id}</td>
                 <td>${product.title}</td>
                 <td>${product.price}</td>

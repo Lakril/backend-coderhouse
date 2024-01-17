@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import AutoIncrementFactory from 'mongoose-sequence';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const AutoIncrement = AutoIncrementFactory(mongoose);
 const Schema = mongoose.Schema;
@@ -59,6 +60,18 @@ const productSchema = new Schema(
                 }
                 return newProducts;
             },
+            // aggregate group by category
+            groupByCategory: async function () {
+                const products = await this.aggregate([
+                    {
+                        $group: {
+                            _id: '$category',
+                            products: { $push: '$$ROOT' },
+                        },
+                    },
+                ]);
+                return products;
+            },
         },
     }
 );
@@ -70,5 +83,8 @@ productSchema.pre('save', function (next) {
 
 // eslint-disable-next-line
 productSchema.plugin(AutoIncrement, { start_seq: 21 });
+productSchema.plugin(mongoosePaginate);
 
-export default mongoose.model('products', productSchema);
+const Product = mongoose.model('products', productSchema);
+
+export default Product;

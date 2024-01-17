@@ -9,7 +9,7 @@
         "start": "node app.js",
         "clean": "rm -rf dist && echo 'Done.'",
         "dev": "bun --watch run app.js",
-        "format": "bun prettier --write ."
+        "format": "bunx eslint . --ext .js --fix"
     },
     "peerDependencies": {
         "typescript": "^5.0.0"
@@ -29,6 +29,7 @@
         "express": "^4.18.2",
         "express-handlebars": "^7.1.2",
         "mongoose": "^8.0.3",
+        "mongoose-paginate-v2": "^1.8.0",
         "mongoose-sequence": "^6.0.0",
         "nodemon": "^3.0.2",
         "prettier": "^3.1.1",
