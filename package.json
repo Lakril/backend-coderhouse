@@ -9,7 +9,8 @@
         "start": "node app.js",
         "clean": "rm -rf dist && echo 'Done.'",
         "dev": "bun --watch run app.js",
-        "format": "bunx eslint . --ext .js --fix"
+        "eslint": "bunx eslint . --ext .js --fix",
+        "prettier": "bunx prettier . --write"
     },
     "peerDependencies": {
         "typescript": "^5.0.0"
