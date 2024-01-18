@@ -1,4 +1,4 @@
-//* ------------------------------------ DELETE BUTTON ------------------------------------ *//
+//* ----------------- DELETE BUTTON ------------------------------------ *//
 const delElements = document.getElementsByClassName('delete-button');
 
 // console.log(delElements[0].dataset.id);
@@ -152,5 +152,33 @@ document.querySelector('.form-filter').addEventListener('submit', function (even
 });
 
 // //* ------------------------------------ CART ------------------------------------ *//
-// const cart = document.getElementsByClassName('add-cart');
-// console.log(cart);
+const cart = document.getElementsByClassName('add-cart');
+
+for (let i = 0; i < cart.length; i++) {
+    cart[i].addEventListener('click', function () {
+        const id = this.dataset.id;
+        console.log(id);
+        fetch(`/api/carts/${id}/products/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                // refresh the page after deleting an element
+                // location.reload();
+                // redirect to another webpage after deleting an element
+                // window.location.href = '/api/products';
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    });
+}

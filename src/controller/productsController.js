@@ -41,13 +41,28 @@ export const controller = {
                 limit: limitNumber,
                 page: pageNumber,
                 sort: sortObject,
+                lean: true,
             });
 
             if (!products.docs.length) {
                 return res.status(404).json({ products: products.docs });
             }
 
-            res.status(200).render('products', { products: products.docs });
+            console.log(products)
+
+            res.status(200).render('products', {
+                products: products.docs,
+                ...products,
+                // totalDocs: products.totalDocs,
+                // limit: products.limit,
+                // totalPages: products.totalPages,
+                // page: products.page,
+                // pagingCounter: products.pagingCounter,
+                // hasPrevPage: products.hasPrevPage,
+                // hasNextPage: products.hasNextPage,
+                // prevPage: products.prevPage,
+                // nextPage: products.nextPage,
+            });
             // res.json(products);
         } catch (error) {
             if (error instanceof mongoose.Error.ValidationError) {
