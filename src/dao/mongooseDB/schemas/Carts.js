@@ -14,7 +14,8 @@ const cartSchema = new Schema(
         versionKey: false,
         timestamps: true,
         statics: {
-            addItem: async function (pid, cid) {
+            // addItem and updateItem quantity = Populate
+            addItem: async function (pid, cid, qty) {
                 // get product and cart
                 const cart = await this.findById({ _id: cid });
                 if (!cart) {
@@ -26,10 +27,10 @@ const cartSchema = new Schema(
 
                 // if item exists, update quantity and price
                 if (item) {
-                    // update quantity item
+                    // update quantity item and total price
                     cart.items = cart.items.map((p) => {
                         if (p._id.toString() === pid.toString()) {
-                            p.quantity += 1;
+                            p.quantity += qty;
                             p.totalPrice = p.price * p.quantity;
                         }
                         return p;
@@ -44,7 +45,7 @@ const cartSchema = new Schema(
                         _id: product._id,
                         title: product.title,
                         price: product.price,
-                        quantity: 1,
+                        quantity: qty,
                         totalPrice: product.price,
                     };
                     // add item to cart
@@ -52,13 +53,6 @@ const cartSchema = new Schema(
                 }
                 await cart.save();
                 return cart;
-            },
-            getItems: async function (cid) {
-                const cart = await this.findById(cid);
-                if (!cart) {
-                    throw new Error(`Cart with id: ${cid} not found`);
-                }
-                return this.items;
             },
             calculateTotal: async function (cart) {
                 const sum = cart.items.reduce((acc, item) => acc + item.totalPrice, 0);

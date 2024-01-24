@@ -1,5 +1,6 @@
 import Product from '../dao/mongooseDB/schemas/Product.js';
 import productsData from '../../database/products.json' with { type: 'json' };
+// import { inspect } from 'util';
 import mongoose from 'mongoose';
 
 export const controller = {
@@ -48,7 +49,8 @@ export const controller = {
                 return res.status(404).json({ products: products.docs });
             }
 
-            console.log(products)
+            // console.log(inspect(products, { showHidden: false, depth: 5, color: true }));
+            // console.log(products);
 
             res.status(200).render('products', {
                 products: products.docs,

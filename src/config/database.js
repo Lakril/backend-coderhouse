@@ -2,10 +2,11 @@
 import mongoose from 'mongoose';
 import process from 'process';
 
-export const dbConnection = async (uri) => {
+export const dbConnection = (uri) => {
     try {
-        await mongoose.connect(uri, {});
-        console.log('Connected to MongoDB');
+        mongoose.connect(uri, {
+            // serverSelectionTimeoutMS: 5000,
+        });
 
         const db = mongoose.connection;
 
@@ -20,6 +21,10 @@ export const dbConnection = async (uri) => {
         // Event handling for connection disconnect
         db.on('disconnected', () => {
             console.log('MongoDB disconnected');
+        });
+        // Event when the connection is reconnected
+        db.on('reconnected', () => {
+            console.log('Mongoose default connection is reconnected');
         });
 
         // Close the connection when done

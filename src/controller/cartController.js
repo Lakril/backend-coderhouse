@@ -1,27 +1,27 @@
 import Carts from '../dao/mongooseDB/schemas/Carts.js';
 
-// import Product from '../dao/mongooseDB/schemas/Product.js';
-
 export const controller = {
-    postCart: async (req, res) => {
-        res.json({ message: 'POST' });
-        const cart = await Carts.create(req.body);
-
-        try {
-            res.status(201).json(cart.toObject());
-        } catch (error) {
-            res.status(500).json({ message: error.message });
-        }
-    },
     post: async (req, res) => {
         const pid = Number(req.params.pid);
-        const cid = req.params.cid;
+        const qty = Number(req.body.qty);
+        console.log(qty);
 
-        if (!cid || !pid) {
+        if (!pid) {
             return res.status(400).json({ message: 'Missing fields' });
         }
+
         try {
-            const saveItem = await Carts.addItem(pid, cid);
+            // create cart if not exists
+            let cart = await Carts.find();
+            if (cart.length === 0) {
+                const newCart = await Carts.create({});
+                await newCart.save();
+                cart = await Carts.find();
+            }
+
+            // add item to cart
+            const cid = cart[0]._id;
+            const saveItem = await Carts.addItem(pid, cid, qty);
             const calculateTotal = await Carts.calculateTotal(saveItem);
             res.json(calculateTotal);
         } catch (error) {
@@ -44,4 +44,55 @@ export const controller = {
             res.status(500).json({ message: error.message });
         }
     },
+    delete: async (req, res) => {
+        const cid = req.params.cid;
+        const pid = req.params.pid;
+        if (!cid || !pid) {
+            return res.status(400).json({ message: 'Missing fields' });
+        }
+        try {
+            const cart = await Carts.findById(cid);
+            if (!cart) {
+                return res.status(404).json({ message: 'Cart not found' });
+            }
+            // remove item from cart
+            const item = cart.items.find((p) => p._id.toString() === pid.toString());
+            if (!item) {
+                return res.status(404).json({ message: 'Item not found' });
+            }
+            cart.items = cart.items.filter((p) => p._id.toString() !== pid.toString());
+            await Carts.calculateTotal(cart);
+            await cart.save();
+            return res.json(cart);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+    deleteAll: async (req, res) => {
+        const cid = req.params.cid;
+        if (!cid) {
+            return res.status(400).json({ message: 'Missing fields' });
+        }
+        try {
+            const cart = await Carts.findById(cid);
+            if (!cart) {
+                return res.status(404).json({ message: 'Cart not found' });
+            }
+            // remove all items from cart
+            cart.items = [];
+            await Carts.calculateTotal(cart);
+            await cart.save();
+            return res.json(cart);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+    // put: async (req, res) => {
+    //     // console.log(req.body);
+    // },
+    // putest: async (req, res) => {
+    //     let cart = await Carts.find();
+    //     // send id to client
+    //     res.json(cart[0]._id);
+    // },
 };

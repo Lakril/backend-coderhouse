@@ -49,8 +49,16 @@
             <p><%= product.description %></p>
             <p>category: <%= product.category %></p>
             <p>Price: $<%= product.price %></p>
+            <p>Qty: <%= product.stock %></p>
             <a href="/api/products/<%= product._id %>" class="view-product"> View Post </a>
-            <a class="add-cart" data-id="<%= product._id %>">Add to cart</a>
+            <form class="form-cart" data-id="<%= product._id %>">
+                <input type="number" class="qty" name="qty" min="1" max="<%= product.stock %>" value="1" data-id="<%= product._id %>"/>
+                <a type="submit" id="add-cart"class="add-cart" data-id="<%= product._id %>">Add to cart</a>
+            </form>
+
+            <!-- <a class="add-cart" data-id="<%= product._id %>">Update Qty</a> -->
+ 
+
             <button class="delete-button" type="submit" data-id="<%= product._id %>">Delete</button>
 
         </div>
