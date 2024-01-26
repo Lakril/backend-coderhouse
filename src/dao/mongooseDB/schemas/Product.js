@@ -72,6 +72,10 @@ const productSchema = new Schema(
                 ]);
                 return products;
             },
+            getUniqueCategories: async function () {
+                const categories = await this.distinct('category');
+                return categories;
+            },
         },
     }
 );

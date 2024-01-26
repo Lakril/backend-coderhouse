@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <link rel='stylesheet' href='/public/css/addtocart.css' />
+        <script src='https://kit.fontawesome.com/92d70a2fd8.js' crossorigin='anonymous'></script>
+    </head>
+    <body>
+        <div class='header'>
+            <p class='logo'>CART</p>
+            <div class='cart'><i class='fa-solid fa-cart-shopping'></i><p id='count'>{{cart.totalQty}} </p></div>
+        </div>
+        <div class='container'>
+            <div id='root'>
+                {{#each cart.items}}
+                    <div class='box'>
+                        <div class='img-box'>
+                            <img class='images' src='{{image}}' />
+                        </div>
+                        <div class='bottom'>
+                            <p>{{title}}</p>
+                            <h2>QTY: {{quantity}}</h2>
+                            <h2>$ {{price}}.00</h2>
+                            <button onclick='addtocart({{i}})'>Add to cart</button>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+            <div class='sidebar'>
+                <div class='head'><p>{{title}}</p></div>
+                <div id='cartItem'>Your cart is empty</div>
+                <div class='foot'>
+                    <h3>Total</h3>
+                    <h2 id='total'>$ 0.00</h2>
+                </div>
+            </div>
+        </div>
+        <script src='/js/addtocart.js'>
+
+        </script>
+    </body>
+</html>

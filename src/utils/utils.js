@@ -13,3 +13,7 @@ export const clearConfigCache = () => {
 export const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
 // console.log(projectRoot)
+
+export const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+};

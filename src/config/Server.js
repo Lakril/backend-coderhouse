@@ -6,7 +6,7 @@ import ProductRouter from '../routes/products.routing.js';
 import CartRouter from '../routes/cart.routing.js';
 import { Server as SocketIOServer } from 'socket.io';
 import path from 'path';
-import handlebars from 'express-handlebars';
+import { engine } from 'express-handlebars';
 import express from 'express';
 import { projectRoot } from '../utils/utils.js';
 import Sockets from '../dao/mongooseDB/schemas/Sockets.js';
@@ -34,11 +34,11 @@ class Server {
         this.app.use('/database', express.static(path.resolve(projectRoot, './database')));
 
         // view engine setup
-        this.app.set('views', path.resolve(projectRoot, './src/views'));
         // https://github.com/express-handlebars/express-handlebars
-        this.app.engine('handlebars', handlebars.engine());
-        this.app.set('view engine', 'handlebars');
+        this.app.engine('.hbs', engine({ extname: '.hbs' }));
+        this.app.set('view engine', '.hbs');
         this.app.set('view engine', 'ejs');
+        this.app.set('views', path.resolve(projectRoot, './src/views'));
 
         // restrict CORS
         this.app.use(cors());

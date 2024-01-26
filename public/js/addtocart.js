@@ -1,38 +1,34 @@
-const product = [
-    {
-        id: 0,
-        image: 'image/gg-1.jpg',
-        title: 'Z Flip Foldable Mobile',
-        price: 120,
-    },
-    {
-        id: 1,
-        image: 'image/hh-2.jpg',
-        title: 'Air Pods Pro',
-        price: 60,
-    },
-    {
-        id: 2,
-        image: 'image/ee-3.jpg',
-        title: '250D DSLR Camera',
-        price: 230,
-    },
-    {
-        id: 3,
-        image: 'image/aa-1.jpg',
-        title: 'Head Phones',
-        price: 100,
-    },
-];
-const categories = [
-    ...new Set(
-        product.map((item) => {
-            return item;
-        })
-    ),
-];
+// import Handlebars from 'handlebars';
+// // compile the template
+// // const template = Handlebars.compile(document.querySelector('.root').innerHTML);
 
-console.log(categories);
+// // console.log(template);
+
+// Handlebars.registerHelper('cart', function (obj) {
+//     return JSON.stringify(obj, null, 3);
+// });
+
+// // get the div where we want to display the products
+// const rootElement = document.querySelector('#root');
+
+// const rootElementData = {
+//     id: rootElement._id,
+//     items: rootElement.items,
+//     // add any other properties you need
+// };
+// const rootElementDataJson = JSON.stringify(rootElementData);
+
+// console.log(rootElement);
+
+// const categories = [
+//     ...new Set(
+//         product.map((item) => {
+//             return item;
+//         })
+//     ),
+// ];
+
+// console.log(categories);
 // let i = 0;
 // document.getElementById('root').innerHTML = categories
 //     .map((item) => {

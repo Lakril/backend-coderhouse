@@ -27,10 +27,9 @@
             <form class="form-filter">
                 <select name="category" id="category">
                     <option value="all">All</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="clothes">Clothes</option>
-                    <option value="shoes">Shoes</option>
-                    <option value="accessories">Accessories</option>
+                    <% categories.forEach(category => { %>
+                    <option value="<%= category %>"><%= category %></option>
+                    <% }); %>
                 </select>
                 <button class="button" type="submit" id="filter-button">Filter</button>
             </form>
@@ -55,10 +54,6 @@
                 <input type="number" class="qty" name="qty" min="1" max="<%= product.stock %>" value="1" data-id="<%= product._id %>"/>
                 <a type="submit" id="add-cart"class="add-cart" data-id="<%= product._id %>">Add to cart</a>
             </form>
-
-            <!-- <a class="add-cart" data-id="<%= product._id %>">Update Qty</a> -->
- 
-
             <button class="delete-button" type="submit" data-id="<%= product._id %>">Delete</button>
 
         </div>

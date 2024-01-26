@@ -150,7 +150,11 @@ submitButton?.addEventListener('click', (event) => {
 document.querySelector('.form-filter').addEventListener('submit', function (event) {
     event.preventDefault();
     const category = document.querySelector('#category').value;
-    window.location.href = `/api/products?filter=category:${category}`;
+    if (category === 'all') {
+        window.location.href = '/api/products';
+    } else {
+        window.location.href = `/api/products?filter=category:${category}`;
+    }
 });
 
 //* ------------------------------------ CART ------------------------------------ *//
@@ -167,7 +171,7 @@ const submitCart = async () => {
             const formData = new FormData(formCart[i]);
             // formData.append('_id', id);
             const data = Object.fromEntries(formData);
-            console.log(data);
+            console.log(`add to cart: ${data}`);
 
             fetch(`/api/carts/${id}`, {
                 method: 'POST',
@@ -189,11 +193,13 @@ const submitCart = async () => {
                     );
                     if (userConfirmation) {
                         window.location.href = `/api/carts/${data._id}`;
+                    } else {
+                        // Refresh the page
+                        location.reload();
                     }
-                    // refresh the page after deleting an element
-                    // location.reload();
-                    // redirect to another webpage after deleting an element
-                    // window.location.href = '/api/products';
+
+                    // reset the form
+                    formCart[i].reset();
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -208,137 +214,3 @@ for (let i = 0; i < submitButtonsCart.length; i++) {
         submitCart();
     });
 }
-// const submitButtonsCart = document.getElementById('add-cart').value;
-// console.log(submitButtonsCart);
-
-// for (let i = 0; i < submitButtonsCart.length; i++) {
-//     submitButtonsCart[i].addEventListener('click', (event) => {
-//         event.preventDefault();
-//         submitCart();
-//     });
-// }
-
-// console.log(submitButtonsCart);
-// submitButtonsCart?.addEventListener('click', (event) => {
-//     event.preventDefault();
-//     submitCart();
-// });
-
-// const cart = document.getElementsByClassName('add-cart');
-
-// for (let i = 0; i < cart.length; i++) {
-//     cart[i].addEventListener('click', function () {
-//         const id = this.dataset.id;
-//         console.log(this.dataset);
-
-//         newFunction();
-//         fetch('/api/carts/:cid/products', {
-//             method: 'PUT',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(this.dataset._id),
-//         })
-//             .then((response) => {
-//                 if (!response.ok) {
-//                     throw new Error('Network response was not ok');
-//                 }
-//                 return response.json();
-//             })
-//             .then((data) => {
-//                 console.log(data);
-//                 // refresh the page after deleting an element
-//                 // location.reload();
-//                 // redirect to another webpage after deleting an element
-//                 // window.location.href = '/api/products';
-//             })
-//             .catch((error) => {
-//                 console.error('Error:', error);
-//             });
-
-//         function newFunction() {
-//             let myMap = new Map();
-//             for (let i = 0; i < inputValue.length; i++) {
-//                 inputValue[i].preventDefault;
-//                 myMap.set(inputValue[i].dataset.id, [
-//                     inputValue[i].name,
-//                     Number(inputValue[i].value),
-//                 ]);
-//             }
-//             return console.log(myMap);
-//         }
-//     });
-// }
-
-// quantity
-// const form = document.querySelectorAll('.cart-qty');
-
-// for (let i = 0; i < form.length; i++) {
-//     form[i].addEventListener('submit', function (event) {
-//         event.preventDefault();
-//         const id = this.dataset.id;
-//         console.log(id);
-//         const formData = new FormData(form[i]);
-//         const data = Object.fromEntries(formData);
-//         // console.log(data._id);
-
-//         fetch(`/api/carts/cid/${id}`, {
-//             method: 'PUT',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             // body: JSON.stringify(data),
-//         })
-//             .then((response) => {
-//                 if (!response.ok) {
-//                     throw new Error('Network response was not ok');
-//                 }
-//                 return response.json();
-//             })
-//             .then((data) => {
-//                 console.log(data);
-//                 // refresh the page after deleting an element
-//                 // location.reload();
-//                 // redirect to another webpage after deleting an element
-//                 // window.location.href = '/api/products';
-//             })
-//             .catch((error) => {
-//                 console.error('Error:', error);
-//             });
-//     });
-// }
-
-// // Create a new button element
-// const button = document.createElement('button');
-// button.setAttribute('type', 'submit');
-// button.setAttribute('data-id', '<%= product._id %>');
-
-// // Set the button text
-// button.textContent = 'Submit';
-
-// // Add a click event listener to the button
-// button.addEventListener('click', function (event) {
-//     // Prevent the form from being submitted normally
-//     event.preventDefault();
-
-//     // Get the input value
-//     const inputValue = document.querySelector('input').value;
-//     const id = this.dataset.id;
-
-//     // Log the input value
-//     console.log(inputValue);
-//     console.log(id);
-
-//     // get id from array product
-//     // for (let i = 0; i < cart.length; i++) {
-//     //     button[i].addEventListener('click', function () {
-//     //         const id = this.dataset.id;
-//     //         console.log(id);
-//     //     });
-//     // }
-
-//     // You can also send the input value to a server here
-// });
-
-// // Append the button to the form
-// form.appendChild(button);

@@ -38,6 +38,8 @@ export const controller = {
         }
 
         try {
+            const categories = await Product.getUniqueCategories();
+
             const products = await Product.paginate(filterObject, {
                 limit: limitNumber,
                 page: pageNumber,
@@ -54,16 +56,8 @@ export const controller = {
 
             res.status(200).render('products', {
                 products: products.docs,
-                ...products,
-                // totalDocs: products.totalDocs,
-                // limit: products.limit,
-                // totalPages: products.totalPages,
-                // page: products.page,
-                // pagingCounter: products.pagingCounter,
-                // hasPrevPage: products.hasPrevPage,
-                // hasNextPage: products.hasNextPage,
-                // prevPage: products.prevPage,
-                // nextPage: products.nextPage,
+                // ...products.docs,
+                categories: categories,
             });
             // res.json(products);
         } catch (error) {
@@ -155,6 +149,6 @@ export const controller = {
         }
     },
     realtime: async (req, res) => {
-        return res.render('realTimeProducts.handlebars', { title: 'Real Time Products' });
+        return res.render('realTimeProducts.hbs', { title: 'Real Time Products' });
     },
 };

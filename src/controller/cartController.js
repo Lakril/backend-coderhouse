@@ -34,12 +34,12 @@ export const controller = {
             return res.status(400).json({ message: 'Missing fields' });
         }
         try {
-            const cart = await Carts.findById(cid);
+            const cart = await Carts.findById(cid).lean();
             if (!cart) {
                 return res.status(404).json({ message: 'Cart not found' });
             }
             // res.json(cart);
-            return res.render('cart.handlebars', { cart: cart, title: 'Cart List' });
+            return res.render('cart.hbs', { cart: cart, title: 'My cart' });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
