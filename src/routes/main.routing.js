@@ -9,7 +9,7 @@ router.get('/login', controller.login);
 router.get('/contact', controller.contact);
 router.get('/', controller.home);
 router.get('/chat', (req, res) => {
-    res.render('chat.handlebars', { title: 'Chat' });
+    res.render('chat.hbs', { title: 'Chat' });
 });
 
 export default router;
