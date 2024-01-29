@@ -1,40 +1,63 @@
-<html>
+<html lang='en'>
     <head>
+        <meta charset='UTF-8' />
+        <link rel='icon' href='/public/img/favicon.ico' type='image/x-icon' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
         <link rel='stylesheet' href='/public/css/addtocart.css' />
         <script src='https://kit.fontawesome.com/92d70a2fd8.js' crossorigin='anonymous'></script>
     </head>
     <body>
         <div class='header'>
             <p class='logo'>CART</p>
-            <div class='cart'><i class='fa-solid fa-cart-shopping'></i><p id='count'>{{cart.totalQty}} </p></div>
+            <div class='cart'><i class='fa-solid fa-cart-shopping'></i><p
+                    id='count'
+                >{{cart.totalQty}} </p></div>
         </div>
         <div class='container'>
-            <div id='root'>
-                {{#each cart.items}}
-                    <div class='box'>
-                        <div class='img-box'>
-                            <img class='images' src='{{image}}' />
+            <div id='root' data-cid='{{cart._id}}'>
+                {{#if cart.items.length}}
+                    {{#each cart.items}}
+                        <div class='box'>
+                            <div class='img-box'>
+                                <img class='images' src='{{image}}' />
+                            </div>
+                            <div class='bottom'>
+                                <p>{{title}}</p>
+                                <h2>QTY: {{quantity}}</h2>
+                                <h2>$ {{price}}.00</h2>
+                                <button onclick='deleteItem({{json _id}})'>Delete Item</button>
+                            </div>
                         </div>
-                        <div class='bottom'>
-                            <p>{{title}}</p>
-                            <h2>QTY: {{quantity}}</h2>
-                            <h2>$ {{price}}.00</h2>
-                            <button onclick='addtocart({{i}})'>Add to cart</button>
-                        </div>
-                    </div>
-                {{/each}}
+                    {{/each}}
+                    {{! <div class='head'><p>Products</p></div> }}
+                {{else}}
+                    <div class='box'><p>Cart is empty</p></div>
             </div>
+                {{/if}}
             <div class='sidebar'>
-                <div class='head'><p>{{title}}</p></div>
-                <div id='cartItem'>Your cart is empty</div>
+                <div class='head'><p>Details Cart</p></div>
+                <div class='head'><p>Total Products: {{cart.totalQty}}</p></div>
                 <div class='foot'>
                     <h3>Total</h3>
-                    <h2 id='total'>$ 0.00</h2>
+                    <h2 id='total'>$ {{decimal cart.totalPrice}}</h2>
                 </div>
+                <button onclick='deleteCart({{json cart._id}})'>Delete Cart</button>
             </div>
         </div>
         <script src='/js/addtocart.js'>
 
         </script>
+    </body>
+</html>
+
+
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <title>Document</title>
+    </head>
+    <body>
+
     </body>
 </html>

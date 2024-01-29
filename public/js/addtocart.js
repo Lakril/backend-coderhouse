@@ -1,89 +1,34 @@
-// import Handlebars from 'handlebars';
-// // compile the template
-// // const template = Handlebars.compile(document.querySelector('.root').innerHTML);
+// eslint-disable-next-line no-unused-vars
+async function deleteItem(event) {
+    const cartId = document.getElementById('root').dataset.cid;
+    await fetch(`/api/carts/${cartId}/products/${event}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+}
 
-// // console.log(template);
+// eslint-disable-next-line no-unused-vars
+async function deleteCart(event) {
+    console.log(event);
+    await fetch(`/api/carts/${event}/products`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+}
 
-// Handlebars.registerHelper('cart', function (obj) {
-//     return JSON.stringify(obj, null, 3);
+//*---------------------------------
+
+const items = document.getElementById('cartItem').dataset;
+
+// Object.entries(items).forEach(([key, value]) => {
+//     console.log(`${key}: ${value}`);
 // });
 
-// // get the div where we want to display the products
-// const rootElement = document.querySelector('#root');
+console.log(items);
 
-// const rootElementData = {
-//     id: rootElement._id,
-//     items: rootElement.items,
-//     // add any other properties you need
-// };
-// const rootElementDataJson = JSON.stringify(rootElementData);
-
-// console.log(rootElement);
-
-// const categories = [
-//     ...new Set(
-//         product.map((item) => {
-//             return item;
-//         })
-//     ),
-// ];
-
-// console.log(categories);
-// let i = 0;
-// document.getElementById('root').innerHTML = categories
-//     .map((item) => {
-//         var { image, title, price } = item;
-//         return (
-//             `<div class='box'>
-//             <div class='img-box'>
-//                 <img class='images' src=${image}></img>
-//             </div>
-//         <div class='bottom'>
-//         <p>${title}</p>
-//         <h2>$ ${price}.00</h2>` +
-//             `<button onclick='addtocart(${i++})'>Add to cart</button>` +
-//             `</div>
-//         </div>`
-//         );
-//     })
-//     .join('');
-
-// var cart = [];
-
-// function addtocart(a) {
-//     cart.push({ ...categories[a] });
-//     displaycart();
-// }
-// function delElement(a) {
-//     cart.splice(a, 1);
-//     displaycart();
-// }
-
-// function displaycart() {
-//     let j = 0,
-//         total = 0;
-//     document.getElementById('count').innerHTML = cart.length;
-//     if (cart.length == 0) {
-//         document.getElementById('cartItem').innerHTML = 'Your cart is empty';
-//         document.getElementById('total').innerHTML = '$ ' + 0 + '.00';
-//     } else {
-//         document.getElementById('cartItem').innerHTML = cart
-//             .map((items) => {
-//                 var { image, title, price } = items;
-//                 total = total + price;
-//                 document.getElementById('total').innerHTML = '$ ' + total + '.00';
-//                 return (
-//                     `<div class='cart-item'>
-//                 <div class='row-img'>
-//                     <img class='rowimg' src=${image}>
-//                 </div>
-//                 <p style='font-size:12px;'>${title}</p>
-//                 <h2 style='font-size: 15px;'>$ ${price}.00</h2>` +
-//                     "<i class='fa-solid fa-trash' onclick='delElement(" +
-//                     j++ +
-//                     ")'></i></div>"
-//                 );
-//             })
-//             .join('');
-//     }
-// }
+// const json = JSON.parse(items.cartitem);
+// console.log(json);

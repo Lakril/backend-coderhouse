@@ -4,7 +4,7 @@ export const controller = {
     post: async (req, res) => {
         const pid = Number(req.params.pid);
         const qty = Number(req.body.qty);
-        console.log(qty);
+        // console.log(qty);
 
         if (!pid) {
             return res.status(400).json({ message: 'Missing fields' });
@@ -47,6 +47,8 @@ export const controller = {
     delete: async (req, res) => {
         const cid = req.params.cid;
         const pid = req.params.pid;
+        // console.log(`cid: ${cid}, pid: ${pid}`);
+
         if (!cid || !pid) {
             return res.status(400).json({ message: 'Missing fields' });
         }

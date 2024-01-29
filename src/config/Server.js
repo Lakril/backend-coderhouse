@@ -35,7 +35,20 @@ class Server {
 
         // view engine setup
         // https://github.com/express-handlebars/express-handlebars
-        this.app.engine('.hbs', engine({ extname: '.hbs' }));
+        this.app.engine(
+            '.hbs',
+            engine({
+                extname: '.hbs',
+                helpers: {
+                    json: function (context) {
+                        return JSON.stringify(context);
+                    },
+                    decimal: function (context) {
+                        return context.toLocaleString();
+                    },
+                },
+            })
+        );
         this.app.set('view engine', '.hbs');
         this.app.set('view engine', 'ejs');
         this.app.set('views', path.resolve(projectRoot, './src/views'));
