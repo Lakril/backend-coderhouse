@@ -21,19 +21,21 @@
             <h2>Create product</h2>
             <button data-open-modal class="button" id="updateDetails">Create product</button>
         </div>
-
-        <!-- filter by category -->
         <div>
             <h2>Filter by category</h2>
+            <!-- filter by category -->
             <form class="form-filter">
                 <select name="category" id="category">
-                    <option value="all">All</option>
-                    <% categories.forEach(category => { %>
-                    <option value="<%= category %>"><%= category %></option>
-                    <% }); %>
+                <option value="all">All</option>
+                <% categories.forEach(category => { %>
+                <option value="<%= category %>"><%= category %></option>
+                <% }); %>
                 </select>
                 <button class="button" type="submit" id="filter-button">Filter</button>
             </form>
+        </div>
+        
+        <div>
         
 
         <h1>Products</h1>
@@ -74,6 +76,10 @@
                 <button class="button" type="submit" id="post-button">Submit</button>
             </form>
         </dialog>
+
+        <div class="pagination" data-pages="<%= JSON.stringify(paginate) %>">
+            <!-- paginator -->
+        </div>
 
         <script src="/public/js/main.js"></script>
     </body>

@@ -7,6 +7,7 @@ export const controller = {
     get: async (req, res) => {
         const { limit, page, sort, filter } = req.query;
 
+        //localhost:3001/api/products?limit=5
         if (limit && isNaN(Number(limit))) {
             return res.status(400).json({ message: 'Invalid limit' });
         }
@@ -15,7 +16,7 @@ export const controller = {
         }
 
         // Create a sort object
-        const limitNumber = Number(limit) || 10;
+        const limitNumber = Number(limit) || 5;
         const pageNumber = Number(page) || 1;
 
         // Create a sort object
@@ -56,10 +57,21 @@ export const controller = {
 
             res.status(200).render('products', {
                 products: products.docs,
-                // ...products.docs,
                 categories: categories,
+                paginate: {
+                    totalDocs: products.totalDocs,
+                    totalPages: products.totalPages,
+                    page: products.page,
+                    limit: products.limit,
+                    pagingCounter: products.pagingCounter,
+                    hasPrevPage: products.hasPrevPage,
+                    hasNextPage: products.hasNextPage,
+                    prevPage: products.prevPage,
+                    nextPage: products.nextPage,
+                },
             });
             // res.json(products);
+            // console.log(products);
         } catch (error) {
             if (error instanceof mongoose.Error.ValidationError) {
                 res.status(400).json({ message: error.message });

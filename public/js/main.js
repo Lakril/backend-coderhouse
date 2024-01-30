@@ -157,6 +157,56 @@ document.querySelector('.form-filter').addEventListener('submit', function (even
     }
 });
 
+//* --------------------------- PAGINATOR ------------------------------------ *//
+const infoPaginate = document.getElementsByClassName('pagination')[0].dataset.pages;
+
+const paginate = (infoPaginate) => {
+    const info = JSON.parse(infoPaginate);
+    const currentPage = info.page;
+    const totalPages = info.totalPages;
+    const limit = info.limit;
+    const prevPage = info.prevPage ?? 1;
+    const nextPage = info.nextPage ?? totalPages;
+
+    const pagination = document.querySelector('.pagination');
+    const ul = document.createElement('ul');
+    ul.classList.add('pagination-list');
+    pagination.appendChild(ul);
+
+    // first page
+    const liFirst = document.createElement('li');
+    liFirst.classList.add('pagination');
+    liFirst.innerHTML = `<a href="/api/products?page=1&limit=${limit}">First</a>`;
+    ul.appendChild(liFirst);
+
+    // previous page
+    const liPrev = document.createElement('li');
+    liPrev.classList.add('pagination');
+    liPrev.innerHTML = `<a href="/api/products?page=${prevPage}&limit=${limit}">Previous</a>`;
+    ul.appendChild(liPrev);
+
+    // current page
+    const liCurrent = document.createElement('li');
+    liCurrent.classList.add('pagination', 'is-current');
+    liCurrent.innerHTML = `
+    <a href="/api/products?page=${currentPage}&limit=${limit}">${currentPage}</a>`;
+    ul.appendChild(liCurrent);
+
+    // next page
+    const liNext = document.createElement('li');
+    liNext.classList.add('pagination');
+    liNext.innerHTML = `<a href="/api/products?page=${nextPage}&limit=${limit}">Next</a>`;
+    ul.appendChild(liNext);
+
+    // last page
+    const liLast = document.createElement('li');
+    liLast.classList.add('pagination');
+    liLast.innerHTML = `<a href="/api/products?page=${totalPages}&limit=${limit}">Last</a>`;
+    ul.appendChild(liLast);
+};
+
+paginate(infoPaginate);
+
 //* ------------------------------------ CART ------------------------------------ *//
 const formCart = document.querySelectorAll('.form-cart');
 const submitButtonsCart = document.querySelectorAll('#add-cart');

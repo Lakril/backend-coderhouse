@@ -89,12 +89,4 @@ export const controller = {
             res.status(500).json({ message: error.message });
         }
     },
-    // put: async (req, res) => {
-    //     // console.log(req.body);
-    // },
-    // putest: async (req, res) => {
-    //     let cart = await Carts.find();
-    //     // send id to client
-    //     res.json(cart[0]._id);
-    // },
 };

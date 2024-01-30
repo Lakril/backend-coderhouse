@@ -22,13 +22,8 @@ async function deleteCart(event) {
 
 //*---------------------------------
 
-const items = document.getElementById('cartItem').dataset;
+// const items = document.getElementById('cartItem').dataset;
 
 // Object.entries(items).forEach(([key, value]) => {
 //     console.log(`${key}: ${value}`);
 // });
-
-console.log(items);
-
-// const json = JSON.parse(items.cartitem);
-// console.log(json);
