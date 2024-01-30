@@ -34,6 +34,7 @@
                     <div class='box'><p>Cart is empty</p></div>
             </div>
                 {{/if}}
+        </div>
             <div class='sidebar'>
                 <div class='head'><p>Details Cart</p></div>
                 <div class='head'><p>Total Products: {{cart.totalQty}}</p></div>
@@ -43,7 +44,6 @@
                 </div>
                 <button onclick='deleteCart({{json cart._id}})'>Delete Cart</button>
             </div>
-        </div>
         <script src='/js/addtocart.js'>
 
         </script>
