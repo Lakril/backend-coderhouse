@@ -116,12 +116,12 @@ export const controller = {
             return res.status(400).json({ message: 'Invalid product id' });
         }
         try {
-            res.json({ message: 'DELETE' });
+            // res.json({ message: 'DELETE' });
             const product = await Product.findByIdAndDelete({ _id: id });
             if (!product) {
                 return res.status(404).json({ message: 'Product not found' });
             }
-            res.json(product);
+            res.status(200).json({ message: 'DELETE', product: product.toObject() });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

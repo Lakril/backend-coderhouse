@@ -9,7 +9,7 @@ for (let i = 0; i < delElements.length; i++) {
         /* this.dataset.id gets the value of the data-id attribute of the clicked button. 
          The this keyword refers to the clicked button. */
         const id = this.dataset.id;
-        // console.log(id);
+        console.log(id);
         /* fetch(/api/products/${id}, {...}) sends a DELETE request to 
         the server with the _id in the URL. */
         fetch(`/api/products/${id}`, {
