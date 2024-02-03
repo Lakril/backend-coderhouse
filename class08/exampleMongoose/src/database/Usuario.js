@@ -9,7 +9,7 @@ const usuarioSchema = new Schema(
     email: { type: String, required: true, unique: true },
     amigos: { type: [String], default: [] },
     publicaciones: { type: [String], default: [] },
-    photoUrl: { type: String, default: '/static/images/default-profiel-img.webp'},
+    photoUrl: { type: String, default: '/static/images/default-profiel-img.webp' },
   },
   {
     strict: 'throw',
@@ -24,7 +24,7 @@ const usuarioSchema = new Schema(
       agregarPublicacion: async function (idPublicacion) {
         if (!this.publicaciones.includes(idPublicacion)) {
           this.publicaciones.push(idPublicacion);
-        } 
+        }
         await this.save();
       },
     },
