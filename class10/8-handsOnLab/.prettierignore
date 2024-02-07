@@ -1,0 +1,4 @@
+**/*.hbs
+**/**/*.hbs
+node_modules/**
+.prettierrc
