@@ -10,7 +10,7 @@ const userSchema = new Schema(
         lastname: { type: String, required: true },
         password: { type: String, required: true },
         email: { type: String, required: true, unique: true },
-        role: { type: String, default: 'user' },
+        role: { type: String, enum: ['user', 'admin'], default: 'user' },
         cart: {
             type: Schema.Types.ObjectId,
             ref: 'Cart',

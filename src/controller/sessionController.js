@@ -33,9 +33,11 @@ export const controller = {
                 email: user.email,
                 role: user.role,
             };
+
             // if (await !user.comparePassword(req.body.password, user.password)) {
             //     return res.status(403).json({ message: 'Invalid password' });
             // }
+            console.log(user.email, process.env.ADMIN_EMAIL);
             if (user.email === process.env.ADMIN_EMAIL) {
                 req.session['user'].role = 'admin';
             } else {
