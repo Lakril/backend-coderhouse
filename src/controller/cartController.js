@@ -1,4 +1,4 @@
-import Carts from '../dao/mongooseDB/schemas/Carts.js';
+import Carts from '../dao/mongooseDB/models/Carts.js';
 
 export const controller = {
     post: async (req, res) => {

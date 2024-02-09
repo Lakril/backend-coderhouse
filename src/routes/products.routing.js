@@ -3,12 +3,12 @@ import { controller } from '../controller/productsController.js';
 
 export const ProductRouter = Router();
 
-ProductRouter.get('/api/products/upload', controller.upload);
-ProductRouter.get('/api/products', controller.get);
-ProductRouter.get('/api/products/:pid', controller.getById);
-ProductRouter.post('/api/products', controller.post);
-ProductRouter.delete('/api/products/:pid', controller.delete);
-ProductRouter.put('/api/products/:pid', controller.put);
+ProductRouter.get('/products/upload', controller.upload);
+ProductRouter.get('/products', controller.get);
+ProductRouter.get('/products/:pid', controller.getById);
+ProductRouter.post('/products', controller.post);
+ProductRouter.delete('/products/:pid', controller.delete);
+ProductRouter.put('/products/:pid', controller.put);
 ProductRouter.get('/realtimeproducts', controller.realtime);
 
 export default ProductRouter;

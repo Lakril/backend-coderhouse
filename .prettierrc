@@ -5,13 +5,5 @@
     "semi": true,
     "singleQuote": true,
     "trailingComma": "es5",
-    "extends": "prettier-config-google",
-    "exclude": [
-        "node_modules/**",
-        ".prettierrc",
-        ".eslintrc.json",
-        "package.json",
-        ".env",
-        "**/*.handlebars"
-    ]
+    "extends": "prettier-config-google"
 }

@@ -1,4 +1,4 @@
-import Product from '../dao/mongooseDB/schemas/Product.js';
+import Product from '../dao/mongooseDB/models/Product.js';
 import productsData from '../../database/products.json' with { type: 'json' };
 // import { inspect } from 'util';
 import mongoose from 'mongoose';

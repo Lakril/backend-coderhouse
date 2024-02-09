@@ -1,4 +1,4 @@
-import Product from '../../mongooseDB/schemas/Product.js';
+import Product from '../../mongooseDB/models/Product.js';
 
 class Sockets {
     constructor(io) {

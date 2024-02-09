@@ -1,5 +1,5 @@
-import Product from './Product.js';
-import Messages from './Messages.js';
+import Product from '../dao/mongooseDB/models/Product.js';
+import Messages from '../dao/mongooseDB/models/Messages.js';
 
 class Sockets {
     constructor(io) {

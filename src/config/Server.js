@@ -1,29 +1,29 @@
 import http from 'http';
 import mainRouter from '../routes/main.routing.js';
-// eslint-disable-next-line import/no-named-as-default
 import ProductRouter from '../routes/products.routing.js';
-// eslint-disable-next-line import/no-named-as-default
 import CartRouter from '../routes/cart.routing.js';
-import { Server as SocketIOServer } from 'socket.io';
+import UserRouter from '../routes/user.routing.js';
+import Sockets from '../controller/socketsController.js';
 import path from 'path';
-import { engine } from 'express-handlebars';
+import { engine } from 'express-handlebars'; // Added import statement
 import express from 'express';
 import { projectRoot } from '../utils/utils.js';
-import Sockets from '../dao/mongooseDB/schemas/Sockets.js';
 import process from 'process';
 import cors from 'cors';
-import { dbConnection } from './database.js';
+import { dbConnection } from '../middlewares/mongoConnection.js';
+import { json, decimal } from '../middlewares/hbsHelpers.js';
+import { createServerSocket } from '../middlewares/serverSocket.js';
+import createSession from '../middlewares/sessions.js';
 
 class Server {
     constructor() {
         this.port = process.env.PORT;
         this.host = process.env.HOST;
         this.uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/ecommerce';
+        this.secret = process.env.SESSION_SECRET;
         this.app = express();
         this.httpServer = http.createServer(this.app);
-        this.io = new SocketIOServer(this.httpServer, {
-            /* options */
-        });
+        this.io = createServerSocket(this.httpServer);
     }
 
     middlewares() {
@@ -32,7 +32,6 @@ class Server {
         this.app.use(express.static(path.resolve(projectRoot, './public')));
         this.app.use('/public', express.static(path.resolve(projectRoot, './public')));
         this.app.use('/database', express.static(path.resolve(projectRoot, './database')));
-
         // view engine setup
         // https://github.com/express-handlebars/express-handlebars
         this.app.engine(
@@ -40,18 +39,15 @@ class Server {
             engine({
                 extname: '.hbs',
                 helpers: {
-                    json: function (context) {
-                        return JSON.stringify(context);
-                    },
-                    decimal: function (context) {
-                        return context.toLocaleString();
-                    },
+                    json: json,
+                    decimal: decimal,
                 },
             })
         );
         this.app.set('view engine', '.hbs');
         this.app.set('view engine', 'ejs');
         this.app.set('views', path.resolve(projectRoot, './src/views'));
+        this.app.use(createSession(this.uri, this.secret));
 
         // restrict CORS
         this.app.use(cors());
@@ -63,8 +59,13 @@ class Server {
 
     routes() {
         this.app.use(mainRouter);
-        this.app.use(ProductRouter);
-        this.app.use(CartRouter);
+        this.app.use('/api', UserRouter);
+        this.app.use('/api', ProductRouter);
+        this.app.use('/api', CartRouter);
+    }
+
+    mongoConnection() {
+        dbConnection(this.uri);
     }
 
     start() {
@@ -72,7 +73,7 @@ class Server {
         this.middlewares();
         this.routes();
         this.configSockets();
-        dbConnection(this.uri);
+        this.mongoConnection();
 
         // start server
         this.httpServer

@@ -27,7 +27,7 @@ for (let i = 0; i < delElements.length; i++) {
             .then((data) => {
                 console.log(data);
                 // refresh the page after deleting an element
-                // location.reload();
+                location.reload();
                 // redirect to another webpage after deleting an element
                 // window.location.href = '/api/products';
             })
