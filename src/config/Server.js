@@ -1,8 +1,8 @@
 import http from 'http';
-import mainRouter from '../routes/main.routing.js';
-import ProductRouter from '../routes/products.routing.js';
-import CartRouter from '../routes/cart.routing.js';
-import UserRouter from '../routes/user.routing.js';
+import { webRouter } from '../routes/web.routing.js';
+import { ProductRouter } from '../routes/products.routing.js';
+import { CartRouter } from '../routes/cart.routing.js';
+import { UserRouter } from '../routes/user.routing.js';
 import Sockets from '../controller/socketsController.js';
 import path from 'path';
 import { engine } from 'express-handlebars'; // Added import statement
@@ -58,7 +58,7 @@ class Server {
     }
 
     routes() {
-        this.app.use(mainRouter);
+        this.app.use(webRouter);
         this.app.use('/api', UserRouter);
         this.app.use('/api', ProductRouter);
         this.app.use('/api', CartRouter);

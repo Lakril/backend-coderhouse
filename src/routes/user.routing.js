@@ -11,5 +11,3 @@ UserRouter.post('/register', controller.register);
 UserRouter.post('/login', validateRequestBody, controller.login);
 UserRouter.get('/users', controller.getUsers);
 UserRouter.delete('/logout', controller.delete);
-
-export default UserRouter;

@@ -10,5 +10,3 @@ ProductRouter.post('/products', controller.post);
 ProductRouter.delete('/products/:pid', controller.delete);
 ProductRouter.put('/products/:pid', controller.put);
 ProductRouter.get('/realtimeproducts', controller.realtime);
-
-export default ProductRouter;
