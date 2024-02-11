@@ -1,10 +1,10 @@
 import { randomUUID } from 'crypto';
 import { Schema, model } from 'mongoose';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 
 const userSchema = new Schema(
     {
-        _id: { type: String, default: randomUUID() },
+        _id: { type: String, default: randomUUID },
         username: { type: String, required: true },
         name: { type: String, required: true },
         lastname: { type: String, required: true },
@@ -47,8 +47,13 @@ const userSchema = new Schema(
     }
 );
 
-userSchema.methods.comparePassword = function (password) {
-    return bcrypt.compareSync(password, this.password);
-};
+userSchema.pre('save', async function (next) {
+    const user = this;
+    if (!user.isModified('password')) return next();
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(user.password, salt);
+    user.password = hash;
+    next();
+});
 
 export default model('user', userSchema);

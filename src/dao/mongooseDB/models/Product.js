@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 import AutoIncrementFactory from 'mongoose-sequence';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
 const AutoIncrement = AutoIncrementFactory(mongoose);
-const Schema = mongoose.Schema;
+// const Schema = mongoose.Schema;
 
 const productSchema = new Schema(
     {
@@ -89,6 +89,6 @@ productSchema.pre('save', function (next) {
 productSchema.plugin(AutoIncrement, { start_seq: 21 });
 productSchema.plugin(mongoosePaginate);
 
-const Product = mongoose.model('products', productSchema);
+export default model('products', productSchema);
 
-export default Product;
+// export default Product;

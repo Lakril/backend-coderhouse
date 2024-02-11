@@ -1,5 +1,6 @@
 import User from '../dao/mongooseDB/models/User.js';
 import process from 'process';
+import bcrypt from 'bcrypt';
 
 export const controller = {
     getUsers: async (req, res) => {
@@ -21,29 +22,39 @@ export const controller = {
     },
     login: async (req, res) => {
         try {
-            const { email } = req.body;
-            const user = await User.findOne({ email });
+            const { email, password } = req.body;
 
-            if (!user) {
-                return res.status(404).json({ message: 'User not found' });
-            }
-            req.session['user'] = {
-                name: user.name,
-                lastname: user.lastname,
-                email: user.email,
-                role: user.role,
-            };
+            let dataUser;
 
-            // if (await !user.comparePassword(req.body.password, user.password)) {
-            //     return res.status(403).json({ message: 'Invalid password' });
-            // }
-            console.log(user.email, process.env.ADMIN_EMAIL);
-            if (user.email === process.env.ADMIN_EMAIL) {
-                req.session['user'].role = 'admin';
+            if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+                dataUser = {
+                    name: 'admin',
+                    lastname: 'admin',
+                    email: 'admin',
+                    role: 'admin',
+                };
             } else {
-                req.session['user'].role = 'user';
+                const user = await User.findOne({ email }).lean();
+
+                if (!user) {
+                    return res.status(404).json({ message: 'User not found' });
+                }
+
+                const match = await bcrypt.compare(password, user.password);
+
+                if (!match) {
+                    return res.status(403).json({ message: 'Invalid password' });
+                }
+                dataUser = {
+                    name: user.name,
+                    lastname: user.lastname,
+                    email: user.email,
+                    role: 'user',
+                };
             }
-            res.status(201).json({ status: 'success', payload: req.session['user'] });
+
+            req['session'].user = dataUser;
+            res.status(201).json({ status: 'success', payload: req['session'].user });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
