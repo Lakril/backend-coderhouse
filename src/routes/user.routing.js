@@ -5,9 +5,9 @@ import { justLoginWeb, validateRequestBody } from '../middlewares/autorization.j
 export const UserRouter = Router();
 
 UserRouter.get('/register', controller.getRegister);
-UserRouter.get('/login', controller.getLogin);
-UserRouter.get('/profile', justLoginWeb, controller.profile);
 UserRouter.post('/register', controller.register);
+UserRouter.get('/login', controller.getLogin);
 UserRouter.post('/login', validateRequestBody, controller.login);
+UserRouter.get('/profile', justLoginWeb, controller.profile);
 UserRouter.get('/users', controller.getUsers);
 UserRouter.delete('/logout', controller.delete);

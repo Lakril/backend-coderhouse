@@ -8,7 +8,7 @@ POST  http://localhost:3001/api/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "jacskonrico@gmail.com",
+  "email": "jacksonrico@gmail.com",
   "password": "password"
 }
 ###
@@ -17,11 +17,11 @@ POST  http://localhost:3001/api/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "Rico Jackson",
-  "lastname": "rico",
-  "email": "jacksonrico@gmail.com",
-  "password": "password",
-  "username": "ricojackson"
+  "name": "Eliana",
+  "lastname": "Giraldo",
+  "email": "eliana-gir@hotmail.com",
+  "password": "123456",
+  "username": "eligir"
 }
 ###
 
