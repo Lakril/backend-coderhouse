@@ -3,7 +3,7 @@ const formLogout = document.querySelector('form');
 formLogout?.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const response = await fetch('/logout', {
+    const response = await fetch('/api/sessions/logout', {
         method: 'DELETE',
     });
 

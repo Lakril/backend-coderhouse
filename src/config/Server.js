@@ -1,8 +1,8 @@
 import http from 'http';
-import { webRouter } from '../routes/web.routing.js';
+import { mainRouter } from '../routes/web.routing.js';
 import { ProductRouter } from '../routes/products.routing.js';
 import { CartRouter } from '../routes/cart.routing.js';
-import { UserRouter } from '../routes/user.routing.js';
+import { webRouter } from '../routes/web/web.routing.js';
 import Sockets from '../controller/socketsController.js';
 import path from 'path';
 import { engine } from 'express-handlebars'; // Added import statement
@@ -14,6 +14,7 @@ import { dbConnection } from '../middlewares/mongoConnection.js';
 import { json, decimal } from '../middlewares/hbsHelpers.js';
 import { createServerSocket } from '../middlewares/serverSocket.js';
 import createSession from '../middlewares/sessions.js';
+import { apiRouter } from '../routes/api/apirest.routing.js';
 
 class Server {
     constructor() {
@@ -58,8 +59,9 @@ class Server {
     }
 
     routes() {
-        this.app.use(webRouter);
-        this.app.use('/', UserRouter);
+        this.app.use(mainRouter);
+        this.app.use('/', webRouter);
+        this.app.use('/api', apiRouter);
         this.app.use('/api', ProductRouter);
         this.app.use('/api', CartRouter);
     }

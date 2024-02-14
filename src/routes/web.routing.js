@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { controller } from '../controller/webController.js';
 
-export const webRouter = Router();
+export const mainRouter = Router();
 
-webRouter.get('/challenges', controller.index);
-webRouter.get('/contact', controller.contact);
-webRouter.get('/', controller.home);
-webRouter.get('/chat', (req, res) => {
+mainRouter.get('/challenges', controller.index);
+mainRouter.get('/contact', controller.contact);
+mainRouter.get('/', controller.home);
+mainRouter.get('/chat', (req, res) => {
     res.render('chat.hbs', { title: 'Chat' });
 });

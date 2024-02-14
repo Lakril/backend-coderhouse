@@ -6,7 +6,7 @@ formRegister?.addEventListener('submit', async (event) => {
     // const formData = new URLSearchParams(new FormData(formRegister));
     // console.log(formData);
 
-    const response = await fetch('/register', {
+    const response = await fetch('/api/sessions/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         // @ts-ignore
