@@ -3,7 +3,7 @@ const formLogin = document.querySelector('form');
 formLogin?.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const response = await fetch('/api/login', {
+    const response = await fetch('/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 

@@ -59,7 +59,7 @@ class Server {
 
     routes() {
         this.app.use(webRouter);
-        this.app.use('/api', UserRouter);
+        this.app.use('/', UserRouter);
         this.app.use('/api', ProductRouter);
         this.app.use('/api', CartRouter);
     }

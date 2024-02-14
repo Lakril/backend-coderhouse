@@ -13,6 +13,6 @@ export const controller = {
         return res.render('contact');
     },
     home: (req, res) => {
-        return res.redirect('/api/login');
+        return res.redirect('/login');
     },
 };

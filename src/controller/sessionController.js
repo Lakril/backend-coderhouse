@@ -20,6 +20,9 @@ export const controller = {
     profile: (req, res) => {
         res.render('profile.hbs', { title: 'Profile', ...req.session['user'] });
     },
+    getResetPassword: (req, res) => {
+        res.render('resetpassword.hbs', { title: 'Reset Password' });
+    },
     login: async (req, res) => {
         try {
             const { email, password } = req.body;
@@ -70,8 +73,25 @@ export const controller = {
             const user = await User.create({
                 ...req.body,
             });
+            console.log(user);
             await user.save();
             res.status(201).json({ status: 'success', payload: user.toObject() });
+        } catch (error) {
+            res.status(400).json({ status: 'fail', message: error.message });
+        }
+    },
+    resetPassword: async (req, res) => {
+        try {
+            req.body.password = await bcrypt.hash(req.body.password, 10);
+            const updated = await User.updateOne(
+                { email: req.body.email },
+                { $set: { password: req.body.password } },
+                { new: true }
+            );
+            if (!updated) {
+                return res.status(404).json({ status: 'fail', message: 'User not found' });
+            }
+            res.status(200).json({ status: 'success', payload: updated });
         } catch (error) {
             res.status(400).json({ status: 'fail', message: error.message });
         }

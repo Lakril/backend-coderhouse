@@ -11,3 +11,5 @@ UserRouter.post('/login', validateRequestBody, controller.login);
 UserRouter.get('/profile', justLoginWeb, controller.profile);
 UserRouter.get('/users', controller.getUsers);
 UserRouter.delete('/logout', controller.delete);
+UserRouter.get('/resetpassword', controller.getResetPassword);
+UserRouter.post('/resetpassword', controller.resetPassword);
