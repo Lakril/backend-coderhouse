@@ -8,3 +8,4 @@ UserRouter.post('/login', validateRequestBody, controller.login);
 UserRouter.post('/register', controller.register);
 UserRouter.delete('/logout', controller.delete);
 UserRouter.post('/resetpassword', controller.resetPassword);
+UserRouter.get('/current', controller.userSession);

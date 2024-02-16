@@ -3,4 +3,4 @@ import { UserRouter } from './users.routing.js';
 
 export const apiRouter = Router();
 
-apiRouter.use('/sessions', UserRouter);
+apiRouter.use('/users', UserRouter);

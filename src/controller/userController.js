@@ -96,4 +96,15 @@ export const controller = {
             res.status(400).json({ status: 'fail', message: error.message });
         }
     },
+    userSession: async (req, res) => {
+        const user = await User.findOne({ email: req.session.user.email }, { password: 0 }).lean();
+        const dataUser = {
+            name: user.name,
+            lastname: user.lastname,
+            email: user.email,
+            role: user.role,
+        };
+        // console.log(user);
+        res.json({ status: 'success', payload: dataUser });
+    },
 };
