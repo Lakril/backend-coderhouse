@@ -1,6 +1,4 @@
 import User from '../dao/mongooseDB/models/User.js';
-import process from 'process';
-import bcrypt from 'bcrypt';
 
 export const controller = {
     getUsers: async (req, res) => {
@@ -26,40 +24,15 @@ export const controller = {
     login: async (req, res) => {
         try {
             const { email, password } = req.body;
-
-            let dataUser;
-
-            if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-                dataUser = {
-                    name: 'admin',
-                    lastname: 'admin',
-                    email: 'admin',
-                    role: 'admin',
-                };
-            } else {
-                const user = await User.findOne({ email }).lean();
-
-                if (!user) {
-                    return res.status(404).json({ message: 'User not found' });
-                }
-
-                const match = await bcrypt.compare(password, user.password);
-
-                if (!match) {
-                    return res.status(403).json({ message: 'Invalid password' });
-                }
-                dataUser = {
-                    name: user.name,
-                    lastname: user.lastname,
-                    email: user.email,
-                    role: 'user',
-                };
-            }
-
+            const dataUser = await User.login(email, password);
             req['session'].user = dataUser;
-            res.status(201).json({ status: 'success', payload: req['session'].user });
+            res.status(201).json({
+                status: 'success',
+                message: 'login success',
+                payload: dataUser,
+            });
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            return res.status(401).json({ status: 'error', message: error.message });
         }
     },
     delete: (req, res) => {
@@ -82,18 +55,11 @@ export const controller = {
     },
     resetPassword: async (req, res) => {
         try {
-            req.body.password = await bcrypt.hash(req.body.password, 10);
-            const updated = await User.updateOne(
-                { email: req.body.email },
-                { $set: { password: req.body.password } },
-                { new: true }
-            );
-            if (!updated) {
-                return res.status(404).json({ status: 'fail', message: 'User not found' });
-            }
+            const { email, password } = req.body;
+            const updated = await User.resetPassword(email, password);
             res.status(200).json({ status: 'success', payload: updated });
         } catch (error) {
-            res.status(400).json({ status: 'fail', message: error.message });
+            res.status(401).json({ status: 'fail', message: error.message });
         }
     },
     userSession: async (req, res) => {

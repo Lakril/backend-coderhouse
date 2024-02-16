@@ -1,6 +1,21 @@
 import { randomUUID } from 'crypto';
 import { Schema, model } from 'mongoose';
 import bcrypt from 'bcrypt';
+import process from 'process';
+
+/**
+ * Represents the user schema for the MongoDB collection 'users'.
+ *
+ * @typedef {Object} UserSchema
+ * @property {string} _id - The unique identifier of the user.
+ * @property {string} username - The username of the user.
+ * @property {string} name - The name of the user.
+ * @property {string} lastname - The last name of the user.
+ * @property {string} password - The password of the user.
+ * @property {string} email - The email address of the user.
+ * @property {string} role - The role of the user. Can be 'user' or 'admin'.
+ * @property {Schema.Types.ObjectId} cart - The reference to the user's cart.
+ */
 
 const userSchema = new Schema(
     {
@@ -22,6 +37,34 @@ const userSchema = new Schema(
         timestamps: true,
         collection: 'users',
         statics: {
+            login: async function login(email, password) {
+                let dataUser;
+                if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+                    dataUser = {
+                        name: 'admin',
+                        lastname: 'admin',
+                        email: 'admin',
+                        role: 'admin',
+                    };
+                } else {
+                    const user = await this.findOne({ email: email }).lean();
+                    if (!user) {
+                        throw new Error('login failed');
+                    }
+
+                    if (!(await bcrypt.compare(password, user.password))) {
+                        throw new Error('login failed');
+                    }
+
+                    dataUser = {
+                        name: user.name,
+                        lastname: user.lastname,
+                        email: user.email,
+                        role: user.role,
+                    };
+                }
+                return dataUser;
+            },
             list: async function () {
                 const users = await this.find().lean();
                 return users;
@@ -35,9 +78,19 @@ const userSchema = new Schema(
                 await newUser.save();
                 return newUser;
             },
-            updateUser: async function (id, user) {
-                const updatedUser = await this.findByIdAndUpdate(id, user, { new: true });
-                return updatedUser;
+            resetPassword: async function (email, password) {
+                const user = await this.findOne({ email });
+                if (!user) {
+                    throw new Error('User not found');
+                }
+                const newPassword = await bcrypt.hash(password, 10);
+                const updated = await this.updateOne(
+                    { email: email },
+                    { $set: { password: newPassword } },
+                    { new: true }
+                );
+
+                return updated;
             },
             deleteUser: async function (id) {
                 const deletedUser = await this.findByIdAndDelete(id);
