@@ -22,9 +22,6 @@ formEdit?.addEventListener('submit', async (event) => {
 
     const formData = new FormData(formEdit);
     console.log(formData);
-    // los campos readonly y disabled no se incluyen en el formdata!!
-    // formData.append('lastname', inputs[2].value);
-    // formData.append('email', inputs[3].value);
 
     //@ts-ignore
     const body = new URLSearchParams(formData);

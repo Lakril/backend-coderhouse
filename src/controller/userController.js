@@ -130,10 +130,3 @@ export const controller = {
         res.render('editprofile.hbs', { title: 'Edit Profile', ...req.user });
     },
 };
-
-// sesionesRouter.get('/githublogin', passport.authenticate('loginGithub'))
-
-// sesionesRouter.get('/githubcallback', passport.authenticate('loginGithub', {
-//   successRedirect: '/profile',
-//   failureRedirect: '/login',
-// }))

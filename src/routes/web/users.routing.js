@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { controller } from '../../controller/userController.js';
-// import { justLoggedInWeb } from '../../middlewares/autorization.js';
 
 export const UserRouter = Router();
 
