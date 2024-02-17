@@ -35,11 +35,11 @@ passport.use(
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
-                let user = await User.findOne({ email: profile.username });
+                let user = await User.findOne({ username: profile.username });
                 if (!user) {
                     user = await User.create({
                         name: profile.displayName,
-                        email: profile.username,
+                        username: profile.username,
                     });
                 }
                 return done(null, user.toObject());

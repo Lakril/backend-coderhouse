@@ -17,7 +17,7 @@ export const controller = {
         res.render('login.hbs', { title: 'Login' });
     },
     profile: (req, res) => {
-        res.render('profile.hbs', { title: 'Profile', ...req.session['user'] });
+        res.render('profile.hbs', { title: 'Profile', ...req.user });
     },
     getResetPassword: (req, res) => {
         res.render('resetpassword.hbs', { title: 'Reset Password' });
@@ -77,18 +77,24 @@ export const controller = {
         }
     },
     userSession: async (req, res) => {
-        const user = req.user;
-        const dataUser = {
-            name: user.name,
-            lastname: user.lastname,
-            email: user.email,
-            role: user.role,
-        };
-        // console.log(user);
-        res.json({ status: 'success', payload: dataUser });
+        try {
+            const { username } = req.user;
+            const user = await User.findOne({ username: username });
+            req.login(user.toObject(), async (err) => {
+                if (err) {
+                    return res.status(400).json({ status: 'fail', message: err.message });
+                } else {
+                    await user.save();
+                    res.status(201).json({ status: 'success', payload: user.toObject() });
+                }
+            });
+        } catch (error) {
+            res.status(401).json({ status: 'fail', message: error.message });
+        }
     },
     user: async (req, res) => {
         const user = await User.findOne({ email: req.user.email }, { password: 0 }).lean();
+        console.log(user);
         res.json({ status: 'success', payload: user });
     },
     githubLogin: async (req, res, next) => {
@@ -109,6 +115,19 @@ export const controller = {
                 return res.redirect('/profile');
             });
         })(req, res, next);
+    },
+    updateUser: async (req, res) => {
+        try {
+            const { username, name, lastname, email } = req.body;
+            const updated = await User.updateUser(username, { name, lastname, email });
+            await updated.save();
+            res.status(200).json({ status: 'success', payload: updated });
+        } catch (error) {
+            res.status(401).json({ status: 'fail', message: error.message });
+        }
+    },
+    editProfile: (req, res) => {
+        res.render('editprofile.hbs', { title: 'Edit Profile', ...req.user });
     },
 };
 

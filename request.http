@@ -45,3 +45,5 @@ Content-Type: application/json
   "password": "adminCod3r123"
 }
 ###
+
+GET http://localhost:3001/githublogin HTTP/1.1

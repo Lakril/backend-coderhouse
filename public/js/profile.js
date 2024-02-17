@@ -6,9 +6,11 @@ window.addEventListener('load', async () => {
     if (response.status === 200) {
         // Add your code here
         const { payload: user } = await response.json();
+        console.log(user);
 
         const profile = document.querySelector('.profile');
         profile.innerHTML = '';
+        user.username && (profile.innerHTML += `<p>Username: ${user.username}</p>`);
         user.email && (profile.innerHTML += `<p>Email: ${user.email}</p>`);
         user.name && (profile.innerHTML += `<p>First Name: ${user.name}</p>`);
         user.lastname && (profile.innerHTML += `<p>Last Name: ${user.lastname}</p>`);

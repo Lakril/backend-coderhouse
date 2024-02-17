@@ -20,11 +20,11 @@ import process from 'process';
 const userSchema = new Schema(
     {
         _id: { type: String, default: randomUUID },
-        username: { type: String, default: '(w/o specify)' },
+        username: { type: String, required: true, unique: true },
         name: { type: String, required: true },
         lastname: { type: String, default: '' },
-        password: { type: String, default: 'n/a' },
-        email: { type: String, required: true, unique: true },
+        password: { type: String, default: '' },
+        email: { type: String, unique: true, default: '' },
         role: { type: String, enum: ['user', 'admin'], default: 'user' },
         cart: {
             type: Schema.Types.ObjectId,
@@ -95,6 +95,13 @@ const userSchema = new Schema(
             deleteUser: async function (id) {
                 const deletedUser = await this.findByIdAndDelete(id);
                 return deletedUser;
+            },
+            // find by username and update user
+            updateUser: async function (username, user) {
+                const updatedUser = await this.findOneAndUpdate({ username: username }, user, {
+                    new: true,
+                });
+                return updatedUser;
             },
         },
     }
