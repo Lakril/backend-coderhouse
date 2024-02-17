@@ -1,4 +1,5 @@
 const formLogin = document.querySelector('form');
+console.log(formLogin);
 
 formLogin?.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -10,6 +11,7 @@ formLogin?.addEventListener('submit', async (event) => {
         // @ts-ignore
         body: new URLSearchParams(new FormData(formLogin)),
     });
+    console.log(response);
 
     if (response.status === 201) {
         const sesion = await response.json();

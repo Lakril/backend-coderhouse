@@ -15,6 +15,7 @@ import { json, decimal } from '../middlewares/hbsHelpers.js';
 import { createServerSocket } from '../middlewares/serverSocket.js';
 import createSession from '../middlewares/sessions.js';
 import { apiRouter } from '../routes/api/apirest.routing.js';
+import { passportInitialize, passportSession } from '../middlewares/authentication.js';
 
 class Server {
     constructor() {
@@ -49,6 +50,7 @@ class Server {
         this.app.set('view engine', 'ejs');
         this.app.set('views', path.resolve(projectRoot, './src/views'));
         this.app.use(createSession(this.uri, this.secret));
+        this.app.use(passportInitialize, passportSession);
 
         // restrict CORS
         this.app.use(cors());

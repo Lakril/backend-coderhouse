@@ -1,19 +1,21 @@
-export function onlyLogueadosRest(req, res, next) {
-    if (!req.session['user']) {
+export function justLoggedInApi(req, res, next) {
+    // if (!req.session['user']) {
+    if (!req.isAuthenticated()) {
         return res.status(403).json({
             status: 'error',
-            message: 'no tenes permiso para ver esto. solo para usuarios logueados!',
+            message: 'you need to be logged in to access this resource',
         });
     }
     next();
 }
 
-export function justLoginWeb(req, res, next) {
-    if (!req.session['user']) {
-        return res.redirect('/login');
-    }
-    next();
-}
+// export function justLoggedInWeb(req, res, next) {
+//     // if (!req.session['user']) {
+//     if (!req.isAuthenticated()) {
+//         return res.redirect('/login');
+//     }
+//     next();
+// }
 
 export function validateRequestBody(req, res, next) {
     const { email, password } = req.body;
