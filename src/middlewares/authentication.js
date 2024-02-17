@@ -1,6 +1,8 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
+import { Strategy as GitHubStrategy } from 'passport-github2';
 import User from '../dao/mongooseDB/models/User.js';
+import process from 'process';
 
 passport.use(
     'local',
@@ -16,6 +18,31 @@ passport.use(
                     return done(null, false, { message: 'Incorrect credentials.' });
                 }
                 return done(null, user);
+            } catch (error) {
+                return done(error);
+            }
+        }
+    )
+);
+
+passport.use(
+    'loginGithub',
+    new GitHubStrategy(
+        {
+            clientID: process.env.GITHUB_CLIENT_ID,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET,
+            callbackURL: process.env.GITHUB_CALLBACK_URL,
+        },
+        async (accessToken, refreshToken, profile, done) => {
+            try {
+                let user = await User.findOne({ email: profile.username });
+                if (!user) {
+                    user = await User.create({
+                        name: profile.displayName,
+                        email: profile.username,
+                    });
+                }
+                return done(null, user.toObject());
             } catch (error) {
                 return done(error);
             }

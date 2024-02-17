@@ -20,10 +20,10 @@ import process from 'process';
 const userSchema = new Schema(
     {
         _id: { type: String, default: randomUUID },
-        username: { type: String, required: true },
+        username: { type: String, default: '(w/o specify)' },
         name: { type: String, required: true },
-        lastname: { type: String, required: true },
-        password: { type: String, required: true },
+        lastname: { type: String, default: '' },
+        password: { type: String, default: 'n/a' },
         email: { type: String, required: true, unique: true },
         role: { type: String, enum: ['user', 'admin'], default: 'user' },
         cart: {

@@ -91,4 +91,30 @@ export const controller = {
         const user = await User.findOne({ email: req.user.email }, { password: 0 }).lean();
         res.json({ status: 'success', payload: user });
     },
+    githubLogin: async (req, res, next) => {
+        passport.authenticate('loginGithub')(req, res, next);
+    },
+    githubCallback: async (req, res, next) => {
+        passport.authenticate('loginGithub', (err, user) => {
+            if (err) {
+                return res.status(401).json({ status: 'error', message: err.message });
+            }
+            if (!user) {
+                return res.status(401).json({ status: 'error', message: 'login failed' });
+            }
+            req.logIn(user, (err) => {
+                if (err) {
+                    return next(err);
+                }
+                return res.redirect('/profile');
+            });
+        })(req, res, next);
+    },
 };
+
+// sesionesRouter.get('/githublogin', passport.authenticate('loginGithub'))
+
+// sesionesRouter.get('/githubcallback', passport.authenticate('loginGithub', {
+//   successRedirect: '/profile',
+//   failureRedirect: '/login',
+// }))

@@ -9,3 +9,5 @@ UserRouter.get('/login', controller.getLogin);
 UserRouter.get('/profile', controller.profile);
 UserRouter.get('/users', controller.getUsers);
 UserRouter.get('/resetpassword', controller.getResetPassword);
+UserRouter.get('/githublogin', controller.githubLogin);
+UserRouter.get('/githubcallback', controller.githubCallback);
