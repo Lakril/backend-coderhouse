@@ -17,7 +17,7 @@ export const controller = {
         res.render('login.hbs', { title: 'Login' });
     },
     profile: (req, res) => {
-        res.render('profile.hbs', { title: 'Profile', ...req.user });
+        res.render('profile.hbs', { title: 'Profile', user: req.user });
     },
     getResetPassword: (req, res) => {
         res.render('resetpassword.hbs', { title: 'Reset Password' });
@@ -41,11 +41,6 @@ export const controller = {
                 });
             });
         })(req, res, next);
-    },
-    delete: (req, res) => {
-        req.session.destroy(() => {
-            res.status(204).end();
-        });
     },
     register: async (req, res) => {
         // console.log(req.body);
@@ -77,25 +72,18 @@ export const controller = {
         }
     },
     userSession: async (req, res) => {
-        try {
-            const { username } = req.user;
-            const user = await User.findOne({ username: username });
-            req.login(user.toObject(), async (err) => {
-                if (err) {
-                    return res.status(400).json({ status: 'fail', message: err.message });
-                } else {
-                    await user.save();
-                    res.status(201).json({ status: 'success', payload: user.toObject() });
-                }
-            });
-        } catch (error) {
-            res.status(401).json({ status: 'fail', message: error.message });
-        }
-    },
-    user: async (req, res) => {
-        const user = await User.findOne({ email: req.user.email }, { password: 0 }).lean();
-        console.log(user);
+        // console.log(req.user);
+        const user = await User.findOne({ username: req.user.username }, { password: 0 }).lean();
+        // console.log(user);
         res.json({ status: 'success', payload: user });
+    },
+    // user: async (req, res) => {
+    //     res.json(req.user);
+    // },
+    delete: (req, res) => {
+        req.session.destroy(() => {
+            res.status(204).end();
+        });
     },
     githubLogin: async (req, res, next) => {
         passport.authenticate('loginGithub')(req, res, next);

@@ -45,6 +45,7 @@ const userSchema = new Schema(
                         lastname: 'admin',
                         email: 'admin',
                         role: 'admin',
+                        username: 'admin',
                     };
                 } else {
                     const user = await this.findOne({ email: email }).lean();
@@ -57,6 +58,7 @@ const userSchema = new Schema(
                     }
 
                     dataUser = {
+                        username: user.username,
                         name: user.name,
                         lastname: user.lastname,
                         email: user.email,

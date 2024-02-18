@@ -16,6 +16,7 @@ import { createServerSocket } from '../middlewares/serverSocket.js';
 import createSession from '../middlewares/sessions.js';
 import { apiRouter } from '../routes/api/apirest.routing.js';
 import { passportInitialize, passportSession } from '../middlewares/authentication.js';
+import favicon from 'serve-favicon';
 
 class Server {
     constructor() {
@@ -51,6 +52,7 @@ class Server {
         this.app.set('views', path.resolve(projectRoot, './src/views'));
         this.app.use(createSession(this.uri, this.secret));
         this.app.use(passportInitialize, passportSession);
+        this.app.use(favicon(path.resolve(projectRoot, './public/img/favicon.ico')));
 
         // restrict CORS
         this.app.use(cors());

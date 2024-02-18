@@ -44,7 +44,7 @@ window.addEventListener('load', async () => {
 formLogout?.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const response = await fetch('/api/users/logout', {
+    const response = await fetch('/api/users/current', {
         method: 'DELETE',
     });
 
