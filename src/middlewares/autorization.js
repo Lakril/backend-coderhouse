@@ -9,13 +9,21 @@ export function justLoggedInApi(req, res, next) {
     next();
 }
 
-// export function justLoggedInWeb(req, res, next) {
-//     // if (!req.session['user']) {
-//     if (!req.isAuthenticated()) {
-//         return res.redirect('/login');
-//     }
-//     next();
-// }
+export function checkRole(...roles) {
+    return (req, res, next) => {
+        if (!req.user) {
+            return res.status(401).json({ message: 'Unauthorized' }); // if no user is logged in
+        }
+
+        const hasRole = roles.find((role) => req.user.role === role);
+        if (!hasRole) {
+            // if logged in user has no matching role
+            return res.status(403).json({ message: 'Forbidden' });
+        }
+
+        next();
+    };
+}
 
 export function validateRequestBody(req, res, next) {
     const { email, password } = req.body;
@@ -36,3 +44,26 @@ export function permit(...allowedRoles) {
         }
     };
 }
+
+// middleware to validate token (rutas protegidas)
+export const validateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (!token || token === 'null') {
+        return res.status(403).json({ status: 'error', message: 'There is not token' });
+    }
+    req['accessToken'] = token;
+    next();
+};
+
+// export const authenticateToken = (req, res, next) => {
+//     const authHeader = req.header['authorization'];
+//     const token = authHeader && authHeader.split(' ')[1];
+//     if (!token) return res.status(401).json({ error: 'Acceso denegado' });
+
+//     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+//         if (err) return res.status(403).json({ error: 'Token no es válido' });
+//         req.user = user;
+//         next();
+//     });
+// };

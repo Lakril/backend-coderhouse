@@ -6,7 +6,7 @@ window.addEventListener('load', async () => {
     if (response.status === 200) {
         // Add your code here
         const { payload: user } = await response.json();
-        console.log(user);
+        // console.log(user);
 
         const profile = document.querySelector('.profile');
         profile.innerHTML = '';

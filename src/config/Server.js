@@ -15,7 +15,7 @@ import { json, decimal } from '../middlewares/hbsHelpers.js';
 import { createServerSocket } from '../middlewares/serverSocket.js';
 import createSession from '../middlewares/sessions.js';
 import { apiRouter } from '../routes/api/apirest.routing.js';
-import { passportInitialize, passportSession } from '../middlewares/authentication.js';
+import { passportInitialize, passportSession } from '../middlewares/passport.js';
 import favicon from 'serve-favicon';
 
 class Server {
@@ -30,6 +30,7 @@ class Server {
     }
 
     middlewares() {
+        this.app.use(favicon(path.resolve(projectRoot, './public/img/favicon.ico')));
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.static(path.resolve(projectRoot, './public')));
@@ -50,12 +51,18 @@ class Server {
         this.app.set('view engine', '.hbs');
         this.app.set('view engine', 'ejs');
         this.app.set('views', path.resolve(projectRoot, './src/views'));
+
         this.app.use(createSession(this.uri, this.secret));
         this.app.use(passportInitialize, passportSession);
-        this.app.use(favicon(path.resolve(projectRoot, './public/img/favicon.ico')));
 
         // restrict CORS
         this.app.use(cors());
+
+        // eslint-disable-next-line no-unused-vars
+        this.app.use(function (err, req, res, next) {
+            console.error(err.stack);
+            res.status(500).send('Something broke!');
+        });
     }
 
     configSockets() {
@@ -112,5 +119,5 @@ class Server {
     }
 }
 
-// console.log(path.resolve(projectRoot, './public'))
+console.log(path.resolve(projectRoot, './src/views'));
 export default Server;

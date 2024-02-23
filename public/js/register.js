@@ -8,15 +8,19 @@ formRegister?.addEventListener('submit', async (event) => {
 
     const response = await fetch('/api/users/register', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'auth-token': this.token },
         // @ts-ignore
         body: new URLSearchParams(new FormData(formRegister)),
     });
-
+    // 201 - Created
     if (response.status === 201) {
-        const { payload: usuario } = await response.json();
-        alert(JSON.stringify(usuario));
-        window.location.href = '/profile';
+        const { payload: user, token: token } = await response.json();
+        // console.log(user);
+        // console.log(token);
+        // it is a good practice to store the token in the local storage
+        localStorage.setItem('token', token);
+        alert(JSON.stringify(user, null, 2));
+        window.location.href = '/';
     } else {
         const error = await response.json();
         alert(error.message);

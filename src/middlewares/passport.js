@@ -3,6 +3,7 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as GitHubStrategy } from 'passport-github2';
 import User from '../dao/mongooseDB/models/User.js';
 import process from 'process';
+// import { encryptData } from '../utils/criptografia.js';
 
 passport.use(
     'local',

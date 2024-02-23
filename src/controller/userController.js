@@ -22,38 +22,56 @@ export const controller = {
     getResetPassword: (req, res) => {
         res.render('resetpassword.hbs', { title: 'Reset Password' });
     },
-    login: (req, res, next) => {
+    login: async (req, res, next) => {
         passport.authenticate('local', (err, user) => {
             if (err) {
-                return res.status(401).json({ status: 'error', message: err.message });
+                res.status(401).json({ status: 'error', message: err.message });
+            }
+            if (err) {
+                return next(err); // If an error occurs, pass it to the next middleware
             }
             if (!user) {
+                /* If authentication failed, `user` will be set to false. 
+                You can send a response accordingly. */
                 return res.status(401).json({ status: 'error', message: 'login failed' });
             }
             req.logIn(user, (err) => {
                 if (err) {
                     return next(err);
                 }
+                // const token = User.generateAuthToken(user);
+                /* If authentication succeeded, `user` will be the authenticated user. 
+                You can send a response accordingly. */
+                // console.log(user.token);
                 return res.status(201).json({
                     status: 'success',
                     message: 'login success',
                     payload: user,
+                    token: user.token,
                 });
             });
         })(req, res, next);
     },
+    // post
     register: async (req, res) => {
         // console.log(req.body);
+        const user = new User({
+            ...req.body,
+        });
+        const token = await User.generateAuthToken(user.toObject());
+        // console.log(token);
+
         try {
-            const user = await User.create({
-                ...req.body,
-            });
             req.login(user.toObject(), async (err) => {
                 if (err) {
                     return res.status(400).json({ status: 'fail', message: err.message });
                 } else {
                     await user.save();
-                    res.status(201).json({ status: 'success', payload: user.toObject() });
+                    res.status(201).header('auth-token', token).json({
+                        status: 'success',
+                        payload: user.toObject(),
+                        token: token,
+                    });
                 }
             });
 
@@ -72,10 +90,12 @@ export const controller = {
         }
     },
     userSession: async (req, res) => {
-        // console.log(req.user);
-        const user = await User.findOne({ username: req.user.username }, { password: 0 }).lean();
-        // console.log(user);
-        res.json({ status: 'success', payload: user });
+        const user = await User.verifyToken(req['accessToken']);
+        try {
+            res.status(200).json({ status: 'success', payload: user });
+        } catch (error) {
+            res.status(401).json({ status: 'fail', message: error.message });
+        }
     },
     // user: async (req, res) => {
     //     res.json(req.user);
@@ -117,4 +137,7 @@ export const controller = {
     editProfile: (req, res) => {
         res.render('editprofile.hbs', { title: 'Edit Profile', ...req.user });
     },
+    // auth: async (req, res) => {
+    //     res.json(req.user);
+    // },
 };

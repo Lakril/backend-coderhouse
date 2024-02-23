@@ -21,7 +21,7 @@ formEdit?.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const formData = new FormData(formEdit);
-    console.log(formData);
+    // console.log(formData);
 
     //@ts-ignore
     const body = new URLSearchParams(formData);

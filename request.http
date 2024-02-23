@@ -53,3 +53,19 @@ GET http://localhost:3001/profile HTTP/1.1
 ###
 
 DELETE http://localhost:3001/api/users/current HTTP/1.1
+
+###
+POST  http://localhost:3001/api/users/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Jose",
+  "lastname": "Ramirez",
+  "email": "joser@hotmail.com",
+  "username": "jose2",
+  "password": "1234"
+}
+
+###
+GET http://localhost:3001 HTTP/1.1
+Content-Type: application/json

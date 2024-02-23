@@ -1,6 +1,7 @@
-import { randomUUID } from 'crypto';
-import { Schema, model } from 'mongoose';
 import bcrypt from 'bcrypt';
+import { randomUUID } from 'crypto';
+import jwt from 'jsonwebtoken';
+import { Schema, model } from 'mongoose';
 import process from 'process';
 
 /**
@@ -30,6 +31,7 @@ const userSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'Cart',
         },
+        // tokens: [{ token: { type: String, required: true } }],
     },
     {
         strict: 'throw',
@@ -49,12 +51,13 @@ const userSchema = new Schema(
                     };
                 } else {
                     const user = await this.findOne({ email: email }).lean();
+
                     if (!user) {
-                        throw new Error('login failed');
+                        throw new Error('Invalid email or password.');
                     }
 
                     if (!(await bcrypt.compare(password, user.password))) {
-                        throw new Error('login failed');
+                        throw new Error('Invalid email or password.');
                     }
 
                     dataUser = {
@@ -64,6 +67,9 @@ const userSchema = new Schema(
                         email: user.email,
                         role: user.role,
                     };
+                    // generate token for user
+                    const token = await this.generateAuthToken(dataUser);
+                    dataUser.token = token;
                 }
                 return dataUser;
             },
@@ -105,6 +111,24 @@ const userSchema = new Schema(
                 });
                 return updatedUser;
             },
+            generateAuthToken: function (user) {
+                // const user = this;
+                const token = jwt.sign(user, process.env.JWT_SECRET, {
+                    expiresIn: '1h',
+                });
+                if (!token) {
+                    throw new Error('Invalid token');
+                }
+                return token;
+            },
+            verifyToken: function (token) {
+                return jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+                    if (err) {
+                        throw new Error('Invalid token');
+                    }
+                    return user;
+                });
+            },
         },
     }
 );
@@ -118,4 +142,4 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
-export default model('user', userSchema);
+export default model('User', userSchema);

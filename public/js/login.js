@@ -10,14 +10,18 @@ formLogin?.addEventListener('submit', async (event) => {
         // @ts-ignore
         body: new URLSearchParams(new FormData(formLogin)),
     });
-    console.log(response);
+    // console.log(new URLSearchParams(new FormData(formLogin)));
 
     if (response.status === 201) {
-        const sesion = await response.json();
-        alert(JSON.stringify(sesion));
-        window.location.href = '/api/products';
+        // Created
+        const { payload: user } = await response.json();
+        console.log(user);
+        localStorage.setItem('token', user.token);
+        alert(JSON.stringify(user));
+        window.location.href = '/';
     } else {
         const error = await response.json();
+        // console.log(JSON.stringify(error));
         alert(error.message);
     }
 });
