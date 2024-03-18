@@ -1,3 +1,4 @@
+// ters
 export function justLoggedInApi(req, res, next) {
     // if (!req.session['user']) {
     if (!req.isAuthenticated()) {
@@ -12,7 +13,8 @@ export function justLoggedInApi(req, res, next) {
 export function checkRole(...roles) {
     return (req, res, next) => {
         if (!req.user) {
-            return res.status(401).json({ message: 'Unauthorized' }); // if no user is logged in
+            // if no user is logged in
+            return res.status(401).json({ message: 'Unauthorized' });
         }
 
         const hasRole = roles.find((role) => req.user.role === role);
@@ -38,9 +40,11 @@ export function permit(...allowedRoles) {
         const user = req.user;
 
         if (user && allowedRoles.includes(user.role)) {
-            next(); // role is allowed, so continue on the next middleware
+            // role is allowed, so continue on the next middleware
+            next();
         } else {
-            res.status(403).json({ message: 'Forbidden' }); // user is forbidden
+            // user is forbidden
+            res.status(403).json({ message: 'Forbidden' });
         }
     };
 }
@@ -50,7 +54,10 @@ export const validateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     if (!token || token === 'null') {
-        return res.status(403).json({ status: 'error', message: 'There is not token' });
+        return res.status(403).json({
+            status: 'error',
+            message: 'There is not token',
+        });
     }
     req['accessToken'] = token;
     next();

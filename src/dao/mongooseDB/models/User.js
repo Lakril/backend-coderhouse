@@ -1,22 +1,9 @@
+// @ts-nocheck
 import bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
 import jwt from 'jsonwebtoken';
 import { Schema, model } from 'mongoose';
 import process from 'process';
-
-/**
- * Represents the user schema for the MongoDB collection 'users'.
- *
- * @typedef {Object} UserSchema
- * @property {string} _id - The unique identifier of the user.
- * @property {string} username - The username of the user.
- * @property {string} name - The name of the user.
- * @property {string} lastname - The last name of the user.
- * @property {string} password - The password of the user.
- * @property {string} email - The email address of the user.
- * @property {string} role - The role of the user. Can be 'user' or 'admin'.
- * @property {Schema.Types.ObjectId} cart - The reference to the user's cart.
- */
 
 const userSchema = new Schema(
     {

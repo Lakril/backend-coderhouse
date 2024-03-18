@@ -23,7 +23,6 @@ formEdit?.addEventListener('submit', async (event) => {
     const formData = new FormData(formEdit);
     // console.log(formData);
 
-    //@ts-ignore
     const body = new URLSearchParams(formData);
 
     const response = await fetch('/api/users/current', {

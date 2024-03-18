@@ -1,7 +1,7 @@
 {
     "env": {
         "browser": true,
-        "es2022": true,
+        "es2024": true,
         "mongo": true
     },
     "extends": [
@@ -13,25 +13,29 @@
     "parser": "@babel/eslint-parser",
     "parserOptions": {
         "requireConfigFile": false,
-        "ecmaVersion": 13,
+        "ecmaVersion": "latest",
         "sourceType": "module",
         "babelOptions": {
             "presets": ["@babel/preset-env"],
-            "plugins": ["@babel/plugin-syntax-import-attributes"]
+            "plugins": [
+                "@babel/plugin-syntax-import-attributes",
+            "@babel/plugin-proposal-optional-chaining"
+        ]
         }
     },
     "rules": {
-        "indent": ["error", 4],
-        "quotes": ["error", "single"],
-        "semi": ["error", "always"],
-        "no-unused-vars": "warn",
-        "max-len": ["error", { "code": 100 }],
-        "space-infix-ops": "error",
-        "camelcase": "error",
-        "object-curly-spacing": ["error", "always"],
-        // "array-bracket-spacing": ["error", "always"],
+        "line-comment-position": "error",
+        "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+        "id-length": ["error", { "properties": "always", "min":2 , "max": 100, "exceptions":["i", "x", "p", "m", "e", "c"]}],
+        "camelcase": ["error", { "properties": "always", "ignoreDestructuring": true , "allow": ["^start_seq"] }],
         "key-spacing": ["error", { "beforeColon": false, "afterColon": true }],
-        "space-in-parens": ["error", "never"]
-        // "template-curly-spacing": ["error", "always"]
+        "no-duplicate-imports": ["error", { "includeExports": true }],
+        "no-template-curly-in-string": "error",
+        "no-use-before-define": ["error", {
+            "functions": true,
+            "classes": true,
+            "variables": true,
+            "allowNamedExports": true
+        }]
     }
 }

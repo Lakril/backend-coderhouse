@@ -8,8 +8,11 @@ formRegister?.addEventListener('submit', async (event) => {
 
     const response = await fetch('/api/users/register', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'auth-token': this.token },
-        // @ts-ignore
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'auth-token': this.token,
+        },
+
         body: new URLSearchParams(new FormData(formRegister)),
     });
     // 201 - Created

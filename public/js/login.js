@@ -7,7 +7,6 @@ formLogin?.addEventListener('submit', async (event) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 
-        // @ts-ignore
         body: new URLSearchParams(new FormData(formLogin)),
     });
     // console.log(new URLSearchParams(new FormData(formLogin)));

@@ -8,12 +8,19 @@ const AutoIncrement = AutoIncrementFactory(mongoose);
 const productSchema = new Schema(
     {
         _id: Number,
-        title: { type: String, required: [true, 'You must provide an title.'], trim: true },
+        title: {
+            type: String,
+            required: [true, 'You must provide an title.'],
+            trim: true,
+        },
         description: { type: String, default: 'No description' },
         code: { type: String, required: true, unique: true },
         price: { type: Number, required: true },
         stock: { type: Number, required: true },
-        thumbnails: { type: Array, default: ['/public/img/imagNoAvalibel.jpg'] },
+        thumbnails: {
+            type: Array,
+            default: ['/public/img/imagNoAvalibel.jpg'],
+        },
         category: { type: String, required: true },
         status: { type: Boolean, default: true },
     },
@@ -85,7 +92,6 @@ productSchema.pre('save', function (next) {
     next();
 });
 
-// eslint-disable-next-line
 productSchema.plugin(AutoIncrement, { start_seq: 21 });
 productSchema.plugin(mongoosePaginate);
 

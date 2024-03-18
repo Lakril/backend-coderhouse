@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Carts from '../dao/mongooseDB/models/Carts.js';
 
 export const controller = {
@@ -15,12 +16,14 @@ export const controller = {
             let cart = await Carts.find();
             if (cart.length === 0) {
                 const newCart = await Carts.create({});
+
                 await newCart.save();
                 cart = await Carts.find();
             }
 
             // add item to cart
             const cid = cart[0]._id;
+
             const saveItem = await Carts.addItem(pid, cid, qty);
             const calculateTotal = await Carts.calculateTotal(saveItem);
             res.json(calculateTotal);

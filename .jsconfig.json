@@ -1,9 +1,11 @@
 {
     "compilerOptions": {
-        "lib": ["ESNext"],
-        "module": "esnext",
-        "target": "esnext",
-        "moduleResolution": "bundler",
+        "checkJs": false,
+        "target": "es6",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "rootDir": "src",
+        "noEmitOnError": false,
         "moduleDetection": "force",
         "allowImportingTsExtensions": true,
         "noEmit": true,
@@ -14,14 +16,8 @@
         "jsx": "preserve",
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
-        "allowJs": true,
-        "types": [
-            "bun-types" // add Bun global
-        ],
-        "baseUrl": ".",
-        "paths": {
-            "*": ["./*"],
-            "src/*": ["./src/*"]
-        }
-    }
+        "allowJs": true
+    },
+    "include": ["src/**"],
+    "exclude": ["node_modules"]
 }

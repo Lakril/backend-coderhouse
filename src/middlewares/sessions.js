@@ -5,7 +5,8 @@ function createSession(mongoUrl, sessionSecret) {
     const store = MongoStore.create({
         mongoUrl: mongoUrl,
         collectionName: 'sessions',
-        ttl: 60 * 60 * 24, // 1 day
+        // 1 day
+        ttl: 60 * 60 * 24,
     });
 
     const sessions = session({

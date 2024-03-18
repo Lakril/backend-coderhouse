@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 async function deleteItem(event) {
-    const cartId = document.getElementById('root').dataset.cid;
+    const cartId = document?.getElementById('root')?.dataset.cid;
     await fetch(`/api/carts/${cartId}/products/${event}`, {
         method: 'DELETE',
         headers: {
@@ -20,7 +20,7 @@ async function deleteCart(event) {
     });
 }
 
-//*---------------------------------
+//* ---------------------------------
 
 // const items = document.getElementById('cartItem').dataset;
 

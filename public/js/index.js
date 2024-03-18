@@ -18,11 +18,16 @@ window.addEventListener('load', async function () {
         });
 
         if (response.status === 200) {
-            const data = await response.json();
-            // console.log(JSON.stringify(data));
+            const { payload: user } = await response.json();
+            // console.log(JSON.stringify(user));
 
             const pInfo = document.createElement('p');
-            pInfo.innerHTML = JSON.stringify(data);
+            pInfo.innerHTML = '';
+            pInfo.innerHTML += `username: ${user.username}<br>`;
+            pInfo.innerHTML += `name: ${user.name}<br>`;
+            pInfo.innerHTML += `lastname: ${user.lastname}<br>`;
+            pInfo.innerHTML += `email: ${user.email}<br>`;
+            pInfo.innerHTML += `role: ${user.role}<br>`;
             content?.appendChild(pInfo);
 
             const aLogout = document.createElement('a');

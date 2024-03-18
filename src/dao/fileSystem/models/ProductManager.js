@@ -43,14 +43,14 @@ export class ProductManager {
     }
 
     async addProduct(dataProduct) {
-        let products = await this.getProducts();
+        const products = await this.getProducts();
         const product = new Product(dataProduct);
         try {
             // Validate that all fields are present
             await this.validateFields(dataProduct);
 
             // Validate that the code field is unique
-            for (let obj of products) {
+            for (const obj of products) {
                 if (obj.code === dataProduct.code) {
                     throw new Error('Code already exists');
                 }
@@ -58,7 +58,7 @@ export class ProductManager {
 
             // increment the id
             let maxId = 0;
-            for (let product of products) {
+            for (const product of products) {
                 if (product.id > maxId) {
                     maxId = product.id;
                 }
@@ -106,7 +106,7 @@ export class ProductManager {
         return pojo;
     }
 
-    //deleteProduct(id) {}
+    // deleteProduct(id) {}
     async deleteProduct(id) {
         try {
             // Validate the id
@@ -145,8 +145,8 @@ export class ProductManager {
             // validate fields
             await this.validateFields(updatedProductData);
 
-            //search id in products
-            const idIndex = products.findIndex((u) => u.id === productId);
+            // search id in products
+            const idIndex = products.findIndex((p) => p.id === productId);
             // const product = products.find((p) => p.id === productId);
 
             if (idIndex === -1) {
@@ -182,4 +182,4 @@ export class ProductManager {
     }
 }
 
-//& ------------------------------------DONE------------------------------------
+// & ------------------------------------DONE------------------------------------

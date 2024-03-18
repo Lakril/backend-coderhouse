@@ -12,7 +12,7 @@ export class Cart {
     // Create a new cart
     async newCart() {
         const carts = await JSON.parse(await fs.readFile(this.#path, 'utf-8'));
-        let cartObject = {
+        const cartObject = {
             id: this.cid,
             products: this.items,
         };
@@ -44,7 +44,7 @@ export class Cart {
         try {
             const pm = new ProductManager(products);
             let carts = await JSON.parse(await fs.readFile(this.#path, 'utf-8'));
-            let product = await pm.getProductById(pid);
+            const product = await pm.getProductById(pid);
 
             // Find the cart
             const cart = await this.getItems(cid);

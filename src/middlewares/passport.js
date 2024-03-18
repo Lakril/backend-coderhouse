@@ -4,6 +4,9 @@ import { Strategy as GitHubStrategy } from 'passport-github2';
 import User from '../dao/mongooseDB/models/User.js';
 import process from 'process';
 // import { encryptData } from '../utils/criptografia.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 passport.use(
     'local',
@@ -16,7 +19,9 @@ passport.use(
             try {
                 const user = await User.login(email, password);
                 if (!user) {
-                    return done(null, false, { message: 'Incorrect credentials.' });
+                    return done(null, false, {
+                        message: 'Incorrect credentials.',
+                    });
                 }
                 return done(null, user);
             } catch (error) {
@@ -28,6 +33,7 @@ passport.use(
 
 passport.use(
     'loginGithub',
+
     new GitHubStrategy(
         {
             clientID: process.env.GITHUB_CLIENT_ID,
@@ -43,7 +49,7 @@ passport.use(
                         username: profile.username,
                     });
                 }
-                return done(null, user.toObject());
+                return done(null, user);
             } catch (error) {
                 return done(error);
             }

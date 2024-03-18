@@ -1,3 +1,4 @@
+// @ts-nocheck
 import User from '../dao/mongooseDB/models/User.js';
 import passport from 'passport';
 
@@ -16,8 +17,14 @@ export const controller = {
     getLogin: (req, res) => {
         res.render('login.hbs', { title: 'Login' });
     },
-    profile: (req, res) => {
-        res.render('profile.hbs', { title: 'Profile', user: req.user });
+    profile: async (req, res) => {
+        console.log(req.user);
+        const token = await User.generateAuthToken(req.user);
+        console.log(token);
+        res.header('auth-token', token).render('profile.hbs', {
+            title: 'Profile',
+            user: req.user,
+        });
     },
     getResetPassword: (req, res) => {
         res.render('resetpassword.hbs', { title: 'Reset Password' });
@@ -28,10 +35,11 @@ export const controller = {
                 res.status(401).json({ status: 'error', message: err.message });
             }
             if (err) {
-                return next(err); // If an error occurs, pass it to the next middleware
+                // If an error occurs, pass it to the next middleware
+                return next(err);
             }
             if (!user) {
-                /* If authentication failed, `user` will be set to false. 
+                /* If authentication failed, `user` will be set to false.
                 You can send a response accordingly. */
                 return res.status(401).json({ status: 'error', message: 'login failed' });
             }
@@ -40,7 +48,7 @@ export const controller = {
                     return next(err);
                 }
                 // const token = User.generateAuthToken(user);
-                /* If authentication succeeded, `user` will be the authenticated user. 
+                /* If authentication succeeded, `user` will be the authenticated user.
                 You can send a response accordingly. */
                 // console.log(user.token);
                 return res.status(201).json({
@@ -127,7 +135,11 @@ export const controller = {
     updateUser: async (req, res) => {
         try {
             const { username, name, lastname, email } = req.body;
-            const updated = await User.updateUser(username, { name, lastname, email });
+            const updated = await User.updateUser(username, {
+                name,
+                lastname,
+                email,
+            });
             await updated.save();
             res.status(200).json({ status: 'success', payload: updated });
         } catch (error) {

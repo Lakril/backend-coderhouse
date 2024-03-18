@@ -5,5 +5,5 @@
     "semi": true,
     "singleQuote": true,
     "trailingComma": "es5",
-    "extends": "prettier-config-google"
+    "endOfLine": "lf"
 }

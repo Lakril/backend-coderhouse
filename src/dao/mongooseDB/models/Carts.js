@@ -42,12 +42,12 @@ const cartSchema = new Schema(
                     const product = await Product.findById({ _id: pid }).lean();
                     // create new item
                     const newItem = {
-                        _id: product._id,
-                        title: product.title,
-                        price: product.price,
-                        image: product.thumbnails,
+                        _id: product?._id,
+                        title: product?.title,
+                        price: product?.price,
+                        image: product?.thumbnails,
                         quantity: qty,
-                        totalPrice: product.price,
+                        totalPrice: product?.price,
                     };
                     // add item to cart
                     cart.items.push(newItem);

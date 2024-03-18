@@ -6,11 +6,11 @@ const delElements = document.getElementsByClassName('delete-button');
 for (let i = 0; i < delElements.length; i++) {
     // Add a click event listener to each button
     delElements[i].addEventListener('click', function () {
-        /* this.dataset.id gets the value of the data-id attribute of the clicked button. 
+        /* this.dataset.id gets the value of the data-id attribute of the clicked button.
          The this keyword refers to the clicked button. */
         const id = this.dataset.id;
         console.log(id);
-        /* fetch(/api/products/${id}, {...}) sends a DELETE request to 
+        /* fetch(/api/products/${id}, {...}) sends a DELETE request to
         the server with the _id in the URL. */
         fetch(`/api/products/${id}`, {
             method: 'DELETE',

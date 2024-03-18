@@ -34,7 +34,7 @@ export const controller = {
         }
         try {
             const quantity = Number(1);
-            let saveItem = await ct.addItem(pid, cid, quantity, './database/products.json');
+            const saveItem = await ct.addItem(pid, cid, quantity, './database/products.json');
             res.json(saveItem);
         } catch (error) {
             res.status(500).json({ message: error.message });

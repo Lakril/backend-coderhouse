@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Product from '../dao/mongooseDB/models/Product.js';
 import productsData from '../../database/products.json' with { type: 'json' };
 // import { inspect } from 'util';
@@ -7,7 +8,7 @@ export const controller = {
     get: async (req, res) => {
         const { limit, page, sort, filter } = req.query;
 
-        //localhost:3001/api/products?limit=5
+        // localhost:3001/api/products?limit=5
         if (limit && isNaN(Number(limit))) {
             return res.status(400).json({ message: 'Invalid limit' });
         }
@@ -23,7 +24,8 @@ export const controller = {
         //* sort=field:order - http://127.0.0.1:3001/api/products?sort=stock
         const sortObject = {};
         if (sort) {
-            const sortArray = sort.split(':'); // Assume sort is in the format 'field:order'
+            // Assume sort is in the format 'field:order'
+            const sortArray = sort.split(':');
             sortObject[sortArray[0]] = sortArray[1] === 'desc' ? -1 : 1;
         }
 
@@ -76,7 +78,9 @@ export const controller = {
             if (error instanceof mongoose.Error.ValidationError) {
                 res.status(400).json({ message: error.message });
             } else {
-                res.status(500).json({ message: 'An error occurred while saving the product.' });
+                res.status(500).json({
+                    message: 'An error occurred while saving the product.',
+                });
             }
         }
     },
@@ -121,7 +125,10 @@ export const controller = {
             if (!product) {
                 return res.status(404).json({ message: 'Product not found' });
             }
-            res.status(200).json({ message: 'DELETE', product: product.toObject() });
+            res.status(200).json({
+                message: 'DELETE',
+                product: product.toObject(),
+            });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -161,6 +168,8 @@ export const controller = {
         }
     },
     realtime: async (req, res) => {
-        return res.render('realTimeProducts.hbs', { title: 'Real Time Products' });
+        return res.render('realTimeProducts.hbs', {
+            title: 'Real Time Products',
+        });
     },
 };

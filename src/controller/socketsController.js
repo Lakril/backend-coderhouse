@@ -38,7 +38,7 @@ class Sockets {
                 this.io.emit('products-realtime', await this.products.find());
             });
 
-            //? ----------- Chat-Messages ----------------- *//
+            // ? ----------- Chat-Messages ----------------- *//
 
             // user connected
             socket.on('user-connected', (username) => {

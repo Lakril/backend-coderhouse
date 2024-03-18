@@ -10,7 +10,7 @@ export const dbConnection = (uri = process.env.MONGODB_URI) => {
 
         const db = mongoose.connection;
 
-        //CONNECTION EVENTS
+        // CONNECTION EVENTS
         db.on('connected', () => {
             console.log(`You are connected to Mongo ${db.name} at ${db.host}:${db.port}`);
         });

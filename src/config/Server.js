@@ -5,7 +5,8 @@ import { CartRouter } from '../routes/cart.routing.js';
 import { webRouter } from '../routes/web/web.routing.js';
 import Sockets from '../controller/socketsController.js';
 import path from 'path';
-import { engine } from 'express-handlebars'; // Added import statement
+// Added import statement
+import { engine } from 'express-handlebars';
 import express from 'express';
 import { projectRoot } from '../utils/utils.js';
 import process from 'process';
@@ -30,10 +31,9 @@ class Server {
     }
 
     middlewares() {
-        this.app.use(favicon(path.resolve(projectRoot, './public/img/favicon.ico')));
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
-        this.app.use(express.static(path.resolve(projectRoot, './public')));
+        // this.app.use(express.static(path.resolve(projectRoot, './public')));
         this.app.use('/public', express.static(path.resolve(projectRoot, './public')));
         this.app.use('/database', express.static(path.resolve(projectRoot, './database')));
         // view engine setup
@@ -54,15 +54,16 @@ class Server {
 
         this.app.use(createSession(this.uri, this.secret));
         this.app.use(passportInitialize, passportSession);
+        this.app.use(favicon('./public/img/favicon.ico'));
 
         // restrict CORS
         this.app.use(cors());
 
         // eslint-disable-next-line no-unused-vars
-        this.app.use(function (err, req, res, next) {
-            console.error(err.stack);
-            res.status(500).send('Something broke!');
-        });
+        // this.app.use(function (err, req, res, next) {
+        //     console.error(err.stack);
+        //     res.status(500).send('Something broke!');
+        // });
     }
 
     configSockets() {
@@ -90,6 +91,7 @@ class Server {
 
         // start server
         this.httpServer
+
             .listen(this.port, this.host, () => {
                 console.log(`1) http://${this.host}:${this.port}/`);
                 console.log(`2) http://${this.host}:${this.port}/api/products/`);
@@ -119,5 +121,5 @@ class Server {
     }
 }
 
-console.log(path.resolve(projectRoot, './src/views'));
+// console.log(path.resolve(projectRoot, './src/views'));
 export default Server;

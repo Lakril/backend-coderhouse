@@ -1,7 +1,16 @@
+// @ts-nocheck
 const formLogout = document.querySelector('form');
 
 window.addEventListener('load', async () => {
-    const response = await fetch('/api/users/current');
+    // get tocken from headers
+    const accessToken = localStorage.getItem('token');
+    console.log('here profile', accessToken);
+    const response = await fetch('/api/users/current', {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
 
     if (response.status === 200) {
         // Add your code here
