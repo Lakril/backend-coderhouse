@@ -17,14 +17,8 @@ export const controller = {
     getLogin: (req, res) => {
         res.render('login.hbs', { title: 'Login' });
     },
-    profile: async (req, res) => {
-        console.log(req.user);
-        const token = await User.generateAuthToken(req.user);
-        console.log(token);
-        res.header('auth-token', token).render('profile.hbs', {
-            title: 'Profile',
-            user: req.user,
-        });
+    profile: (req, res) => {
+        res.render('profile.hbs', { title: 'Profile' });
     },
     getResetPassword: (req, res) => {
         res.render('resetpassword.hbs', { title: 'Reset Password' });
@@ -62,19 +56,17 @@ export const controller = {
     },
     // post
     register: async (req, res) => {
-        // console.log(req.body);
-        const user = new User({
-            ...req.body,
-        });
-        const token = await User.generateAuthToken(user.toObject());
-        // console.log(token);
+        const userData = req.body;
 
         try {
+            const user = await User.create(userData);
+
+            const token = await User.generateAuthToken(user.toObject());
             req.login(user.toObject(), async (err) => {
                 if (err) {
                     return res.status(400).json({ status: 'fail', message: err.message });
                 } else {
-                    await user.save();
+                    user.save();
                     res.status(201).header('auth-token', token).json({
                         status: 'success',
                         payload: user.toObject(),
@@ -83,7 +75,7 @@ export const controller = {
                 }
             });
 
-            // console.log(user);
+            console.log(user);
         } catch (error) {
             res.status(400).json({ status: 'fail', message: error.message });
         }

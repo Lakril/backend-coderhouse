@@ -15,10 +15,12 @@ formRegister?.addEventListener('submit', async (event) => {
 
         body: new URLSearchParams(new FormData(formRegister)),
     });
+
+    console.log(response);
     // 201 - Created
     if (response.status === 201) {
         const { payload: user, token: token } = await response.json();
-        // console.log(user);
+        console.log(user);
         // console.log(token);
         // it is a good practice to store the token in the local storage
         localStorage.setItem('token', token);
@@ -26,6 +28,7 @@ formRegister?.addEventListener('submit', async (event) => {
         window.location.href = '/';
     } else {
         const error = await response.json();
+        console.log(JSON.stringify(error));
         alert(error.message);
     }
 });

@@ -11,6 +11,7 @@ window.addEventListener('load', async () => {
             Authorization: `Bearer ${accessToken}`,
         },
     });
+    console.log(response);
 
     if (response.status === 200) {
         // Add your code here
