@@ -1,14 +1,17 @@
-// ters
-export function justLoggedInApi(req, res, next) {
-    // if (!req.session['user']) {
-    if (!req.isAuthenticated()) {
+// middleware to get token from headers
+export const getToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (!token || token === 'null') {
         return res.status(403).json({
             status: 'error',
-            message: 'you need to be logged in to access this resource',
+            message: 'There is not token',
         });
     }
+    // add token to request object
+    req['accessToken'] = token;
     next();
-}
+};
 
 export function checkRole(...roles) {
     return (req, res, next) => {
@@ -48,20 +51,6 @@ export function permit(...allowedRoles) {
         }
     };
 }
-
-// middleware to validate token (rutas protegidas)
-export const validateToken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-    if (!token || token === 'null') {
-        return res.status(403).json({
-            status: 'error',
-            message: 'There is not token',
-        });
-    }
-    req['accessToken'] = token;
-    next();
-};
 
 // export const authenticateToken = (req, res, next) => {
 //     const authHeader = req.header['authorization'];

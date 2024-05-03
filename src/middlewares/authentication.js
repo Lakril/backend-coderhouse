@@ -9,13 +9,12 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 passport.use(
-    'local',
+    'localLocal',
     new LocalStrategy(
         {
             usernameField: 'email',
-            passwordField: 'password',
         },
-        async (email, password, done) => {
+        async function verificationCallback(email, password, done) {
             try {
                 const user = await User.login(email, password);
                 if (!user) {
@@ -49,7 +48,7 @@ passport.use(
                         username: profile.username,
                     });
                 }
-                return done(null, user);
+                return done(null, user.toObject());
             } catch (error) {
                 return done(error);
             }

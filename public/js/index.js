@@ -2,7 +2,7 @@ const content = document.querySelector('#content');
 // console.log(content);
 
 window.addEventListener('load', async function () {
-    const accessToken = localStorage.getItem('token');
+    const accessToken = localStorage.getItem('accessToken');
     console.log('here', accessToken);
 
     if (!accessToken) {
@@ -13,7 +13,7 @@ window.addEventListener('load', async function () {
         const response = await fetch('/api/users/current', {
             method: 'GET',
             headers: {
-                Authorization: `Bearer ${accessToken}`,
+                authorization: `Bearer ${accessToken}`,
             },
         });
 
@@ -34,7 +34,7 @@ window.addEventListener('load', async function () {
             aLogout.innerHTML = 'logout';
             aLogout.href = '#';
             aLogout.onclick = () => {
-                localStorage.removeItem('token');
+                localStorage.removeItem('accessToken');
                 window.location.reload();
             };
             content?.appendChild(aLogout);

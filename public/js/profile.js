@@ -3,7 +3,7 @@ const formLogout = document.querySelector('form');
 
 window.addEventListener('load', async () => {
     // get tocken from headers
-    const accessToken = localStorage.getItem('token');
+    const accessToken = localStorage.getItem('accessToken');
     console.log('here profile', accessToken);
     const response = await fetch('/api/users/current', {
         method: 'GET',

@@ -3,7 +3,10 @@ import bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
 import jwt from 'jsonwebtoken';
 import { Schema, model } from 'mongoose';
-import process from 'process';
+import process from 'node:process';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const userSchema = new Schema(
     {
@@ -26,7 +29,7 @@ const userSchema = new Schema(
         timestamps: true,
         collection: 'users',
         statics: {
-            login: async function login(email, password) {
+            login: async function (email, password) {
                 let dataUser;
                 if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
                     dataUser = {
@@ -44,7 +47,7 @@ const userSchema = new Schema(
                     }
 
                     if (!(await bcrypt.compare(password, user.password))) {
-                        throw new Error('Invalid email or password.');
+                        throw new Error('Invalid password.');
                     }
 
                     dataUser = {
@@ -98,22 +101,15 @@ const userSchema = new Schema(
                 });
                 return updatedUser;
             },
-            generateAuthToken: function (user) {
-                // const user = this;
-                const token = jwt.sign(user, process.env.JWT_SECRET, {
-                    expiresIn: '1h',
-                });
-                if (!token) {
-                    throw new Error('Invalid token');
-                }
-                return token;
+            generateAuthToken: function (data) {
+                return jwt.sign({ data }, process.env.JWT_SECRET, { expiresIn: '1h' });
             },
             verifyToken: function (token) {
-                return jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+                return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
                     if (err) {
                         throw new Error('Invalid token');
                     }
-                    return user;
+                    return decoded.data;
                 });
             },
         },

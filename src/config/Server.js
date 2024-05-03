@@ -16,7 +16,7 @@ import { json, decimal } from '../middlewares/hbsHelpers.js';
 import { createServerSocket } from '../middlewares/serverSocket.js';
 import createSession from '../middlewares/sessions.js';
 import { apiRouter } from '../routes/api/apirest.routing.js';
-import { passportInitialize, passportSession } from '../middlewares/passport.js';
+import { passportInitialize, passportSession } from '../middlewares/authentication.js';
 import favicon from 'serve-favicon';
 
 class Server {
