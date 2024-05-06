@@ -10,8 +10,8 @@ export const webRouter = Router();
 // });
 webRouter.get('/login', controller.getLogin);
 webRouter.get('/register', controller.getRegister);
-webRouter.get('/profile', controller.profile);
-// webRouter.get('/editprofile', controller.editProfile);
+webRouter.get('/profile', controller.getProfile);
+webRouter.get('/editprofile', controller.getEdit);
 webRouter.get('/', (req, res) => {
     res.sendFile('index.html', { root: './src/views' });
 });

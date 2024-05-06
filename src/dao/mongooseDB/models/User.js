@@ -24,6 +24,17 @@ const userSchema = new Schema(
         versionKey: false,
         timestamps: true,
         collection: 'users',
+        methods: {
+            publicInfo: function () {
+                return {
+                    username: this.username,
+                    name: this.name,
+                    lastname: this.lastname,
+                    email: this.email,
+                    role: this.role,
+                };
+            },
+        },
         statics: {
             login: async function (email, password) {
                 let dataUser;
@@ -95,7 +106,10 @@ const userSchema = new Schema(
                 const updatedUser = await this.findOneAndUpdate({ username: username }, user, {
                     new: true,
                 });
-                return updatedUser;
+                if (!updatedUser) {
+                    throw new Error('User not found');
+                }
+                return updatedUser.publicInfo();
             },
             generateAuthToken: function (data) {
                 return jwt.sign({ data }, config.jwtSecret, { expiresIn: '1h' });

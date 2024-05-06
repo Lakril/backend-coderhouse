@@ -3,6 +3,7 @@ const inputs = document.querySelectorAll('input');
 
 window.addEventListener('load', async () => {
     const response = await fetch('/api/users/current');
+    console.log(response);
     if (response.status === 403) {
         alert('necesitas loguearte para modificar tus datos!');
         return (window.location.href = '/login');

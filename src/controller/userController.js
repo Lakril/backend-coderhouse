@@ -23,11 +23,14 @@ export const controller = {
     getLogin: (req, res) => {
         res.render('login.hbs', { title: 'Login' });
     },
-    profile: (req, res) => {
+    getProfile: (req, res) => {
         res.render('profile.hbs', { title: 'Profile' });
     },
     getResetPassword: (req, res) => {
         res.render('resetpassword.hbs', { title: 'Reset Password' });
+    },
+    getEdit: (req, res) => {
+        res.render('editprofile.hbs', { title: 'Edit Profile' });
     },
     // POST - session API
     login: async (req, res) => {
@@ -101,7 +104,7 @@ export const controller = {
             res.status(401).json({ status: 'fail', message: error.message });
         }
     },
-    // current user
+    // GET - session API /current
     userSession: async (req, res) => {
         const user = await User.verifyToken(req['accessToken']);
         // console.log(user);
@@ -112,9 +115,7 @@ export const controller = {
             res.status(403).json({ status: 'fail', message: error.message });
         }
     },
-    // user: async (req, res) => {
-    //     res.json(req.user);
-    // },
+    // DELETE - session API
     logout: (req, res) => {
         res.clearCookie('authorization', COOKIE_OPTS);
         res.status(204).json({ status: 'success', message: 'logout success' });
@@ -146,15 +147,13 @@ export const controller = {
                 lastname,
                 email,
             });
-            await updated.save();
+            const accessToken = await User.generateAuthToken(updated);
             console.log(updated);
+            res.cookie('authorization', accessToken, COOKIE_OPTS);
             res.status(200).json({ status: 'success', payload: updated });
         } catch (error) {
             res.status(401).json({ status: 'fail', message: error.message });
         }
-    },
-    editProfile: (req, res) => {
-        res.render('editprofile.hbs', { title: 'Edit Profile', ...req.user });
     },
     // auth: async (req, res) => {
     //     res.json(req.user);

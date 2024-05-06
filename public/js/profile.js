@@ -3,15 +3,9 @@ const formLogout = document.querySelector('form');
 
 window.addEventListener('load', async () => {
     // get tocken from headers
-    const accessToken = localStorage.getItem('accessToken');
-    console.log('here profile', accessToken);
-    const response = await fetch('/api/users/current', {
-        method: 'GET',
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-        },
-    });
-    console.log(response);
+
+    const response = await fetch('/api/users/current');
+    // console.log(response);
 
     if (response.status === 200) {
         // Add your code here
@@ -36,25 +30,10 @@ window.addEventListener('load', async () => {
     }
 });
 
-// window.addEventListener('DOMContentLoaded', async () => {
-//     const response = await fetch('/api/users/current');
-
-//     const data = await response.json();
-//     console.log(data);
-
-//     if (response.status === 200) {
-//         const profile = document.querySelector('#profile');
-//         profile.innerHTML = `<a href="/profile">${data.email}</a>`;
-//     } else {
-//         const profile = document.querySelector('#profile');
-//         profile.innerHTML = `<a href="/login">Login</a>`;
-//     }
-// });
-
 formLogout?.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const response = await fetch('/api/users/current', {
+    const response = await fetch('/api/sessions/current', {
         method: 'DELETE',
     });
 

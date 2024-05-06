@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { controller } from '../../controller/userController.js';
-import { checkRole, getToken, getTokenFromCookies } from '../../middlewares/authorization.js';
+import { checkRole, getTokenFromCookies } from '../../middlewares/authorization.js';
 // import checkRole from '../../middlewares/autorization.js';
 
 export const UserRouter = Router();
@@ -10,7 +10,7 @@ UserRouter.post('/register', controller.register);
 UserRouter.get('/current', getTokenFromCookies(), controller.userSession);
 UserRouter.put('/resetpassword', controller.resetPassword);
 // UserRouter.get('/current', justLoggedInApi, controller.user);
-UserRouter.put('/current', getToken, controller.updateUser);
+UserRouter.put('/current', getTokenFromCookies(), controller.updateUser);
 UserRouter.get('/admin', checkRole('admin'), (req, res) => {
     // Only users with the 'admin' role can access this route
     res.json({ message: 'Welcome, admin!' });
