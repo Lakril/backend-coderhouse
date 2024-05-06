@@ -9,7 +9,6 @@ import path from 'path';
 import { engine } from 'express-handlebars';
 import express from 'express';
 import { projectRoot } from '../utils/utils.js';
-import process from 'process';
 import cors from 'cors';
 import { dbConnection } from '../middlewares/mongoConnection.js';
 import { json, decimal } from '../middlewares/hbsHelpers.js';
@@ -18,13 +17,15 @@ import createSession from '../middlewares/sessions.js';
 import { apiRouter } from '../routes/api/apirest.routing.js';
 import { passportInitialize, passportSession } from '../middlewares/authentication.js';
 import favicon from 'serve-favicon';
+import cookieParser from 'cookie-parser';
+import config from './index.js';
 
 class Server {
     constructor() {
-        this.port = process.env.PORT;
-        this.host = process.env.HOST;
-        this.uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/ecommerce';
-        this.secret = process.env.SESSION_SECRET;
+        this.port = config.port;
+        this.host = config.host;
+        this.uri = config.databaseURL;
+        this.secret = config.sessionSecret;
         this.app = express();
         this.httpServer = http.createServer(this.app);
         this.io = createServerSocket(this.httpServer);
@@ -59,6 +60,9 @@ class Server {
         // restrict CORS
         this.app.use(cors());
 
+        // parse cookies
+        this.app.use(cookieParser(this.secret));
+
         // eslint-disable-next-line no-unused-vars
         // this.app.use(function (err, req, res, next) {
         //     console.error(err.stack);
@@ -73,9 +77,9 @@ class Server {
     routes() {
         this.app.use(mainRouter);
         this.app.use('/', webRouter);
-        this.app.use('/api', apiRouter);
-        this.app.use('/api', ProductRouter);
-        this.app.use('/api', CartRouter);
+        this.app.use(config.api.prefix, apiRouter);
+        this.app.use(config.api.prefix, ProductRouter);
+        this.app.use(config.api.prefix, CartRouter);
     }
 
     mongoConnection() {
@@ -114,12 +118,11 @@ class Server {
                 }
             })
             .on('listening', () => {
-                console.log('Server started...');
+                console.log('Server is running on port', this.port);
             });
 
         // clearConfigCache();
     }
 }
-
 // console.log(path.resolve(projectRoot, './src/views'));
 export default Server;

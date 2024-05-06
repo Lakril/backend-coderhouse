@@ -3,10 +3,7 @@ import bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
 import jwt from 'jsonwebtoken';
 import { Schema, model } from 'mongoose';
-import process from 'node:process';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import config from '../../../config/index.js';
 
 const userSchema = new Schema(
     {
@@ -21,7 +18,6 @@ const userSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'Cart',
         },
-        // tokens: [{ token: { type: String, required: true } }],
     },
     {
         strict: 'throw',
@@ -31,7 +27,7 @@ const userSchema = new Schema(
         statics: {
             login: async function (email, password) {
                 let dataUser;
-                if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+                if (email === config.admin.email && password === config.admin.password) {
                     dataUser = {
                         name: 'admin',
                         lastname: 'admin',
@@ -102,16 +98,25 @@ const userSchema = new Schema(
                 return updatedUser;
             },
             generateAuthToken: function (data) {
-                return jwt.sign({ data }, process.env.JWT_SECRET, { expiresIn: '1h' });
+                return jwt.sign({ data }, config.jwtSecret, { expiresIn: '1h' });
             },
             verifyToken: function (token) {
-                return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+                return jwt.verify(token, config.jwtSecret, (err, decoded) => {
                     if (err) {
                         throw new Error('Invalid token');
                     }
                     return decoded.data;
                 });
             },
+            // newUser: async function (dataUser) {
+            //     const exist = await this.findOne({ username: dataUser.username });
+            //     if (exist) {
+            //         throw new Error('User already exist');
+            //     }
+            //     const newUser = new this(dataUser);
+            //     await newUser.save();
+            //     return newUser;
+            // },
         },
     }
 );

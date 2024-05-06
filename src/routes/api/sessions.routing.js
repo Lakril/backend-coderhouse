@@ -6,6 +6,7 @@ import { controller } from '../../controller/userController.js';
 export const SessionsRouter = Router();
 
 SessionsRouter.post('/', controller.login);
+SessionsRouter.delete('/current', controller.logout);
 // UserRouter.post('/register', controller.register);
 // UserRouter.delete('/current', controller.delete);
 // UserRouter.put('/resetpassword', controller.resetPassword);

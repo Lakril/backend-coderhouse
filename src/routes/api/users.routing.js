@@ -1,14 +1,13 @@
 import { Router } from 'express';
 import { controller } from '../../controller/userController.js';
-import { checkRole, getToken } from '../../middlewares/authorization.js';
+import { checkRole, getToken, getTokenFromCookies } from '../../middlewares/authorization.js';
 // import checkRole from '../../middlewares/autorization.js';
 
 export const UserRouter = Router();
 
 // UserRouter.post('/login', controller.login);
 UserRouter.post('/register', controller.register);
-UserRouter.get('/current', getToken, controller.userSession);
-UserRouter.delete('/current', controller.delete);
+UserRouter.get('/current', getTokenFromCookies(), controller.userSession);
 UserRouter.put('/resetpassword', controller.resetPassword);
 // UserRouter.get('/current', justLoggedInApi, controller.user);
 UserRouter.put('/current', getToken, controller.updateUser);

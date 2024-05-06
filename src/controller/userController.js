@@ -2,6 +2,12 @@
 import User from '../dao/mongooseDB/models/User.js';
 import passport from 'passport';
 
+const COOKIE_OPTS = {
+    signed: true,
+    maxAge: 24 * 60 * 60 * 1000,
+    httpOnly: true,
+};
+
 export const controller = {
     getUsers: async (req, res) => {
         try {
@@ -30,11 +36,11 @@ export const controller = {
         try {
             const user = await User.login(email, password);
             console.log(user);
+            res.cookie('authorization', user.token, COOKIE_OPTS);
             res.status(201).json({
                 status: 'success',
                 message: 'login success',
                 payload: user,
-                token: user.token,
             });
         } catch (error) {
             res.status(401).json({ status: 'fail', message: error.message });
@@ -69,9 +75,10 @@ export const controller = {
         //     });
         // })(req, res, next);
     },
-    // post
+    // post users API
     register: async (req, res) => {
         const userData = req.body;
+        console.log(userData);
 
         try {
             const user = await User.create(userData);
@@ -79,7 +86,8 @@ export const controller = {
 
             const accessToken = await User.generateAuthToken(user.toObject());
             // console.log(` test print accessToken ${accessToken}`);
-            res.status(201).json({ status: 'success', payload: user.toObject(), accessToken });
+            res.cookie('authorization', accessToken, COOKIE_OPTS);
+            res.status(201).json({ status: 'success', payload: user });
         } catch (error) {
             res.status(400).json({ status: 'fail', message: error.message });
         }
@@ -96,7 +104,7 @@ export const controller = {
     // current user
     userSession: async (req, res) => {
         const user = await User.verifyToken(req['accessToken']);
-        console.log(user);
+        // console.log(user);
         try {
             // it's no necessary to send status 200
             res.json({ status: 'success', payload: user });
@@ -107,10 +115,9 @@ export const controller = {
     // user: async (req, res) => {
     //     res.json(req.user);
     // },
-    delete: (req, res) => {
-        req.session.destroy(() => {
-            res.status(204).end();
-        });
+    logout: (req, res) => {
+        res.clearCookie('authorization', COOKIE_OPTS);
+        res.status(204).json({ status: 'success', message: 'logout success' });
     },
     githubLogin: async (req, res, next) => {
         passport.authenticate('loginGithub')(req, res, next);

@@ -1,4 +1,4 @@
-// middleware to get token from headers
+// middleware to get token from headers Bearer
 export const getToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -12,6 +12,22 @@ export const getToken = (req, res, next) => {
     req['accessToken'] = token;
     next();
 };
+
+// middleware to get token from cookies
+export function getTokenFromCookies(cookieName = 'authorization') {
+    return function (req, res, next) {
+        const token = req.signedCookies[cookieName];
+        if (!token) {
+            return res.status(403).json({
+                status: 'error',
+                message: 'There is not token',
+            });
+        }
+        // add token to request object
+        req['accessToken'] = token;
+        next();
+    };
+}
 
 export function checkRole(...roles) {
     return (req, res, next) => {
@@ -51,15 +67,3 @@ export function permit(...allowedRoles) {
         }
     };
 }
-
-// export const authenticateToken = (req, res, next) => {
-//     const authHeader = req.header['authorization'];
-//     const token = authHeader && authHeader.split(' ')[1];
-//     if (!token) return res.status(401).json({ error: 'Acceso denegado' });
-
-//     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-//         if (err) return res.status(403).json({ error: 'Token no es válido' });
-//         req.user = user;
-//         next();
-//     });
-// };
