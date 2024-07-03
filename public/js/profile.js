@@ -5,7 +5,7 @@ window.addEventListener('load', async () => {
     // get tocken from headers
 
     const response = await fetch('/api/users/current');
-    // console.log(response);
+    console.log(`response from profile`, response);
 
     if (response.status === 200) {
         // Add your code here

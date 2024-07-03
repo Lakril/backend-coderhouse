@@ -13,9 +13,9 @@ import cors from 'cors';
 import { dbConnection } from '../middlewares/mongoConnection.js';
 import { json, decimal } from '../middlewares/hbsHelpers.js';
 import { createServerSocket } from '../middlewares/serverSocket.js';
-import createSession from '../middlewares/sessions.js';
+// import createSession from '../middlewares/sessions.js';
 import { apiRouter } from '../routes/api/apirest.routing.js';
-import { passportInitialize, passportSession } from '../middlewares/authentication.js';
+import { passportInitialize } from '../middlewares/passport.js';
 import favicon from 'serve-favicon';
 import cookieParser from 'cookie-parser';
 import config from './index.js';
@@ -53,8 +53,8 @@ class Server {
         this.app.set('view engine', 'ejs');
         this.app.set('views', path.resolve(projectRoot, './src/views'));
 
-        this.app.use(createSession(this.uri, this.secret));
-        this.app.use(passportInitialize, passportSession);
+        // this.app.use(createSession(this.uri, this.secret));
+        this.app.use(passportInitialize);
         this.app.use(favicon('./public/img/favicon.ico'));
 
         // restrict CORS
@@ -77,7 +77,7 @@ class Server {
     routes() {
         this.app.use(mainRouter);
         this.app.use('/', webRouter);
-        this.app.use(config.api.prefix, apiRouter);
+        this.app.use('/api', apiRouter);
         this.app.use(config.api.prefix, ProductRouter);
         this.app.use(config.api.prefix, CartRouter);
     }

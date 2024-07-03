@@ -5,18 +5,18 @@ formRegister?.addEventListener('submit', async (event) => {
 
     // const formData = new FormData(formRegister);
     // formData.append('password', inputPassword.value);
-    const body = new URLSearchParams(new FormData(formRegister));
-    console.log(body);
+    // const body = new URLSearchParams(new FormData(formRegister));
+    // console.log(body);
 
-    const response = await fetch('/api/users/register', {
+    const response = await fetch('/api/users', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: body,
+        body: new URLSearchParams(new FormData(formRegister)),
     });
 
-    // console.log(response);
+    console.log('response', response);
     // 201 - Created
     if (response.status === 201) {
         const { payload: user } = await response.json();

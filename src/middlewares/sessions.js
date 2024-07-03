@@ -1,3 +1,4 @@
+//! -----------------------------------------DISSABLED
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 
@@ -21,3 +22,4 @@ function createSession(mongoUrl, sessionSecret) {
 }
 
 export default createSession;
+//! -----------------------------------------DISSABLED

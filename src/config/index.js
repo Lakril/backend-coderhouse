@@ -18,7 +18,6 @@ export default {
     port: parseInt(process.env.PORT, 10),
     host: process.env.HOST,
     databaseURL: process.env.MONGODB_URI,
-    jwtSecret: process.env.JWT_SECRET,
     sessionSecret: process.env.SESSION_SECRET,
     api: {
         prefix: '/api',
@@ -31,5 +30,13 @@ export default {
     admin: {
         email: process.env.ADMIN_EMAIL,
         password: process.env.ADMIN_PASSWORD,
+    },
+    jwt: {
+        secret: process.env.JWT_SECRET,
+        cookie: {
+            signed: true,
+            httpOnly: true,
+            maxAge: 24 * 60 * 60 * 1000,
+        },
     },
 };

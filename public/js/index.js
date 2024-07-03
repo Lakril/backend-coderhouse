@@ -1,11 +1,11 @@
 const content = document.querySelector('#content');
 
 window.addEventListener('load', async function () {
-    const response = await fetch('/api/users/current');
+    const response = await fetch('/api/session/current');
     console.log(response);
     if (response.status === 200) {
         const { payload: user } = await response.json();
-        // console.log(JSON.stringify(user));
+        console.log(JSON.stringify(user));
         const pInfo = document.createElement('p');
         pInfo.innerHTML = '';
         pInfo.innerHTML += `username: ${user.username}<br>`;

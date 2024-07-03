@@ -1,4 +1,3 @@
-// @ts-nocheck
 import bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
 import jwt from 'jsonwebtoken';
@@ -10,8 +9,8 @@ const userSchema = new Schema(
         _id: { type: String, default: randomUUID },
         username: { type: String, required: true, unique: true },
         name: { type: String, required: true },
-        lastname: { type: String, default: '' },
-        password: { type: String, default: '' },
+        lastname: { type: String, required: true },
+        password: { type: String, required: true },
         email: { type: String, unique: true, default: '' },
         role: { type: String, enum: ['user', 'admin'], default: 'user' },
         cart: {
@@ -36,39 +35,29 @@ const userSchema = new Schema(
             },
         },
         statics: {
-            login: async function (email, password) {
-                let dataUser;
-                if (email === config.admin.email && password === config.admin.password) {
-                    dataUser = {
-                        name: 'admin',
-                        lastname: 'admin',
-                        email: 'admin',
-                        role: 'admin',
-                        username: 'admin',
-                    };
+            register: async function (reqBody) {
+                // await this.
+                this.assignRole(reqBody);
+                const newUser = new this(reqBody);
+                await newUser.save();
+                return newUser.publicInfo();
+            },
+            assignRole: function (obj) {
+                if (obj.email === config.admin.email) {
+                    obj.role = 'admin';
                 } else {
-                    const user = await this.findOne({ email: email }).lean();
-
-                    if (!user) {
-                        throw new Error('Invalid email or password.');
-                    }
-
-                    if (!(await bcrypt.compare(password, user.password))) {
-                        throw new Error('Invalid password.');
-                    }
-
-                    dataUser = {
-                        username: user.username,
-                        name: user.name,
-                        lastname: user.lastname,
-                        email: user.email,
-                        role: user.role,
-                    };
-                    // generate token for user
-                    const token = await this.generateAuthToken(dataUser);
-                    dataUser.token = token;
+                    obj.role = 'user';
                 }
-                return dataUser;
+            },
+            login: async function (email, password) {
+                const user = await this.findOne({ email: email }).lean();
+                if (!user) {
+                    throw new Error('Invalid email or password.');
+                }
+                if (!(await bcrypt.compare(password, user.password))) {
+                    throw new Error('Invalid password.');
+                }
+                return user.publicInfo();
             },
             list: async function () {
                 const users = await this.find().lean();
@@ -84,18 +73,21 @@ const userSchema = new Schema(
                 return newUser;
             },
             resetPassword: async function (email, password) {
-                const user = await this.findOne({ email });
-                if (!user) {
-                    throw new Error('User not found');
-                }
-                const newPassword = await bcrypt.hash(password, 10);
-                const updated = await this.updateOne(
-                    { email: email },
-                    { $set: { password: newPassword } },
+                // const user = await this.findOne({ email });
+                // if (!user) {
+                //     throw new Error('User not found');
+                // }
+                const hashedPassword = await bcrypt.hash(password, 10);
+                const updated = await this.findOneAndUpdate(
+                    { email },
+                    { $set: { password: hashedPassword } },
                     { new: true }
                 );
+                if (!updated) {
+                    throw new Error('Password not updated');
+                }
 
-                return updated;
+                return updated.publicInfo();
             },
             deleteUser: async function (id) {
                 const deletedUser = await this.findByIdAndDelete(id);
@@ -112,25 +104,28 @@ const userSchema = new Schema(
                 return updatedUser.publicInfo();
             },
             generateAuthToken: function (data) {
-                return jwt.sign({ data }, config.jwtSecret, { expiresIn: '1h' });
+                console.log('data for token: ', data);
+                return new Promise((resolve, reject) => {
+                    if (!data) {
+                        return reject(new Error('Invalid data to generate token'));
+                    }
+                    jwt.sign(data, config.jwt.secret, { expiresIn: '24h' }, (err, token) => {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve(token);
+                        }
+                    });
+                });
             },
             verifyToken: function (token) {
-                return jwt.verify(token, config.jwtSecret, (err, decoded) => {
+                return jwt.verify(token, config.jwt.secret, (err, decoded) => {
                     if (err) {
                         throw new Error('Invalid token');
                     }
                     return decoded.data;
                 });
             },
-            // newUser: async function (dataUser) {
-            //     const exist = await this.findOne({ username: dataUser.username });
-            //     if (exist) {
-            //         throw new Error('User already exist');
-            //     }
-            //     const newUser = new this(dataUser);
-            //     await newUser.save();
-            //     return newUser;
-            // },
         },
     }
 );
@@ -144,4 +139,5 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
+// Define the ASSINGN_ROLE function
 export default model('User', userSchema);
