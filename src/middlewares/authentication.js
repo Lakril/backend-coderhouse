@@ -8,25 +8,15 @@ const COOKIE_OPTS = {
 
 // jwt
 export async function appendJwtCookie(req, res, next) {
-    if (!req.user) {
-        console.log('no user');
-        return next && next(new Error('No user found'));
-    }
     try {
         console.log('req.user: ', req.user);
         const accessToken = await User.generateAuthToken(req.user);
         console.log('generated token: ', accessToken);
         res.cookie('authorization', accessToken, COOKIE_OPTS);
-        if (typeof next === 'function') {
-            next();
-        }
+        next();
     } catch (error) {
-        if (typeof next === 'function') {
-            next(error);
-        } else {
-            console.error('Error appending JWT cookie:', error);
-            // Optionally, handle the error differently if `next` is not available
-        }
+        console.log('error: ', error);
+        next(error);
     }
 }
 

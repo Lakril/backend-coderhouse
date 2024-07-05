@@ -7,7 +7,9 @@ import { appendJwtCookie } from '../../middlewares/authentication.js';
 export const UserRouter = Router();
 
 // UserRouter.post('/login', controller.login);
-UserRouter.post('/', controller.register);
+UserRouter.post('/', [controller.register, appendJwtCookie], (req, res) => {
+    res['creado'](req.user);
+});
 // UserRouter.get('/current', appendJwtCookie, controller.userSession);
 UserRouter.patch('/', controller.resetPassword);
 UserRouter.get('/current', controller.user);

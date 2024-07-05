@@ -113,9 +113,9 @@ passport.use(
         },
         async (req, email, password, done) => {
             try {
-                const dataUser = await User.register(req.body);
-                console.log('datauser passport', dataUser);
-                done(null, dataUser);
+                const user = await User.register(req.body);
+                console.log('datauser passport', user);
+                done(null, user);
             } catch (error) {
                 done(null, false, error.message);
             }

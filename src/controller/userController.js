@@ -2,30 +2,14 @@
 import User from '../dao/mongooseDB/models/User.js';
 import passport from 'passport';
 import config from '../config/index.js';
-import { appendJwtCookie } from '../middlewares/authentication.js';
+// import { appendJwtCookie } from '../middlewares/authentication.js';
 
 export const controller = {
-    register: async (req, res) => {
-        passport.authenticate(
-            'local-register',
-            { session: false, failWithError: true },
-            (err, user, info) => {
-                if (err) {
-                    return res.status(401).json({ status: 'error', message: err.message });
-                }
-                req.logIn(user, { session: false }, async (loginErr) => {
-                    if (loginErr) {
-                        return res.status(401).json({ status: 'error', message: loginErr.message });
-                    }
-                    await appendJwtCookie(req, res);
-                    res.status(201).json({
-                        status: 'success',
-                        message: 'register success',
-                        payload: user,
-                    });
-                });
-            }
-        )(req, res);
+    register: async (req, res, next) => {
+        passport
+            .authenticate('local-register', { session: false, failWithError: true })
+            .apply(this, [req, res, next]);
+        // next();
     },
     resetPassword: async (req, res) => {
         try {
