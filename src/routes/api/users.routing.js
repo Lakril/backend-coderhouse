@@ -7,12 +7,14 @@ import { appendJwtCookie } from '../../middlewares/authentication.js';
 export const UserRouter = Router();
 
 // UserRouter.post('/login', controller.login);
-UserRouter.post('/', [controller.register, appendJwtCookie], (req, res) => {
-    res['creado'](req.user);
+UserRouter.post('/', [controller.register, appendJwtCookie], async (req, res) => {
+    await res['creado'](req.user);
+});
+UserRouter.get('/current', [controller.user], async (req, res) => {
+    await res['ok'](req.user);
 });
 // UserRouter.get('/current', appendJwtCookie, controller.userSession);
 UserRouter.patch('/', controller.resetPassword);
-UserRouter.get('/current', controller.user);
 UserRouter.put('/current', getTokenFromCookies(), controller.updateUser);
 UserRouter.get('/admin', checkRole('admin'), (req, res) => {
     // Only users with the 'admin' role can access this route

@@ -43,7 +43,7 @@ passport.use(
                 function (req) {
                     let token = null;
                     if (req?.signedCookies) {
-                        token = req.signedCookies.authorization;
+                        token = req.signedCookies['authorization'];
                     }
                     return token;
                 },
@@ -51,7 +51,7 @@ passport.use(
             secretOrKey: config.jwt.secret,
         },
         function loginUser(user, done) {
-            // console.log(user)
+            // console.log(user);
             done(null, user);
         }
     )

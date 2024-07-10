@@ -5,11 +5,12 @@ import config from '../config/index.js';
 // import { appendJwtCookie } from '../middlewares/authentication.js';
 
 export const controller = {
-    register: async (req, res, next) => {
-        passport
-            .authenticate('local-register', { session: false, failWithError: true })
-            .apply(this, [req, res, next]);
-        // next();
+    register: (req, res, next) => {
+        return passport.authenticate('local-register', { session: false, failWithError: true })(
+            req,
+            res,
+            next
+        );
     },
     resetPassword: async (req, res) => {
         try {
@@ -39,14 +40,18 @@ export const controller = {
             res.status(401).json({ status: 'fail', message: error.message });
         }
     },
-    user: async (req, res) => {
-        passport.authenticate('jwt', { session: false })(req, res, (err) => {
-            console.log(req.user);
-            if (err) {
-                res.status(401).json({ status: 'error', message: err.message });
-            } else {
-                res.status(200).json({ status: 'success', payload: req.user });
-            }
-        });
+    user: (req, res, next) => {
+        return passport.authenticate('jwt', { session: false, failWithError: true })(
+            req,
+            res,
+            next
+        );
     },
 };
+
+// user: async (req, res) => {
+//     passport.authenticate('jwt', { session: false })(req, res, () => {
+//         res.status(200).json({ status: 'success', payload: req.user });
+//         console.log('req.user controller: ', req.user);
+//     });
+// },

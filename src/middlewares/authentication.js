@@ -1,26 +1,27 @@
 import User from '../dao/mongooseDB/models/User.js';
+import config from '../config/index.js';
 
-const COOKIE_OPTS = {
-    signed: true,
-    maxAge: 24 * 60 * 60 * 1000,
-    httpOnly: true,
-};
+// const COOKIE_OPTS = {
+//     signed: true,
+//     maxAge: 24 * 60 * 60 * 1000,
+//     httpOnly: true,
+// };
 
 // jwt
 export async function appendJwtCookie(req, res, next) {
     try {
-        console.log('req.user: ', req.user);
+        // console.log('req.user: ', req.user);
         const accessToken = await User.generateAuthToken(req.user);
-        console.log('generated token: ', accessToken);
-        res.cookie('authorization', accessToken, COOKIE_OPTS);
+        // console.log('generated token: ', accessToken);
+        res.cookie('authorization', accessToken, config.jwt.cookie);
         next();
     } catch (error) {
-        console.log('error: ', error);
+        // console.log('error: ', error);
         next(error);
     }
 }
 
 export async function removeJwtCookie(req, res, next) {
-    res.clearCookie('authorization', COOKIE_OPTS);
+    res.clearCookie('authorization', config.jwt.cookie);
     next();
 }
