@@ -2,14 +2,20 @@
 import User from '../dao/mongooseDB/models/User.js';
 import passport from 'passport';
 import config from '../config/index.js';
+import { appendJwtCookie } from '../middlewares/authentication.js';
 // import { appendJwtCookie } from '../middlewares/authentication.js';
 
 export const controller = {
-    register: (req, res, next) => {
-        return passport.authenticate('local-register', { session: false, failWithError: true })(
+    register: (req, res) => {
+        passport.authenticate('local-register', { session: false, failWithError: true })(
             req,
             res,
-            next
+            () => {
+                // Added missing error parameter
+                appendJwtCookie(req, res, () => {
+                    return res['creado'](req.user);
+                });
+            }
         );
     },
     resetPassword: async (req, res) => {
@@ -40,12 +46,10 @@ export const controller = {
             res.status(401).json({ status: 'fail', message: error.message });
         }
     },
-    user: (req, res, next) => {
-        return passport.authenticate('jwt', { session: false, failWithError: true })(
-            req,
-            res,
-            next
-        );
+    user: async (req, res) => {
+        passport.authenticate('jwt', { session: false, failWithError: true })(req, res, () => {
+            return res['ok'](req.user);
+        });
     },
 };
 
@@ -54,4 +58,12 @@ export const controller = {
 //         res.status(200).json({ status: 'success', payload: req.user });
 //         console.log('req.user controller: ', req.user);
 //     });
+// },
+
+// user: (req, res, next) => {
+//     return passport.authenticate('jwt', { session: false, failWithError: true })(
+//         req,
+//         res,
+//         next
+//     );
 // },

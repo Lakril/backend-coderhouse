@@ -11,7 +11,7 @@ formRegister?.addEventListener('submit', async (event) => {
         body: new URLSearchParams(new FormData(formRegister)),
     });
 
-    console.log('response', response);
+    // console.log('response', response);
     // 201 - Created
     if (response.status === 201) {
         const { payload: user } = await response.json();
