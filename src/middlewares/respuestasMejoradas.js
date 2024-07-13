@@ -23,6 +23,12 @@ export function respuestasMejoradas(req, res, next) {
             message,
         });
     };
-
+    res.notServer = (message) => {
+        res.status(500);
+        res.json({
+            status: 'error',
+            message,
+        });
+    };
     next();
 }

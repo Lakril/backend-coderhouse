@@ -50,7 +50,8 @@ const userSchema = new Schema(
                 }
             },
             login: async function (email, password) {
-                const user = await this.findOne({ email: email }).lean();
+                const user = await this.findOne({ email: email });
+                // console.log('User: ', user);
                 if (!user) {
                     throw new Error('Invalid email or password.');
                 }
@@ -104,7 +105,7 @@ const userSchema = new Schema(
                 return updatedUser.publicInfo();
             },
             generateAuthToken: function (data) {
-                // console.log('data for token: ', data);
+                console.log('data for token: ', data);
                 return new Promise((resolve, reject) => {
                     if (!data) {
                         return reject(new Error('Invalid data to generate token'));

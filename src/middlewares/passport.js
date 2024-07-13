@@ -114,7 +114,7 @@ passport.use(
         async (req, email, password, done) => {
             try {
                 const user = await User.register(req.body);
-                console.log('datauser passport', user);
+                // console.log('datauser passport', user);
                 done(null, user);
             } catch (error) {
                 done(null, false, error.message);
@@ -132,10 +132,11 @@ passport.use(
         async (email, password, done) => {
             try {
                 // search user in db
-                const dataUser = await User.login(email, password);
+                const user = await User.login(email, password);
                 // done save user in req.user
-                done(null, dataUser);
+                done(null, user);
             } catch (error) {
+                // send error from db
                 done(null, false, error.message);
             }
         }

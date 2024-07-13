@@ -1,9 +1,19 @@
 <h1>{{title}}</h1>
-<form>
-    <label for='email'>email</label>
-    <input type='email' name='email' autocomplete="email" placeholder='email' /><br />
-    <label for='password'>password</label>
-    <input name='password' type='password' autocomplete="current-password" placeholder='password' /><br />
+<form method="POST" action="/login">
+    <div class="form-group">
+        <label for='email'>email</label>
+        <input type='email' id='email' name='email' autocomplete='on' placeholder='email' /><br />
+    </div>
+    <div class="form-group">
+        <label for='password'>password</label>
+        <input
+            id='password'
+            name='password'
+            type='password'
+            autocomplete='current-password'
+            placeholder='password'
+        /><br />
+    </div>
     <button type='submit'>Loguearme!</button>
 </form>
 <p>Do you forget the password? Click <a href='/resetpassword'>here</a></p>

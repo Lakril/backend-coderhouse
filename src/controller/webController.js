@@ -1,4 +1,5 @@
 import passport from 'passport';
+import { appendJwtCookie } from '../middlewares/authentication.js';
 
 export const controller = {
     getRegister: (req, res) => {
@@ -22,7 +23,7 @@ export const controller = {
             session: false,
         })(req, res, next);
     },
-    githubCallback: (req, res, next) => {
+    githubCallback: (req, res) => {
         passport.authenticate('github-login', { failureRedirect: '/login' }, (err, user) => {
             if (err) {
                 return res.redirect('/login');
@@ -30,7 +31,14 @@ export const controller = {
             if (!user) {
                 return res.redirect('/login');
             }
-            res.redirect('/profile');
-        })(req, res, next);
+            req.login(user, { session: false }, (loginErr) => {
+                if (loginErr) {
+                    return res.redirect('/login');
+                }
+                appendJwtCookie(req, res, () => {
+                    return res.redirect('/profile');
+                });
+            });
+        })(req, res);
     },
 };
