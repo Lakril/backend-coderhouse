@@ -1,15 +1,18 @@
 <h1>{{title}}</h1>
 <form>
     <label for='name'>Nombre</label>
-    <input name='name' type='text' autocomplete='on' placeholder='name' /><br />
+    <input id='name' name='name' type='text' autocomplete='on' placeholder='name' /><br />
     <label for='lastname'>Apellido</label>
-    <input name='lastname' type='text' autocomplete='on' placeholder='lastname' /><br />
+    <input id='lastname' name='lastname' type='text' autocomplete='on' placeholder='lastname' /><br />
     <label for='email'>Email</label>
-    <input name='email' type='email' autocomplete='on' placeholder='email' /><br />
+    <input id='email' name='email' type='email' autocomplete='on' placeholder='email' /><br />
     <label for='username'>User name</label>
-    <input name='username' type='username' autocomplete='on' placeholder='username' /><br />
+    <input id='username' name='username' type='text' autocomplete='on' placeholder='username' /><br />
     <label for='password'>Password</label>
-    <input name='password' type='password' placeholder='password' autocomplete='on' /><br />
-    <button type='submit'>Registrarme!</button>
+    <input id='password' name='password' type='password' placeholder='password' autocomplete='on' /><br />
+    <br />
+    <div>
+        <button type='submit'>register!</button>
+    </div>
 </form>
 <script src='/public/js/register.js'></script>

@@ -17,6 +17,4 @@ webRouter.get('/editprofile', controller.getEdit);
 webRouter.get('/resetpassword', controller.getResetPassword);
 webRouter.get('/githublogin', controller.githubLogin);
 webRouter.get('/githubcallback', controller.githubCallback);
-webRouter.get('/', (req, res) => {
-    res.sendFile('index.html', { root: './src/views' });
-});
+webRouter.get('/', controller.getHome);

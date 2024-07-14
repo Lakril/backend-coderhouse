@@ -2,6 +2,9 @@ import passport from 'passport';
 import { appendJwtCookie } from '../middlewares/authentication.js';
 
 export const controller = {
+    getHome: (req, res) => {
+        res.sendFile('index.html', { title: 'Home', root: 'src/views' });
+    },
     getRegister: (req, res) => {
         res.render('register.hbs', { title: 'Register' });
     },
@@ -24,21 +27,25 @@ export const controller = {
         })(req, res, next);
     },
     githubCallback: (req, res) => {
-        passport.authenticate('github-login', { failureRedirect: '/login' }, (err, user) => {
-            if (err) {
-                return res.redirect('/login');
-            }
-            if (!user) {
-                return res.redirect('/login');
-            }
-            req.login(user, { session: false }, (loginErr) => {
-                if (loginErr) {
+        passport.authenticate(
+            'github-login',
+            { session: false, failureRedirect: '/login' },
+            (err, user) => {
+                if (err) {
                     return res.redirect('/login');
                 }
-                appendJwtCookie(req, res, () => {
-                    return res.redirect('/profile');
+                if (!user) {
+                    return res.redirect('/login');
+                }
+                req.login(user, { session: false }, (loginErr) => {
+                    if (loginErr) {
+                        return res.redirect('/login');
+                    }
+                    appendJwtCookie(req, res, () => {
+                        return res.redirect('/profile');
+                    });
                 });
-            });
-        })(req, res);
+            }
+        )(req, res);
     },
 };

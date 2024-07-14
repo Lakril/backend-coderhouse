@@ -8,5 +8,5 @@ export const SessionsRouter = Router();
 
 // options in session login and logout
 SessionsRouter.post('/', controller.login);
-// SessionsRouter.get('/current', appendJwtCookie, controller.userSession);
+SessionsRouter.get('/current', controller.userSession);
 SessionsRouter.delete('/current', controller.logout);

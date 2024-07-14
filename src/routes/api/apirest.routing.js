@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { UserRouter } from './users.routing.js';
 import { SessionsRouter } from './sessions.routing.js';
-import { respuestasMejoradas } from '../../middlewares/respuestasMejoradas.js';
+import { centralizedResponse } from '../../middlewares/centralizedResponse.js';
 
 export const apiRouter = Router();
-apiRouter.use(respuestasMejoradas);
+apiRouter.use(centralizedResponse);
 
 // apiRouter.post('/register', (req, res) => {
 //     res.ok({ message: 'testinh' });

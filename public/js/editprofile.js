@@ -22,7 +22,7 @@ formEdit?.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const formData = new FormData(formEdit);
-    // console.log(formData);
+    console.log(formData);
 
     const body = new URLSearchParams(formData);
 
@@ -38,6 +38,7 @@ formEdit?.addEventListener('submit', async (event) => {
         window.location.href = '/profile';
     } else {
         const error = await response.json();
+        console.log(JSON.stringify(error));
         alert(error.message);
     }
 });

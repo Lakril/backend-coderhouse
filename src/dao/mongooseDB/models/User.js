@@ -39,6 +39,9 @@ const userSchema = new Schema(
                 // await this.
                 this.assignRole(reqBody);
                 const newUser = new this(reqBody);
+                if (!newUser) {
+                    throw new Error('User not created');
+                }
                 await newUser.save();
                 return newUser.publicInfo();
             },
@@ -60,25 +63,20 @@ const userSchema = new Schema(
                 }
                 return user.publicInfo();
             },
-            list: async function () {
-                const users = await this.find().lean();
-                return users;
+            updateUser: async function (data) {
+                const updatedUser = await this.findOneAndUpdate(
+                    { email: data.email },
+                    { $set: data },
+                    { new: true }
+                );
+                // console.log('updatedUser: ', updatedUser);
+                if (!updatedUser) {
+                    throw new Error('User not found');
+                }
+                return updatedUser.publicInfo();
             },
-            listById: async function (id) {
-                const user = await this.findById(id).lean();
-                return user;
-            },
-            addUser: async function (user) {
-                const newUser = new this(user);
-                await newUser.save();
-                return newUser;
-            },
-            resetPassword: async function (email, password) {
-                // const user = await this.findOne({ email });
-                // if (!user) {
-                //     throw new Error('User not found');
-                // }
-                const hashedPassword = await bcrypt.hash(password, 10);
+            resetPassword: async function ({ email, password: newPassword }) {
+                const hashedPassword = await bcrypt.hash(newPassword, 10);
                 const updated = await this.findOneAndUpdate(
                     { email },
                     { $set: { password: hashedPassword } },
@@ -93,16 +91,6 @@ const userSchema = new Schema(
             deleteUser: async function (id) {
                 const deletedUser = await this.findByIdAndDelete(id);
                 return deletedUser;
-            },
-            // find by username and update user
-            updateUser: async function (username, user) {
-                const updatedUser = await this.findOneAndUpdate({ username: username }, user, {
-                    new: true,
-                });
-                if (!updatedUser) {
-                    throw new Error('User not found');
-                }
-                return updatedUser.publicInfo();
             },
             generateAuthToken: function (data) {
                 console.log('data for token: ', data);
@@ -119,6 +107,19 @@ const userSchema = new Schema(
                     });
                 });
             },
+            // list: async function () {
+            //     const users = await this.find().lean();
+            //     return users;
+            // },
+            // listById: async function (id) {
+            //     const user = await this.findById(id).lean();
+            //     return user;
+            // },
+            // addUser: async function (user) {
+            //     const newUser = new this(user);
+            //     await newUser.save();
+            //     return newUser;
+            // },
             verifyToken: function (token) {
                 return jwt.verify(token, config.jwt.secret, (err, decoded) => {
                     if (err) {

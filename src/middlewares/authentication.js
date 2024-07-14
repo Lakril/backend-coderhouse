@@ -4,9 +4,9 @@ import config from '../config/index.js';
 // jwt
 export async function appendJwtCookie(req, res, next) {
     try {
-        console.log('req.user: ', req.user);
+        // console.log('req.user: ', req.user);
         const accessToken = await User.generateAuthToken(req.user);
-        // console.log('generated token: ', accessToken);
+        console.log('generated token: ', accessToken);
         res.cookie('authorization', accessToken, config.jwt.cookie);
         next();
     } catch (error) {

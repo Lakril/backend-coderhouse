@@ -22,30 +22,26 @@ export const controller = {
                         if (appendErr) {
                             return res['notServer'](appendErr);
                         }
-                        return await res['creado'](req.user);
+                        return await res['created'](req.user);
                     });
                 });
             }
         )(req, res);
     },
     //* GET - session API /current
-    userSession: async (req, res) => {
+    userSession: (req, res) => {
         passport.authenticate('jwt', { session: false })(req, res, (err) => {
             if (err) {
-                res.status(401).json({ status: 'error', message: err.message });
+                return res['notFound'](err);
             } else {
-                res.status(200).json({
-                    status: 'success',
-                    message: 'user session',
-                    payload: req.user,
-                });
+                return res['ok'](req.user);
             }
         });
     },
     //* DELETE - session API
     logout: async (req, res) => {
         removeJwtCookie(req, res, () => {
-            return res.status(200).json({ status: 'success', message: 'logout' });
+            return res['ok']({ message: 'User logged out' });
         });
     },
 };

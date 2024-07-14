@@ -1,51 +1,84 @@
 // @ts-nocheck
 import User from '../dao/mongooseDB/models/User.js';
 import passport from 'passport';
-import config from '../config/index.js';
 import { appendJwtCookie } from '../middlewares/authentication.js';
 // import { appendJwtCookie } from '../middlewares/authentication.js';
 
 export const controller = {
     register: (req, res) => {
-        passport.authenticate('local-register', { session: false, failWithError: true })(
-            req,
-            res,
-            () => {
-                // Added missing error parameter
-                appendJwtCookie(req, res, () => {
-                    return res['creado'](req.user);
+        passport.authenticate(
+            'local-register',
+            { session: false, failWithError: true },
+            (err, user, info) => {
+                if (err) {
+                    return res['notServer'](err);
+                }
+                if (!user) {
+                    return res['notFound'](info);
+                }
+                req.login(user, { session: false }, (loginErr) => {
+                    if (loginErr) {
+                        return res['notServer'](loginErr);
+                    }
+                    appendJwtCookie(req, res, async (appendErr) => {
+                        if (appendErr) {
+                            return res['notServer'](appendErr);
+                        }
+                        return await res['created'](req.user);
+                    });
                 });
             }
-        );
+        )(req, res);
+    },
+    updateUser: (req, res) => {
+        passport.authenticate(
+            'jwt',
+            { session: false, failWithError: true },
+            async (err, user, info) => {
+                if (err) {
+                    return res['notServer'](err);
+                }
+                if (!user) {
+                    return res['notFound'](info);
+                }
+                try {
+                    // Assuming User.updateUser is an async function. If not, remove await.
+                    // Pass user to updateUser method
+                    req.user = await User.updateUser(req.body);
+                } catch (error) {
+                    return res['notFound'](error.message);
+                }
+                try {
+                    appendJwtCookie(req, res, async (appendErr) => {
+                        if (appendErr) {
+                            return res['notServer'](appendErr);
+                        }
+                        return await res['ok'](req.user);
+                    });
+                } catch (updateErr) {
+                    return res['notServer'](updateErr);
+                }
+            }
+        )(req, res);
     },
     resetPassword: async (req, res) => {
         try {
-            const { email, password } = req.body;
-            console.log(email + ' ' + password);
-            const updated = await User.resetPassword(email, password);
-            const accessToken = await User.generateAuthToken(updated);
-            res.cookie('authorization', accessToken, config.jwt.cookie);
-            res.status(200).json({ status: 'success', payload: updated });
+            req.user = await User.resetPassword(req.body);
         } catch (error) {
-            res.status(401).json({ status: 'fail', message: error.message });
+            return res['notFound'](error.message);
         }
-    },
-    updateUser: async (req, res) => {
         try {
-            const { username, name, lastname, email } = req.body;
-            const updated = await User.updateUser(username, {
-                name,
-                lastname,
-                email,
+            appendJwtCookie(req, res, async (appendErr) => {
+                if (appendErr) {
+                    return res['notServer'](appendErr);
+                }
+                return await res['ok'](req.user);
             });
-            const accessToken = await User.generateAuthToken(updated);
-            console.log(updated);
-            res.cookie('authorization', accessToken, config.jwt.cookie);
-            res.status(200).json({ status: 'success', payload: updated });
-        } catch (error) {
-            res.status(401).json({ status: 'fail', message: error.message });
+        } catch (updateErr) {
+            return res['notServer'](updateErr);
         }
     },
+
     user: async (req, res) => {
         passport.authenticate('jwt', { session: false, failWithError: true })(req, res, () => {
             return res['ok'](req.user);
