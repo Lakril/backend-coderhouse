@@ -3,6 +3,7 @@ import { UserRouter } from './users.routing.js';
 import { SessionsRouter } from './sessions.routing.js';
 import { centralizedResponse } from '../../middlewares/centralizedResponse.js';
 import { ProductRouter } from './products.routing.js';
+import { CartRouter } from './cart.routing.js';
 
 export const apiRouter = Router();
 apiRouter.use(centralizedResponse);
@@ -14,6 +15,7 @@ apiRouter.use(centralizedResponse);
 apiRouter.use('/users', UserRouter);
 apiRouter.use('/sessions', SessionsRouter);
 apiRouter.use('/products', ProductRouter);
+apiRouter.use('/carts', CartRouter);
 
 // middleware for error handling in apiRouter
 // acá llegan todos los errores lanzados desde los next()!

@@ -1,7 +1,7 @@
 import http from 'http';
 // import { mainRouter } from '../routes/web.routing.js';
 // import { ProductRouter } from '../routes/api/products.routing.js';
-import { CartRouter } from '../routes/cart.routing.js';
+// import { CartRouter } from '../routes/api/cart.routing.js';
 import { webRouter } from '../routes/web/web.routing.js';
 import Sockets from '../controller/socketsController.js';
 import path from 'path';
@@ -81,7 +81,7 @@ class Server {
         this.app.use('/', webRouter);
         this.app.use(config.api.prefix, apiRouter);
         // this.app.use(config.api.prefix, ProductRouter);
-        this.app.use(config.api.prefix, CartRouter);
+        // this.app.use(config.api.prefix, CartRouter);
     }
 
     mongoConnection() {

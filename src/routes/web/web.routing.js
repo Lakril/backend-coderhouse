@@ -21,3 +21,4 @@ webRouter.get('/', controller.getHome);
 webRouter.get('/products', controller.getProducts);
 webRouter.get('/chat', controller.chat);
 webRouter.get('/realtimeproducts', controller.realtime);
+webRouter.get('/contact', controller.contact);

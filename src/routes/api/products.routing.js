@@ -9,4 +9,3 @@ ProductRouter.get('/:pid', controller.getById);
 ProductRouter.post('/', controller.post);
 ProductRouter.delete('/:pid', controller.delete);
 ProductRouter.put('/:pid', controller.put);
-// ProductRouter.get('/realtimeproducts', controller.realtime);

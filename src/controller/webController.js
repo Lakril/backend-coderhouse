@@ -57,4 +57,7 @@ export const controller = {
     realtime: (req, res) => {
         res.render('realTimeProducts.hbs', { title: 'Real Time Products' });
     },
+    contact: (req, res) => {
+        res.render('contact', { title: 'Contact' });
+    },
 };
