@@ -48,4 +48,10 @@ export const controller = {
             }
         )(req, res);
     },
+    getProducts: (req, res) => {
+        res.render('products', { title: 'Products' });
+    },
+    chat: (req, res) => {
+        res.render('chat.hbs', { title: 'Chat' });
+    },
 };

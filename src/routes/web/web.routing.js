@@ -18,3 +18,5 @@ webRouter.get('/resetpassword', controller.getResetPassword);
 webRouter.get('/githublogin', controller.githubLogin);
 webRouter.get('/githubcallback', controller.githubCallback);
 webRouter.get('/', controller.getHome);
+webRouter.get('/products', controller.getProducts);
+webRouter.get('/chat', controller.chat);

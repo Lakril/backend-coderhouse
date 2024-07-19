@@ -1,6 +1,6 @@
 import http from 'http';
-import { mainRouter } from '../routes/web.routing.js';
-import { ProductRouter } from '../routes/products.routing.js';
+// import { mainRouter } from '../routes/web.routing.js';
+// import { ProductRouter } from '../routes/api/products.routing.js';
 import { CartRouter } from '../routes/cart.routing.js';
 import { webRouter } from '../routes/web/web.routing.js';
 import Sockets from '../controller/socketsController.js';
@@ -32,21 +32,21 @@ class Server {
     }
 
     middlewares() {
+        // parse application/json
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
-        // this.app.use(express.static(path.resolve(projectRoot, './public')));
+
+        // static files
         this.app.use('/public', express.static(path.resolve(projectRoot, './public')));
         this.app.use('/database', express.static(path.resolve(projectRoot, './database')));
+
         // view engine setup
         // https://github.com/express-handlebars/express-handlebars
         this.app.engine(
             '.hbs',
             engine({
                 extname: '.hbs',
-                helpers: {
-                    json: json,
-                    decimal: decimal,
-                },
+                helpers: { json: json, decimal: decimal },
             })
         );
         this.app.set('view engine', '.hbs');
@@ -55,6 +55,8 @@ class Server {
 
         // this.app.use(createSession(this.uri, this.secret));
         this.app.use(passportInitialize);
+
+        // favicon
         this.app.use(favicon('./public/img/favicon.ico'));
 
         // restrict CORS
@@ -75,10 +77,10 @@ class Server {
     }
 
     routes() {
-        this.app.use(mainRouter);
+        // this.app.use(mainRouter);
         this.app.use('/', webRouter);
-        this.app.use('/api', apiRouter);
-        this.app.use(config.api.prefix, ProductRouter);
+        this.app.use(config.api.prefix, apiRouter);
+        // this.app.use(config.api.prefix, ProductRouter);
         this.app.use(config.api.prefix, CartRouter);
     }
 
@@ -101,7 +103,6 @@ class Server {
                 console.log(`2) http://${this.host}:${this.port}/api/products/`);
                 console.log(`3) http://${this.host}:${this.port}/realtimeproducts/`);
                 console.log(`4) http://${this.host}:${this.port}/chat/`);
-                // eslint-disable-next-line
                 console.log(
                     `5) http://${this.host}:${this.port}/api/products/upload/ reset database`
                 );

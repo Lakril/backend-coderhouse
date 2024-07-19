@@ -2,6 +2,7 @@
 import User from '../dao/mongooseDB/models/User.js';
 import passport from 'passport';
 import { appendJwtCookie } from '../middlewares/authentication.js';
+import { permit } from '../middlewares/authorization.js';
 // import { appendJwtCookie } from '../middlewares/authentication.js';
 
 export const controller = {
@@ -83,6 +84,14 @@ export const controller = {
         passport.authenticate('jwt', { session: false, failWithError: true })(req, res, () => {
             return res['ok'](req.user);
         });
+    },
+    adminUser: (req, res) => {
+        passport.authenticate('jwt', { session: false, failWithError: true }, (req, res) => {
+            permit(['admin'], req, res, async () => {
+                const users = await User.find().lean();
+                return res['ok'](users);
+            });
+        })(req, res);
     },
 };
 

@@ -5,36 +5,6 @@ import User from '../dao/mongooseDB/models/User.js';
 import config from '../config/index.js';
 import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
 
-// jwt extract token from signedCookies
-// passport.use(
-//     'jwt',
-//     new JwtStrategy(
-//         {
-//             jwtFromRequest: ExtractJwt.fromExtractors([
-//                 function (req) {
-//                     let token = null;
-//                     if (req && req.signedCookies) {
-//                         token = req.signedCookies.authorization;
-//                     }
-//                     return token;
-//                 },
-//             ]),
-//             secretOrKey: config.jwt.secret,
-//         },
-//         async (jwtPayload, done) => {
-//             try {
-//                 const user = await User.findById(jwtPayload.sub);
-//                 if (!user) {
-//                     return done(null, false);
-//                 }
-//                 return done(null, user);
-//             } catch (error) {
-//                 return done(error);
-//             }
-//         }
-//     )
-// );
-
 passport.use(
     'jwt',
     new JwtStrategy(

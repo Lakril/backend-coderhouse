@@ -1,12 +1,8 @@
-// @ts-nocheck
-/* eslint-disable no-undef */
-
 // eslint-disable-next-line
 const socketClient = io({});
 
 const form = document.querySelector('form');
 const inputMessage = document.querySelector('input');
-const ulMessages = document.querySelector('ul');
 
 const startChat = (data) => {
     console.log(data.username, data.email);
@@ -23,9 +19,10 @@ const startChat = (data) => {
         }
     });
     socketClient.on('chat-messages', (data) => {
+        const ulMessages = document.querySelector('#ulMessages');
         ulMessages.innerHTML = '';
         data.forEach((message) => {
-            const date = new Date(message.timestamp);
+            let date = new Date(message.timestamp);
             let formattedDate = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(
                 -2
             )}-${('0' + date.getDate()).slice(-2)} ${('0' + date.getHours()).slice(-2)}:${(
@@ -41,6 +38,7 @@ const startChat = (data) => {
         });
     });
     socketClient.on('user-connected', (username) => {
+        // eslint-disable-next-line no-undef
         Swal.fire({
             text: `${username} has joined the chat`,
             icon: 'info',
@@ -62,6 +60,7 @@ const startChat = (data) => {
     });
 };
 
+// eslint-disable-next-line no-undef
 Swal.fire({
     title: 'Welcome to Chat',
     html: `
@@ -76,6 +75,7 @@ Swal.fire({
 
         const email = document?.getElementById('swal-input2').value;
         if (!username || !email) {
+            // eslint-disable-next-line no-undef
             Swal.showValidationMessage('Please enter username and email');
         }
         return { username, email };
