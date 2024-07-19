@@ -20,3 +20,4 @@ webRouter.get('/githubcallback', controller.githubCallback);
 webRouter.get('/', controller.getHome);
 webRouter.get('/products', controller.getProducts);
 webRouter.get('/chat', controller.chat);
+webRouter.get('/realtimeproducts', controller.realtime);

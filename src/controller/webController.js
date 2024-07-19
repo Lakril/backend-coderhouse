@@ -3,7 +3,7 @@ import { appendJwtCookie } from '../middlewares/authentication.js';
 
 export const controller = {
     getHome: (req, res) => {
-        res.sendFile('index.html', { title: 'Home', root: 'src/views' });
+        res.render('index.hbs', { title: 'Home' });
     },
     getRegister: (req, res) => {
         res.render('register.hbs', { title: 'Register' });
@@ -53,5 +53,8 @@ export const controller = {
     },
     chat: (req, res) => {
         res.render('chat.hbs', { title: 'Chat' });
+    },
+    realtime: (req, res) => {
+        res.render('realTimeProducts.hbs', { title: 'Real Time Products' });
     },
 };

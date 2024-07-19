@@ -167,9 +167,9 @@ export const controller = {
             res.status(400).json({ message: error.message });
         }
     },
-    realtime: async (req, res) => {
-        return res.render('realTimeProducts.hbs', {
-            title: 'Real Time Products',
-        });
-    },
+    // realtime: async (req, res) => {
+    //     return res.render('realTimeProducts.hbs', {
+    //         title: 'Real Time Products',
+    //     });
+    // },
 };

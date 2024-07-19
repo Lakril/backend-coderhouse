@@ -1,8 +1,5 @@
 import { Router } from 'express';
 import { controller } from '../../controller/sessionController.js';
-// import { appendJwtCookie } from '../../middlewares/authentication.js';
-// import { checkRole, getToken } from '../../middlewares/authorization.js';
-// import checkRole from '../../middlewares/autorization.js';
 
 export const SessionsRouter = Router();
 

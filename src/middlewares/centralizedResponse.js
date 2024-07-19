@@ -4,6 +4,7 @@ const STATUS_CODES = {
     CREATED: 201,
     NOT_FOUND: 404,
     INTERNAL_SERVER_ERROR: 500,
+    NOT_AUTHORIZED: 401,
 };
 
 // Centralized response handler
@@ -33,6 +34,9 @@ export function centralizedResponse(req, res, next) {
 
     res.notServer = (message) => {
         sendResponse(res, STATUS_CODES.INTERNAL_SERVER_ERROR, 'error', {}, { message });
+    };
+    res.notAuthorized = (message) => {
+        sendResponse(res, STATUS_CODES.NOT_AUTHORIZED, 'error', {}, { message });
     };
 
     next();

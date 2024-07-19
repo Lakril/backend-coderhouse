@@ -5,6 +5,7 @@ window.addEventListener('load', async () => {
     // get tocken from headers
 
     const response = await fetch('/api/users/current');
+    console.log(response);
 
     if (response.status === 401) {
         alert('necesitas loguearte para ver esta info!');
@@ -13,7 +14,7 @@ window.addEventListener('load', async () => {
 
     // Add your code here
     const { payload: user } = await response.json();
-    // console.log(user);
+    console.log(`User: ${user}`);
 
     const profile = document.querySelector('.profile');
     profile.innerHTML = '';

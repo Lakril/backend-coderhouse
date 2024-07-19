@@ -82,7 +82,11 @@ export const controller = {
 
     user: async (req, res) => {
         passport.authenticate('jwt', { session: false, failWithError: true })(req, res, () => {
-            return res['ok'](req.user);
+            if (req.user) {
+                return res['ok'](req.user);
+            } else {
+                return res['notAuthorized']({ message: 'User not authorized' });
+            }
         });
     },
     adminUser: (req, res) => {
