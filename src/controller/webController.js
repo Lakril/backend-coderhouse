@@ -49,7 +49,7 @@ export const controller = {
         )(req, res);
     },
     getProducts: (req, res) => {
-        res.render('products', { title: 'Products' });
+        res.render('products', { products: req.products, categories: req.categories });
     },
     chat: (req, res) => {
         res.render('chat.hbs', { title: 'Chat' });

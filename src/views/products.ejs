@@ -41,7 +41,7 @@
 
         <h1>Products</h1>
         <% products.forEach(product => { %>
-        <div class="product" data-id="<%= product._id %>">
+        <div class="product" data-id="<%=product._id %>">
             <h2><%= product.title %></h2>
             <img
                 src="<%= product.thumbnails %>"
