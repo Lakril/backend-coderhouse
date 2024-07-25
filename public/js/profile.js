@@ -22,6 +22,7 @@ window.addEventListener('load', async () => {
     user.email && (profile.innerHTML += `<p>Email: ${user.email}</p>`);
     user.name && (profile.innerHTML += `<p>First Name: ${user.name}</p>`);
     user.lastname && (profile.innerHTML += `<p>Last Name: ${user.lastname}</p>`);
+    user.age && (profile.innerHTML += `<p>Role: ${user.age}</p>`);
     user.role && (profile.innerHTML += `<p>Role: ${user.role}</p>`);
 
     // for (const key in user) {

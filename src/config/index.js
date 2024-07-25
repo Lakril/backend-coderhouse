@@ -15,7 +15,7 @@ export default {
     /**
      * Your favorite port
      */
-    port: parseInt(process.env.PORT, 10),
+    port: process.env.PORT || 3000,
     host: process.env.HOST,
     databaseURL: process.env.MONGODB_URI,
     sessionSecret: process.env.SESSION_SECRET,
@@ -38,5 +38,8 @@ export default {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000,
         },
+    },
+    img: {
+        avatarProfile: process.env.DEFAULT_USER_AVATAR_PATH,
     },
 };

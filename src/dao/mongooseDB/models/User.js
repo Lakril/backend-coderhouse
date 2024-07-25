@@ -13,6 +13,8 @@ const userSchema = new Schema(
         password: { type: String, required: true },
         email: { type: String, unique: true, default: '' },
         role: { type: String, enum: ['user', 'admin'], default: 'user' },
+        photo: { type: String, default: config.img.avatarProfile },
+        age: { type: Number, default: 0 },
         cart: {
             type: Schema.Types.ObjectId,
             ref: 'Cart',
@@ -31,11 +33,14 @@ const userSchema = new Schema(
                     lastname: this.lastname,
                     email: this.email,
                     role: this.role,
+                    age: this.age,
+                    photo: this.photo,
                 };
             },
         },
         statics: {
             register: async function (reqBody) {
+                delete reqBody.role;
                 // await this.
                 this.assignRole(reqBody);
                 const newUser = new this(reqBody);
