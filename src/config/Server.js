@@ -65,7 +65,6 @@ class Server {
         // parse cookies
         this.app.use(cookieParser(this.secret));
 
-        // eslint-disable-next-line no-unused-vars
         // this.app.use(function (err, req, res, next) {
         //     console.error(err.stack);
         //     res.status(500).send('Something broke!');
