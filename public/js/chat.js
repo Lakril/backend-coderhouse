@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 const socketClient = io({});
 
 const form = document.querySelector('form');
@@ -38,7 +37,6 @@ const startChat = (data) => {
         });
     });
     socketClient.on('user-connected', (username) => {
-        // eslint-disable-next-line no-undef
         Swal.fire({
             text: `${username} has joined the chat`,
             icon: 'info',
@@ -50,7 +48,6 @@ const startChat = (data) => {
     socketClient.on('disconnect', (disconnect) => {
         console.log(disconnect);
 
-        // eslint-disable-next-line no-undef
         Swal.fire({
             text: `${disconnect} has left the chat`,
             icon: 'info',
@@ -60,7 +57,6 @@ const startChat = (data) => {
     });
 };
 
-// eslint-disable-next-line no-undef
 Swal.fire({
     title: 'Welcome to Chat',
     html: `
@@ -75,7 +71,6 @@ Swal.fire({
 
         const email = document?.getElementById('swal-input2').value;
         if (!username || !email) {
-            // eslint-disable-next-line no-undef
             Swal.showValidationMessage('Please enter username and email');
         }
         return { username, email };

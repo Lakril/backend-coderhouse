@@ -1,36 +1,39 @@
 import { fixupConfigRules } from '@eslint/compat';
 import globals from 'globals';
-import babelParser from '@babel/eslint-parser';
+// import babelParser from '@babel/eslint-parser';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import js from '@eslint/js';
+// import js from '@eslint/js';
 import { FlatCompat } from '@eslint/eslintrc';
-
+// import js from "@eslint/js";
+// import { plugin } from 'mongoose';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
     baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all,
+    // recommendedConfig: js.configs.recommended,
+    // allConfig: js.configs.all,
 });
 
 export default [
     ...fixupConfigRules(
         compat.extends(
-            'eslint:recommended',
-            'plugin:prettier/recommended',
-            'plugin:import/errors',
-            'plugin:import/warnings'
+            // 'eslint:recommended',
+            'plugin:prettier/recommended'
+            // 'plugin:import/errors',
+            // 'plugin:import/warnings'
         )
     ),
+    // js.configs.recommended,
     {
+        // files: ['src/**/*.js'],
         languageOptions: {
             globals: {
                 ...globals.browser,
                 ...globals.mongo,
             },
 
-            parser: babelParser,
+            // parser: babelParser,
             ecmaVersion: 'latest',
             sourceType: 'module',
 
@@ -49,8 +52,6 @@ export default [
         },
 
         rules: {
-            'line-comment-position': 'error',
-
             'no-unused-vars': [
                 'error',
                 {
@@ -59,6 +60,8 @@ export default [
                     ignoreRestSiblings: false,
                 },
             ],
+
+            'no-import-assign': 'error',
 
             'id-length': [
                 'error',
@@ -79,13 +82,13 @@ export default [
                 },
             ],
 
-            'key-spacing': [
-                'error',
-                {
-                    beforeColon: false,
-                    afterColon: true,
-                },
-            ],
+            // 'key-spacing': [
+            //     'error',
+            //     {
+            //         beforeColon: false,
+            //         afterColon: true,
+            //     },
+            // ],
 
             'no-duplicate-imports': [
                 'error',

@@ -7,7 +7,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "nodemon -e js,handlebars .",
         "start": "node --env-file .env ./src/app.js",
-        "eslint": "npx eslint -c .js",
+        "eslint": "npx eslint -c eslint.config.mjs --fix",
         "prettier-watch": "npx onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}"
     },
     "author": "Jack Lakril",
