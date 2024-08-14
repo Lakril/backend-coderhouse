@@ -1,4 +1,4 @@
-import User from '../dao/mongooseDB/models/User.js';
+import User from '../daos/mongooseDB/models/User.js';
 import config from '../config/index.js';
 
 // jwt

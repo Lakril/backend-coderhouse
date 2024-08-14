@@ -1,6 +1,6 @@
 // @ts-nocheck
-import Product from '../dao/mongooseDB/models/Product.js';
-import productsData from '../../database/products.json' with { type: 'json' };
+import Product from '../daos/mongooseDB/models/Product.js';
+import productsData from '../../db/products.json' with { type: 'json' };
 // import { inspect } from 'util';
 import mongoose from 'mongoose';
 

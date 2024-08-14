@@ -19,7 +19,7 @@ const productSchema = new Schema(
         stock: { type: Number, required: true },
         thumbnails: {
             type: Array,
-            default: ['/public/img/imagNoAvalibel.jpg'],
+            default: ['/static/img/imagNoAvalibel.jpg'],
         },
         category: { type: String, required: true },
         status: { type: Boolean, default: true },

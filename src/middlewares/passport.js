@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as GitHubStrategy } from 'passport-github2';
-import User from '../dao/mongooseDB/models/User.js';
+import User from '../daos/mongooseDB/models/User.js';
 import config from '../config/index.js';
 import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
 

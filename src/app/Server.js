@@ -1,30 +1,21 @@
 import http from 'http';
-// import { mainRouter } from '../routes/web.routing.js';
-// import { ProductRouter } from '../routes/api/products.routing.js';
-// import { CartRouter } from '../routes/api/cart.routing.js';
 import { webRouter } from '../routes/web/web.routing.js';
+import { apiRouter } from '../routes/api/apirest.routing.js';
 import Sockets from '../controller/socketsController.js';
-import path from 'path';
-// Added import statement
 import { engine } from 'express-handlebars';
 import express from 'express';
-import { projectRoot } from '../utils/utils.js';
-import cors from 'cors';
-import { dbConnection } from '../middlewares/mongoConnection.js';
 import { json, decimal } from '../middlewares/hbsHelpers.js';
 import { createServerSocket } from '../middlewares/serverSocket.js';
-// import createSession from '../middlewares/sessions.js';
-import { apiRouter } from '../routes/api/apirest.routing.js';
 import { passportInitialize } from '../middlewares/passport.js';
 import favicon from 'serve-favicon';
 import cookieParser from 'cookie-parser';
-import config from './index.js';
+import config from '../config/index.js';
+import cors from 'cors';
 
 class Server {
     constructor() {
         this.port = config.port;
         this.host = config.host;
-        this.uri = config.databaseURL;
         this.secret = config.sessionSecret;
         this.app = express();
         this.httpServer = http.createServer(this.app);
@@ -37,8 +28,8 @@ class Server {
         this.app.use(express.urlencoded({ extended: true }));
 
         // static files
-        this.app.use('/public', express.static(path.resolve(projectRoot, './public')));
-        this.app.use('/database', express.static(path.resolve(projectRoot, './database')));
+        this.app.use('/static', express.static('./static'));
+        this.app.use('/database', express.static('./database'));
 
         // view engine setup
         // https://github.com/express-handlebars/express-handlebars
@@ -51,24 +42,19 @@ class Server {
         );
         this.app.set('view engine', '.hbs');
         this.app.set('view engine', 'ejs');
-        this.app.set('views', path.resolve(projectRoot, './src/views'));
+        this.app.set('views', './views');
 
         // this.app.use(createSession(this.uri, this.secret));
         this.app.use(passportInitialize);
 
         // favicon
-        this.app.use(favicon('./public/img/favicon.ico'));
+        this.app.use(favicon('./static/img/favicon.ico'));
 
         // restrict CORS
         this.app.use(cors());
 
         // parse cookies
         this.app.use(cookieParser(this.secret));
-
-        // this.app.use(function (err, req, res, next) {
-        //     console.error(err.stack);
-        //     res.status(500).send('Something broke!');
-        // });
     }
 
     configSockets() {
@@ -83,16 +69,11 @@ class Server {
         // this.app.use(config.api.prefix, CartRouter);
     }
 
-    mongoConnection() {
-        dbConnection(this.uri);
-    }
-
     start() {
         // start middlewares
         this.middlewares();
         this.routes();
         this.configSockets();
-        this.mongoConnection();
 
         // start server
         this.httpServer
@@ -124,5 +105,4 @@ class Server {
         // clearConfigCache();
     }
 }
-// console.log(path.resolve(projectRoot, './src/views'));
 export default Server;

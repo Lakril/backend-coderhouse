@@ -1,5 +1,5 @@
 // @ts-nocheck
-import User from '../dao/mongooseDB/models/User.js';
+import User from '../daos/mongooseDB/models/User.js';
 import passport from 'passport';
 import { appendJwtCookie } from '../middlewares/authentication.js';
 import { permit } from '../middlewares/authorization.js';

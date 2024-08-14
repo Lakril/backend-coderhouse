@@ -42,3 +42,22 @@ e.g updated:
     "thumbnails": ["https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"]
 }
 ```
+
+## capas
+
+Presentacion (vistas) -> ruteo (routers? controllers?) -> negocio (servicios) -> persistencia (daos)
+
++ Capa de ruteo:
+    + routers:
+    + middlewares
+    + app
+    + main
+    + controllers
++ capa de negocios:
+    + services:
++ capa de persistencia:
+    + daos
+
+
+GOF Gansg of four (book)
+head first design patterns (book)

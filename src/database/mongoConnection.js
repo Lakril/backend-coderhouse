@@ -1,8 +1,7 @@
 // config/database.js
 import mongoose from 'mongoose';
-import process from 'process';
 
-export const dbConnection = (uri = process.env.MONGODB_URI) => {
+export const dbConnection = (uri) => {
     try {
         mongoose.connect(uri, {
             // serverSelectionTimeoutMS: 5000,

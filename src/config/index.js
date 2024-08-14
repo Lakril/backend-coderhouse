@@ -17,7 +17,10 @@ export default {
      */
     port: process.env.PORT || 3000,
     host: process.env.HOST,
-    databaseURL: process.env.MONGODB_URI,
+    mongooseConnection: {
+        databaseURL: process.env.MONGODB_URI,
+        databaseURLLocal: process.env.MONGODB_URI_LOCAL,
+    },
     sessionSecret: process.env.SESSION_SECRET,
     api: {
         prefix: '/api',
@@ -42,4 +45,5 @@ export default {
     img: {
         avatarProfile: process.env.DEFAULT_USER_AVATAR_PATH,
     },
+    modeEjecution: process.env.MODE_EJECUTION,
 };
