@@ -1,4 +1,4 @@
-class ProductsDaoMongoose {
+export class ProductsDaoMongoose {
     constructor(productsModel) {
         this.productsModel = productsModel;
     }
@@ -33,5 +33,3 @@ class ProductsDaoMongoose {
         return products;
     }
 }
-
-module.exports = ProductsDaoMongoose;

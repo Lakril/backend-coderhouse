@@ -95,6 +95,6 @@ productSchema.pre('save', function (next) {
 productSchema.plugin(AutoIncrement, { start_seq: 21 });
 productSchema.plugin(mongoosePaginate);
 
-export default model('products', productSchema);
+// export default model('products', productSchema);
 
 // export default Product;

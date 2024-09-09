@@ -6,7 +6,7 @@ export function notNull(value, name) {
         }
         return value;
     } catch (error) {
-        // console.error(error);
+        console.error(error);
     }
 }
 

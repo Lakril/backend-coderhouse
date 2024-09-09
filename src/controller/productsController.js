@@ -1,8 +1,9 @@
 // @ts-nocheck
-import Product from '../daos/mongooseDB/models/Product.js';
-import productsData from '../../db/products.json' with { type: 'json' };
+
+// import Product from '../daos/mongooseDB/models/Product.js';
+// import productsData from '../../db/products.json' with { type: 'json' };
 // import { inspect } from 'util';
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 
 export const controller = {
     get: async (req, res) => {

@@ -19,6 +19,9 @@ function sendResponse(res, statusCode, statusMessage, payload = {}, additionalFi
 
 export function centralizedResponse(req, res, next) {
     // Success responses
+    res.result = (result) => {
+        sendResponse(res, STATUS_CODES.OK, 'success', result);
+    };
     res.created = (objCreated, otherFields = {}) => {
         sendResponse(res, STATUS_CODES.CREATED, 'success', objCreated, otherFields);
     };

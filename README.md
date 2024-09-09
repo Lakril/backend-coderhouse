@@ -61,3 +61,17 @@ Presentacion (vistas) -> ruteo (routers? controllers?) -> negocio (servicios) ->
 
 GOF Gansg of four (book)
 head first design patterns (book)
+
+def. patrones de diseños: son soluciones conocidas a problemas recurrentes.
+
+Patron de diseño factory: cuando tenga un problema, puedo elegir entre diferentes opciones.
+
+principios de diseño:
++ solid: 
+    + open/close
+
+DTO: Data transfer Object
+POJO: es un objeto simple (no tiene metodos), es un objeto literal. 
+    ejem POJO: JSON.parse(JSON.stringify({a:1, f: function(){}}))
+    sirve para mostra a un usuario final.
+    En la capa de persistencia (dao) devolver un POJO.

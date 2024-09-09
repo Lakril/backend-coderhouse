@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
 import { randomUUID } from 'node:crypto';
 
-const productsSchema = new Schema(
+export const productsSchema = new Schema(
     {
         _id: { type: Number, default: randomUUID },
         title: {
@@ -20,7 +20,6 @@ const productsSchema = new Schema(
     {
         strict: 'throw',
         varionKey: false,
+        _id: false,
     }
 );
-
-export default productsSchema;
