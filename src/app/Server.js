@@ -82,12 +82,10 @@ class Server {
 
             .listen(this.port, this.host, () => {
                 console.log(`1) http://${this.host}:${this.port}/`);
-                console.log(`2) http://${this.host}:${this.port}/api/products/`);
+                console.log(`2) http://${this.host}:${this.port}/products/`);
                 console.log(`3) http://${this.host}:${this.port}/realtimeproducts/`);
                 console.log(`4) http://${this.host}:${this.port}/chat/`);
-                console.log(
-                    `5) http://${this.host}:${this.port}/api/products/upload/ reset database`
-                );
+                console.log(`5) http://${this.host}:${this.port}/products/upload/ reset database`);
             })
             .on('error', (err) => {
                 if (err.code === 'EADDRINUSE') {

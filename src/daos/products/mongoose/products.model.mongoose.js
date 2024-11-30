@@ -1,5 +1,9 @@
-import { Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import { randomUUID } from 'node:crypto';
+import AutoIncrementFactory from 'mongoose-sequence';
+import mongoosePaginate from 'mongoose-paginate-v2';
+
+const AutoIncrement = AutoIncrementFactory(mongoose);
 
 export const productsSchema = new Schema(
     {
@@ -23,3 +27,11 @@ export const productsSchema = new Schema(
         _id: false,
     }
 );
+
+productsSchema.pre('save', function (next) {
+    this.title = this.title.charAt(0).toUpperCase() + this.title.slice(1);
+    next();
+});
+
+productsSchema.plugin(AutoIncrement, { start_seq: 21 });
+productsSchema.plugin(mongoosePaginate);

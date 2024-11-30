@@ -6,8 +6,8 @@ class ProductsService {
     async readone(query) {
         return await productsDao.readOne(query);
     }
-    async readMany(query) {
-        return await productsDao.readMany(query);
+    async readMany(query, options) {
+        return await productsDao.readMany(query, options);
     }
     async create(data) {
         return await productsDao.create(data);

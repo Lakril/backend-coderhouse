@@ -1,0 +1,124 @@
+/* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    /* height: 100vh; */
+    background: #edeff3;
+}
+h1{
+    text-align: center;
+    padding: 40px 0px;
+}
+.main{
+    width: 100vh;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+.filterBox{
+    flex-basis: 23%;
+}
+.product{
+    flex-basis: 75%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.CategoryList{
+    margin-top: 20px;
+}
+.CategoryList label{
+    display: block;
+    padding: 5px 0px;
+}
+.productItems{
+    flex-basis: 31%;
+    box-shadow: 0px 0px 10px 2px #ccc;
+    margin-bottom: 20px;
+}
+.productItems img{
+    width: 100%;
+    height: 250px;
+    margin: 0 auto;
+    display: block;
+}
+.productItems p{
+    padding: 10px;
+}
+.productItems h3{
+    padding: 10px;
+}
+.productItems h4{
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* PAGINATOR */
+
+.container,
+.button,
+.links,
+.link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    padding: 20px;
+    border-radius: 8px;
+    column-gap: 12px;
+    background: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.button {
+    border: none;
+}
+
+.button i {
+    pointer-events: none;
+}
+
+.button:disabled {
+    color: #b3b3b3;
+    pointer-events: none;
+}
+
+.button,
+.link {
+    height: 45px;
+    width: 45px;
+    font-size: 20px;
+    color: #666666;
+    background-color: #f2f2f2;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.links {
+    column-gap: 12px;
+}
+
+.link {
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.button:hover,
+.link:hover {
+    color: #fff;
+    background: #4070f4;
+}
+
+.link.active {
+    color: #fff;
+    background: #4070f4;
+}

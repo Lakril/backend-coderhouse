@@ -10,8 +10,8 @@ export class ProductsDaoMongoose {
         const product = await this.productsModel.findOne(query).lean();
         return product;
     }
-    async readMany(query) {
-        const products = await this.productsModel.find(query).lean();
+    async readMany(query, options) {
+        const products = await this.productsModel.paginate(query, options);
         return products;
     }
     async updateOne(query, data) {

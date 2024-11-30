@@ -7,6 +7,7 @@ import { ProductRouter } from './products.routing.js';
 // import { CartRouter } from './cart.routing.js';
 
 export const apiRouter = Router();
+
 apiRouter.use(centralizedResponse);
 
 // apiRouter.use('/users', UserRouter);

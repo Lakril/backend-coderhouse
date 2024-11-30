@@ -49,7 +49,6 @@ export const controller = {
         )(req, res);
     },
     getProducts: (req, res) => {
-        // res.render('products', { products: req.products, categories: req.categories });
         res.render('products.hbs', { title: 'Products' });
     },
     chat: (req, res) => {
